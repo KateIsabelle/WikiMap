@@ -9,7 +9,8 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (db) => {
-  router.get("/", (req, res) => {
+  // GET /users/
+  router.get('/', (req, res) => {
     db.query(`SELECT * FROM users;`)
       .then(data => {
         const users = data.rows;
@@ -21,5 +22,11 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
+  // GET /users/:id -- Display user profile
+  router.get('/:id', (req, res) => {
+    console.log('GET /users/:id -- Display user profile');
+  });
+
   return router;
 };
