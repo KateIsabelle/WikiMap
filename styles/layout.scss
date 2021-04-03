@@ -1,8 +1,14 @@
-// See: https://sass-lang.com/
+@import 'global';
+@import 'header';
+@import 'create-map';
+@import 'index';
+@import 'map';
+@import 'user-profile';
 
 body {
   background-color: #EEE;
-
+  font-family: $font;
+  font-size: 2rem;
   h1 {
     color: #244751;
   }
