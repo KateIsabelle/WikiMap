@@ -22,9 +22,14 @@ module.exports = (db) => {
     console.log('==> GET /maps/:map_id  -- Display a map by id');
   });
 
-  // GET /maps/create -- Create new map
+  // GET /maps/create -- Display new map creation page
   router.get('/create', (req, res) => {
     console.log('==> GET /maps/create -- Create new map');
+  });
+
+  // POST /maps/create -- Create a new map
+  router.post('/create', (req, res) => {
+    console.log('==> POST /maps/create -- Create new map');
   });
 
   // POST /maps/:map_id/edit -- Edit a map
@@ -33,7 +38,7 @@ module.exports = (db) => {
   });
 
   // POST /maps/:map_id/delete -- Delete a map
-  router.get('/:map_id/delete', (req, res) => {
+  router.post('/:map_id/delete', (req, res) => {
     console.log('==> POST /maps/:map_id/delete -- Delete a map');
   });
 
