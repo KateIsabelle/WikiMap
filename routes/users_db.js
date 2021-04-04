@@ -1,5 +1,14 @@
 module.exports = (db) => {
 
+const getUsers = function () {
+  db.query(`SELECT * FROM users;`)
+      .then(data => {
+        const users = data.rows;
+        res.json({ users });
+      })
+      .catch(error => console.log(error))
+};
+
   const addUser = function (user) {
     const query = `
     INSERT into users (name, email, password)
