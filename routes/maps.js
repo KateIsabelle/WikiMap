@@ -17,10 +17,7 @@ module.exports = (db) => {
       });
   });
 
-  // GET /maps/:map_id  -- Display a map by id
-  router.get('/:map_id', (req, res) => {
-    console.log('==> GET /maps/:map_id  -- Display a map by id');
-  });
+
 
   // GET /maps/create -- Display new map creation page
   router.get('/create', (req, res) => {
@@ -30,6 +27,11 @@ module.exports = (db) => {
   // POST /maps/create -- Create a new map
   router.post('/create', (req, res) => {
     console.log('==> POST /maps/create -- Create new map');
+  });
+
+  // GET /maps/:map_id  -- Display a map by id
+  router.get('/:map_id', (req, res) => {
+    console.log('==> GET /maps/:map_id  -- Display a map by id');
   });
 
   // POST /maps/:map_id/edit -- Edit a map
