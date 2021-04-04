@@ -32,6 +32,25 @@ module.exports = (db) => {
   // GET /maps/:map_id  -- Display a map by id
   router.get('/:map_id', (req, res) => {
     console.log('==> GET /maps/:map_id  -- Display a map by id');
+    const mapID = req.params.id;
+    db.query(`SELECT * FROM maps
+    WHERE id = 1;`)
+    .then(data => {
+      const maps = data.rows[0];
+      const templateVars = {
+        id: maps.id,
+        title: maps.title,
+        image: maps.image,
+        latitude: maps.latitude,
+        longitude: maps.longitude
+      }
+      res.render('map_show', templateVars);
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
   });
 
   // POST /maps/:map_id/edit -- Edit a map
