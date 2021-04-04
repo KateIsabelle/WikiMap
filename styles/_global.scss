@@ -1,0 +1,22 @@
+$font: 'Kiwi Maru', serif;
+
+$theme-color: #2a9d8f;
+
+$theme-dark: #264653;
+
+$theme-light: #e9c46a;
+
+$theme-red: #dc2f02;
+
+@mixin centerer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} //the below styling can be used with this function to center an element in its container
+// .parent {
+//   position: relative;
+// }
+// .child {
+//   @include centerer;
+// }

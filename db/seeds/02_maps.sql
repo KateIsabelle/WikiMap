@@ -8,7 +8,7 @@ CREATE TABLE maps {
   longitude FLOAT NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE
-}
+};
 
 INSERT INTO maps (
   title, description, image, zoom, latitude, longitude, created_at, user_id)
