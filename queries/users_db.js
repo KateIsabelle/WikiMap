@@ -21,4 +21,4 @@ const getUsers = function () {
       .then((res) => res.rows[0])
       .catch((error) => error);
   };
-}
+};
