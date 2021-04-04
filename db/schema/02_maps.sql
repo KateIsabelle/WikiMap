@@ -10,5 +10,4 @@ CREATE TABLE maps (
   longitude FLOAT NOT NULL,
   created_at TIMESTAMP NOT NULL,
   user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  favourite_id INTEGER NOT NULL REFERENCES favourites(id) ON DELETE CASCADE
 );
