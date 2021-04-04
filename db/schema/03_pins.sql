@@ -6,7 +6,7 @@ CREATE TABLE pins (
   map_id INTEGER REFERENCES maps(id) ON DELETE CASCADE,
   lat FLOAT NOT NULL,
   lng FLOAT NOT NULL,
-  title VARCHAR(50),
+  title TEXT,
   photo_url VARCHAR(255),
   description TEXT
 );
