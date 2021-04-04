@@ -31,4 +31,5 @@ const addUser = function (user) {
     .catch((error) => error);
 };
 
+
 module.exports = { getUsers, getUserById, addUser };
