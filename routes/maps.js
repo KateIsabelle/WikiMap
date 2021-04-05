@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const dbfns = require("../queries/maps_db");
-const cookieSession = require('cookie-session');
+const cookieSession = require("cookie-session");
 
 module.exports = (db) => {
   // GET /maps/
