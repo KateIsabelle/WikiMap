@@ -1,4 +1,28 @@
-const db = require("../server");
+// Query maps table by ID
+const getMapById = (db, map_id) => {
+  const query = `
+    SELECT * FROM maps
+    WHERE id = $1
+    ;`;
+  return db
+    .query(query, [map_id])
+    .then(data => {
+      const maps = data.rows[0];
+      return {
+        id: maps.id,
+        title: maps.title,
+        image: maps.image,
+        latitude: maps.latitude,
+        longitude: maps.longitude,
+        zoom: maps.zoom,
+      }
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+};
 
 const getAllMaps = function (maps, limit = 10) {
   let query = `SELECT maps.* FROM maps
@@ -72,4 +96,4 @@ const deleteMap = function (map_id, user_id) {
   return db.query(query, values).catch((error) => console.log(error));
 };
 
-module.exports = { getAllMaps, getUserMaps, createMap, deleteMap };
+module.exports = { getMapById, getAllMaps, getUserMaps, createMap, deleteMap };
