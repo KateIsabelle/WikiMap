@@ -5,21 +5,7 @@ const cookieSession = require("cookie-session");
 
 
 module.exports = (db) => {
-  // GET /
-  // router.get("/", (req, res) => {
-  //   db.query(
-  //     `SELECT maps.* FROM maps
-  //       ORDER BY created_at;`
-  //   )
-  //     .then((data) => {
-  //       const maps = data.rows;
-  //       res.render('index');
-  //       // res.json({ maps });
-  //     })
-  //     .catch((err) => {
-  //       res.status(500).json({ error: err.message });
-  //     });
-  // });
+
 
   // GET /maps/:map_id  -- Display a map by id
   router.get("/:map_id", (req, res) => {
