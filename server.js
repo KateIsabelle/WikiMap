@@ -14,6 +14,7 @@ const cookieSession = require("cookie-session");
 // PG database client/connection setup
 const { Pool } = require('pg');
 const dbParams = require('./lib/db.js');
+const apiKey = require('./lib/api.js');
 const db = new Pool(dbParams);
 db.connect();
 
@@ -48,7 +49,7 @@ const getFirstMaps = require('./routes/maps_index');
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/users", usersRoutes(db));
-app.use("/maps", mapsRoutes(db));
+app.use("/maps", mapsRoutes(db, apiKey));
 app.use("/logins", loginsRoutes(db));
 //K
 app.use("/maps", getFirstMaps(db))
