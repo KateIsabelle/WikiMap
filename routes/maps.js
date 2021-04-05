@@ -1,5 +1,6 @@
+
 const { Template } = require('ejs');
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 const { getMapById, getPins } = require('../queries/maps_db');
 
@@ -19,15 +20,13 @@ module.exports = (db, apiKey) => {
   });
 
   // GET /maps/create -- Display new map creation page
-  router.get('/create', (req, res) => {
-    console.log('==> GET /maps/create -- Create new map');
-    getPins(db, 3)
-    .then(r => res.json(r));
+  router.get("/create", (req, res) => {
+    console.log("==> GET /maps/create -- Create new map");
   });
 
   // POST /maps/create -- Create a new map
-  router.post('/create', (req, res) => {
-    console.log('==> POST /maps/create -- Create new map');
+  router.post("/create", (req, res) => {
+    console.log("==> POST /maps/create -- Create new map");
   });
 
   // GET /maps/:map_id  -- Display a map by id
@@ -50,13 +49,21 @@ module.exports = (db, apiKey) => {
   });
 
   // POST /maps/:map_id/edit -- Edit a map
-  router.post('/:map_id/edit', (req, res) => {
-    console.log('==> POST /maps/:map_id/edit -- Edit a map');
+  router.post("/:map_id/edit", (req, res) => {
+    console.log("==> POST /maps/:map_id/edit -- Edit a map");
   });
 
   // POST /maps/:map_id/delete -- Delete a map
-  router.post('/:map_id/delete', (req, res) => {
-    console.log('==> POST /maps/:map_id/delete -- Delete a map');
+  router.post("/:map_id/delete", (req, res) => {
+    console.log("==> POST /maps/:map_id/delete -- Delete a map");
+    const mapId = req.body.id;
+    const userId = req.session.user_id;
+    if (mapId && userId) {
+      dbfns.deleteMap(id, userId);
+      res.redirect("/maps");
+    } else {
+      res.status(401).send("You cannot delete it");
+    }
   });
 
   return router;
