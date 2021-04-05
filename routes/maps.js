@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const { getMapById, getPins } = require('../queries/maps_db');
 
-module.exports = (db, api) => {
+module.exports = (db, apiKey) => {
   // GET /maps/
   router.get('/', (req, res) => {
     db.query(`SELECT * FROM maps;`)
@@ -42,6 +42,7 @@ module.exports = (db, api) => {
         getPins(db, mapID)
         .then((pinsArray) => {
           templateVars.pins = pinsArray;
+          templateVars.apiKey = apiKey;
           console.log('pins array = ',templateVars.pins);
           res.render('map_show', templateVars);
         })

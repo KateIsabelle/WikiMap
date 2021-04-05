@@ -18,34 +18,55 @@
   <body>
     <%- include('partials/_header') %>
     <h1>Show Specific Map</h1>
-    <p><%= id %></p>
-    <p><%= title %></p>
-    <img src="<%= image %>">
-    <p><%= latitude %></p>
-    <p><%= longitude %></p>
+    <p><%= map.id %></p>
+    <p><%= map.title %></p>
+    <img src="<%= map.image %>">
+    <p><%= map.latitude %></p>
+    <p><%= map.longitude %></p>
 
     <div id="map"></div>
     <script>
-      const latitude = <%= latitude %>;
-      const longtitude = <%= longitude %>;
-      const zoom = <%= zoom %>;
+      const latitude = <%= map.latitude %>;
+      const longtitude = <%= map.longitude %>;
+      const zoom = <%= map.zoom %>;
 
-      const initMap = () => {
+      function initMap() {
+        // Map options
         const options = {
           zoom: 13,
           center: {lat: latitude, lng: longtitude}
         }
+        // New map
         const map = new google.maps.Map(document.getElementById('map'), options);
-        const myLatlng = new google.maps.LatLng(43.82075517066625, -79.18256985643094);
-        const marker = new google.maps.Marker({
-          position: myLatlng,
-          title:"Hello World!"
-});
+
+        // Add marker
+        function addMarker(props) {
+          const marker = new google.maps.Marker({
+          position: props.coords,
+          map:map
+          });
+          marker.addListener('click', function() {
+            infoWindow.open(map, marker);
+          });
+        }
+
+        const pinsArr = <%- JSON.stringify(pins) %>;
+        console.log('pins arr in ejs =', pinsArr);
+
+        for ( let pin of pinsArr ) {
+          addMarker({coords: {lat: pin.lat, lng: pin.lng}});
+        }
+
+        const infoWindow = new google.maps.InfoWindow({
+          content: '<h1>Title</h1>'
+        })
+
       }
     </script>
   </body>
   <script async
 
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyE48ti-JQy4Tv0ouGL0cgxA5WnNHkJ0k&callback=initMap">
+    src='https://maps.googleapis.com/maps/api/js?key=<%= apiKey %>&callback=initMap'>
+
   </script>
 </html>
