@@ -52,7 +52,7 @@ app.use("/users", usersRoutes(db));
 app.use("/maps", mapsRoutes(db, apiKey));
 app.use("/logins", loginsRoutes(db));
 //K
-app.use("/maps", getFirstMaps(db))
+app.use("/maps", getFirstMaps(db, apiKey))
 
 
 // Home page
