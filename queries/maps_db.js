@@ -1,3 +1,4 @@
+
 // Query maps table by ID
 const getMapById = (db, map_id) => {
   const query = `

@@ -1,3 +1,5 @@
+const apiKey = process.env.API_KEY;
+
 const getFirstMaps = (db) => {
   const query = `
     SELECT maps.*, users.name as user_name
@@ -11,21 +13,10 @@ const getFirstMaps = (db) => {
     .query(query)
     .then(data => {
       const mapsArray = data.rows;
-      // const newMaps = {};
-      // for (let map of mapsArray) {
-      //   const m = {
-      //   id: map.id,
-      //   title: map.title,
-      //   image: map.image,
-      //   latitude: map.latitude,
-      //   longitude: map.longitude,
-      //   zoom: map.zoom,
-      //   user_name: map.user_name
-      //   };
-      // newMaps[map.id] = m;
-      // }
 
-      return {maps: mapsArray}
+
+      return mapsArray;
+
     })
     .catch(err => {
       res
