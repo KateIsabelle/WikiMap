@@ -86,15 +86,14 @@ const getUserMaps = function (user_id) {
 const createMap = function (db, parameters) {
   console.log('parameters ==>', parameters);
   const query = `
-    INSERT INTO maps (user_id, title, description, image, zoom, latitude, longitude)
-    VALUES ($1, $2, $3, $4, $5, $6, $7)
+    INSERT INTO maps (user_id, title, description, zoom, latitude, longitude)
+    VALUES ($1, $2, $3, $4, $5, $6)
     RETURNING *;
     `;
   const values = [
     parameters.user_id,
     parameters.title,
     parameters.description,
-    '', // parameters.image
     parameters.zoom,
     parameters.latitude,
     parameters.longitude

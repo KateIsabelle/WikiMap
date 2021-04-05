@@ -28,8 +28,8 @@ module.exports = (db, apiKey) => {
     //   return;
     // }
     const templateVars = {
-      // mapId: req.body.id,
-      // user: req.session.user_id,
+      mapId: req.body.id,
+      user: req.session.user_id,
       title: req.body.title,
       description: req.body.description,
       zoom: req.body.zoom,
@@ -57,8 +57,6 @@ module.exports = (db, apiKey) => {
       latitude: req.body.latitude,
       longitude: req.body.longitude
     }
-    console.log('maps ==>', maps);
-
     dbFns.createMap(db, maps);
     res.render('map_show.ejs');
   });
