@@ -12,7 +12,6 @@ const getMapById = (db, map_id) => {
       return  {
         id: maps.id,
         title: maps.title,
-        image: maps.image,
         latitude: maps.latitude,
         longitude: maps.longitude,
         zoom: maps.zoom,

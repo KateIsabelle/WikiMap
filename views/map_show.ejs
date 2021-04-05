@@ -16,57 +16,58 @@
   </head>
 
   <body>
-    <%- include('partials/_header') %>
-    <h1>Show Specific Map</h1>
-    <p><%= map.id %></p>
-    <p><%= map.title %></p>
-    <img src="<%= map.image %>">
-    <p><%= map.latitude %></p>
-    <p><%= map.longitude %></p>
+    <div class="display-map">
+      <%- include('partials/_header') %>
+      <h3><%= map.title %></h3>
 
-    <div id="map"></div>
-    <script>
-      const latitude = <%= map.latitude %>;
-      const longtitude = <%= map.longitude %>;
-      const zoom = <%= map.zoom %>;
+      <div id="map">
+        <script>
+          const latitude = <%= map.latitude %>;
+          const longtitude = <%= map.longitude %>;
+          const zoom = <%= map.zoom %>;
 
-      function initMap() {
-        // Map options
-        const options = {
-          zoom: 13,
-          center: {lat: latitude, lng: longtitude}
-        }
-        // New map
-        const map = new google.maps.Map(document.getElementById('map'), options);
+          function initMap() {
+            // Map options
+            const options = {
+              zoom: 13,
+              center: {lat: latitude, lng: longtitude}
+            }
+            // New map
+            const map = new google.maps.Map(document.getElementById('map'), options);
 
-        // Add marker
-        function addMarker(props) {
-          const marker = new google.maps.Marker({
-          position: props.coords,
-          map:map
-          });
-          marker.addListener('click', function() {
-            infoWindow.open(map, marker);
-          });
-        }
+            // Add marker
+            function addMarker(props) {
+              const marker = new google.maps.Marker({
+              position: props.coords,
+              map:map
+              });
+              marker.addListener('click', function() {
+                infoWindow.open(map, marker);
+              });
+            }
 
-        const pinsArr = <%- JSON.stringify(pins) %>;
-        console.log('pins arr in ejs =', pinsArr);
+            const pinsArr = <%- JSON.stringify(pins) %>;
 
-        for ( let pin of pinsArr ) {
-          addMarker({coords: {lat: pin.lat, lng: pin.lng}});
-        }
+            for ( let pin of pinsArr ) {
+              addMarker({coords: {lat: pin.lat, lng: pin.lng}});
+            }
 
-        const infoWindow = new google.maps.InfoWindow({
-          content: '<h1>Title</h1>'
-        })
-
-      }
-    </script>
+            const infoWindow = new google.maps.InfoWindow({
+              content: "<h1>Title</h1>"
+            });
+          }
+        </script>
+      </div>
+      <div class="map-buttons">
+        <button type="submit" value="add-pin">Edit PINs</button>
+        <button type="submit" value="edit">Edit Map</button>
+        <button type="submit" value="delete">Delete Map</button>
+      </div>
+    </div>
   </body>
   <script async
 
-    src='https://maps.googleapis.com/maps/api/js?key=<%= apiKey %>&callback=initMap'>
+    src="https://maps.googleapis.com/maps/api/js?key=<%= apiKey %>&callback=initMap">
 
   </script>
 </html>
