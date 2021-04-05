@@ -6,19 +6,19 @@ const dbFns = require('../queries/maps_db');
 const { getMapById, getPins } = require('../queries/maps_db');
 
 module.exports = (db, apiKey) => {
-  // // GET /maps/
-  // router.get('/', (req, res) => {
-  //   db.query(`SELECT * FROM maps;`)
-  //     .then(data => {
-  //       const maps = data.rows;
-  //       res.json({ maps });
-  //     })
-  //     .catch(err => {
-  //       res
-  //         .status(500)
-  //         .json({ error: err.message });
-  //     });
-  // });
+  // GET /maps/
+  router.get('/', (req, res) => {
+    db.query(`SELECT * FROM maps;`)
+      .then(data => {
+        const maps = data.rows;
+        res.json({ maps });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
 
 
   router.get("/new", (req, res) => {
