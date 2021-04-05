@@ -7,19 +7,16 @@
 
 const express = require('express');
 const router  = express.Router();
+const { getUsers } = require('../queries/users_db');
 
 module.exports = (db) => {
 
+  // GET /users/
   router.get('/', (req, res) => {
-    db.query(`SELECT * FROM users;`)
-      .then(data => {
-        const users = data.rows;
-        res.json({ users });
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
+    // console.log('db =',db);
+    getUsers(db)
+      .then((users) => {
+        res.json(users);
       });
   });
 

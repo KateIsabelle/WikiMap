@@ -1,10 +1,15 @@
+
+const { Template } = require('ejs');
 const express = require("express");
 const router = express.Router();
 const dbfns = require("../queries/maps_db");
 const cookieSession = require("cookie-session");
+const { getMapById } = require('../queries/maps_db');
 
-module.exports = (db) => {
+
+module.exports = (db, api) => {
   // GET /maps/
+
   router.get("/", (req, res) => {
     db.query(
       `SELECT maps.* FROM maps
@@ -17,11 +22,6 @@ module.exports = (db) => {
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
-  });
-
-  // GET /maps/:map_id  -- Display a map by id
-  router.get("/:map_id", (req, res) => {
-    console.log("==> GET /maps/:map_id  -- Display a map by id");
   });
 
   // GET /maps/create -- Display new map creation page
@@ -37,6 +37,13 @@ module.exports = (db) => {
   // GET /maps/:map_id  -- Display a map by id
   router.get('/:map_id', (req, res) => {
     console.log('==> GET /maps/:map_id  -- Display a map by id');
+
+    const mapID = req.params.map_id;
+
+    getMapById(db, mapID)
+      .then((templateVars) => {
+        res.render('map_show', templateVars);
+      });
   });
 
   // POST /maps/:map_id/edit -- Edit a map
