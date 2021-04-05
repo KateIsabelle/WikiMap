@@ -20,23 +20,17 @@
   <%- include('partials/_header') %>
     <h1>Recent Maps</h1>
     <div class="recent-maps">
-      <div class=inner-cont>
-        <div>Title <a href="#">Creator</a></div>
-        <div class="small-map" id="map-1"></div>
-      </div>
-      <div class=inner-cont>
-        <div>Title <a href="#">Creator</a></div>
-        <div class="small-map" id="map-2"></div>
-      </div>
-      <div class=inner-cont>
-        <div>Title <a href="#">Creator</a></div>
-        <div class="small-map" id="map-3"></div>
-      </div>
-      <div class=inner-cont>
-        <div>Title <a href="#">Creator</a></div>
-        <div class="small-map" id="map-4"></div>
-      </div>
+      <% for(let map of maps) { %>
+        <div class=inner-cont>
+          <div><%= map.title %><a href="#"><%= map.user_name%></a></div>
+          <div class="small-map" id="map-1"><%= JSON.stringify(map) %></div>
+        </div>
+        <% } %>
     </div>
+
 </body>
 
 </html>
+
+
+
