@@ -30,17 +30,22 @@
       const longtitude = <%= longitude %>;
       const zoom = <%= zoom %>;
 
-      function initMap(){
+      const initMap = () => {
         const options = {
           zoom: 13,
           center: {lat: latitude, lng: longtitude}
         }
         const map = new google.maps.Map(document.getElementById('map'), options);
+        const myLatlng = new google.maps.LatLng(43.82075517066625, -79.18256985643094);
+        const marker = new google.maps.Marker({
+          position: myLatlng,
+          title:"Hello World!"
+});
       }
     </script>
   </body>
   <script async
 
-    src="https://maps.googleapis.com/maps/api/js?key=API_KEY_HERE&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyE48ti-JQy4Tv0ouGL0cgxA5WnNHkJ0k&callback=initMap">
   </script>
 </html>

@@ -1,7 +1,7 @@
 const { Template } = require('ejs');
 const express = require('express');
 const router = express.Router();
-const { getMapById } = require('../queries/maps_db');
+const { getMapById, getPins } = require('../queries/maps_db');
 
 module.exports = (db, api) => {
   // GET /maps/
@@ -21,6 +21,8 @@ module.exports = (db, api) => {
   // GET /maps/create -- Display new map creation page
   router.get('/create', (req, res) => {
     console.log('==> GET /maps/create -- Create new map');
+    getPins(db, 3)
+    .then(r => res.json(r));
   });
 
   // POST /maps/create -- Create a new map
@@ -33,10 +35,16 @@ module.exports = (db, api) => {
     console.log('==> GET /maps/:map_id  -- Display a map by id');
 
     const mapID = req.params.map_id;
-
+    let templateVars = {};
     getMapById(db, mapID)
-      .then((templateVars) => {
-        res.render('map_show', templateVars);
+      .then((mapObj) => {
+        templateVars.map = mapObj;
+        getPins(db, mapID)
+        .then((pinsArray) => {
+          templateVars.pins = pinsArray;
+          console.log('pins array = ',templateVars.pins);
+          res.render('map_show', templateVars);
+        })
       });
   });
 
