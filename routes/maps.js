@@ -1,6 +1,7 @@
 const { Template } = require('ejs');
 const express = require('express');
 const router = express.Router();
+const { getMapById } = require('../queries/maps_db');
 
 module.exports = (db, api) => {
   // GET /maps/
@@ -30,26 +31,12 @@ module.exports = (db, api) => {
   // GET /maps/:map_id  -- Display a map by id
   router.get('/:map_id', (req, res) => {
     console.log('==> GET /maps/:map_id  -- Display a map by id');
+
     const mapID = req.params.map_id;
-    console.log('mapID= ',mapID);
-    db.query(`SELECT * FROM maps
-    WHERE id = $1;`, [mapID])
-      .then(data => {
-        const maps = data.rows[0];
-        const templateVars = {
-          id: maps.id,
-          title: maps.title,
-          image: maps.image,
-          latitude: maps.latitude,
-          longitude: maps.longitude,
-          zoom: maps.zoom,
-        }
+
+    getMapById(db, mapID)
+      .then((templateVars) => {
         res.render('map_show', templateVars);
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
       });
   });
 
