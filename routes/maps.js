@@ -20,13 +20,19 @@ module.exports = (db) => {
   });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3eb6196c810c3bc5db69e9aa1763d861ea410993
   // GET /maps/:map_id  -- Display a map by id
   router.get("/:map_id", (req, res) => {
     console.log("==> GET /maps/:map_id  -- Display a map by id");
   });
+<<<<<<< HEAD
 =======
 
 >>>>>>> master
+=======
+>>>>>>> 3eb6196c810c3bc5db69e9aa1763d861ea410993
 
   // GET /maps/create -- Display new map creation page
   router.get("/create", (req, res) => {
