@@ -2,6 +2,7 @@
 const { Template } = require('ejs');
 const express = require("express");
 const router = express.Router();
+const dbFns = require('../queries/maps_db');
 const { getMapById, getPins } = require('../queries/maps_db');
 
 module.exports = (db, apiKey) => {
@@ -58,7 +59,7 @@ module.exports = (db, apiKey) => {
     }
     console.log('maps ==>', maps);
 
-    console.log(dbfns.createMap(db, maps));
+    dbFns.createMap(db, maps);
     res.render('map_show.ejs');
   });
 
