@@ -1,11 +1,9 @@
-const db = require("../server");
-
-const getUsers = function () {
+const getUsers = function (db) {
   return db
     .query(`SELECT * FROM users;`)
     .then((data) => {
       const users = data.rows;
-      return res.json({ users });
+      return response.rows;
     })
     .catch((error) => console.log(error));
 };
