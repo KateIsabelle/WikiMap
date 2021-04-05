@@ -42,7 +42,9 @@ module.exports = (db) => {
         title: maps.title,
         image: maps.image,
         latitude: maps.latitude,
-        longitude: maps.longitude
+          longitude: maps.longitude,
+          zoom: maps.zoom,
+          apiKey: api
       }
       res.render('map_show', templateVars);
     })
