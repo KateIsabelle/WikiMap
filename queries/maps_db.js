@@ -63,27 +63,32 @@ const getUserMaps = function (user_id) {
     .catch((error) => console.log(error));
 };
 
-const createMap = function (parameters) {
+const createMap = function (db, parameters) {
+  console.log('parameters ==>', parameters);
   const query = `
-    INSERT INTO maps (title, description, image, zoom, latitude, longitude, created_at, user_id)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+    INSERT INTO maps (user_id, title, description, image, zoom, latitude, longitude)
+    VALUES ($1, $2, $3, $4, $5, $6, $7)
     RETURNING *;
-    ;`;
+    `;
   const values = [
+    parameters.user_id,
     parameters.title,
     parameters.description,
-    parameters.image,
+    '', // parameters.image
     parameters.zoom,
     parameters.latitude,
-    parameters.longitude,
-    parameters.created_at,
-    parameters.user_id,
+    parameters.longitude
   ];
-
+  console.log('values ==>', values);
   return db
     .query(query, values)
-    .then((response) => response.rows[0])
-    .catch((error) => console.log(error));
+    .then((response) => {
+      console.log('response.rows[0] ===>', response.rows[0]);
+      return response.rows[0];
+    })
+    .catch((error) => {
+      console.log('error_message ===>', error);
+    });
 };
 
 const deleteMap = function (map_id, user_id) {

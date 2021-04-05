@@ -24,14 +24,47 @@ module.exports = (db, api) => {
       });
   });
 
-  // GET /maps/create -- Display new map creation page
-  router.get("/create", (req, res) => {
+
+  router.get("/new", (req, res) => {
     console.log("==> GET /maps/create -- Create new map");
+    // if (!user) {
+    //   res.redirect("/login");
+    //   return;
+    // }
+    const templateVars = {
+      // mapId: req.body.id,
+      // user: req.session.user_id,
+      title: req.body.title,
+      description: req.body.description,
+      zoom: req.body.zoom,
+      latitude: req.body.latitude,
+      longitude: req.body.longitude
+    }
+    res.render('create', templateVars);
   });
 
   // POST /maps/create -- Create a new map
-  router.post("/create", (req, res) => {
+  router.post("/", (req, res) => {
     console.log("==> POST /maps/create -- Create new map");
+    const mapId = req.body.id;
+    const user = req.session.user_id;
+     // if (!user) {
+    //   res.redirect("/login");
+    //   return;
+    // }
+    const maps = {
+      mapId: req.body.id,
+      user: req.session.user_id,
+      title: req.body.title,
+      description: req.body.description,
+      zoom: req.body.zoom,
+      latitude: req.body.latitude,
+      longitude: req.body.longitude
+    }
+    console.log('maps ==>', maps);
+
+    console.log(dbfns.createMap(db, maps));
+    res.render('map_show.ejs');
   });
 
   // GET /maps/:map_id  -- Display a map by id
@@ -55,9 +88,9 @@ module.exports = (db, api) => {
   router.post("/:map_id/delete", (req, res) => {
     console.log("==> POST /maps/:map_id/delete -- Delete a map");
     const mapId = req.body.id;
-    const userId = req.session.user_id;
-    if (mapId && userId) {
-      dbfns.deleteMap(id, userId);
+    const user = req.session.user_id;
+    if (mapId && user) {
+      dbfns.deleteMap(mapId, user);
       res.redirect("/maps");
     } else {
       res.status(401).send("You cannot delete it");

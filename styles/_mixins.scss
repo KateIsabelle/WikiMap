@@ -1,9 +1,6 @@
 @import "global";
 
-h3 {
-  text-align: center;
-}
-.create_map {
+@mixin flexColumn {
   display: flex;
   flex-direction: column;
   justify-content: center;

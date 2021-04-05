@@ -16,18 +16,29 @@
   </head>
 
   <body>
-    <%- include('partials/_header') %>
-    <h1>Hello from create route</h1>
     <main>
       <%- include('partials/_header') %>
       <div class="wrapper container">
         <h3>Create A Map</h3>
-        <form action="/create" method="POST">
-            <label for="map"></label>
+        <form id="create_map" class="create_map" action="/maps" method="POST">
+            <label for="title">title</label>
             <input
               type="text"
-              name="map"
+              name="title"
             />
+            <label for="description">description</label>
+            <input
+              type="text"
+              name="description"
+            />
+            <label for="zoom">zoom</label>
+            <input type="number" name="zoom" />
+
+            <label for="latitude">latitude</label>
+            <input type="number" step="any" name="latitude" />
+
+            <label for="longitude">longitude</label>
+            <input type="number" step="any" name="longitude" />
             <button type="submit">Submit</button>
           </div>
         </form>
@@ -35,3 +46,4 @@
     </main>
   </body>
 </html>
+
