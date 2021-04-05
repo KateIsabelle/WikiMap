@@ -2,27 +2,22 @@
 const { Template } = require('ejs');
 const express = require("express");
 const router = express.Router();
-const dbfns = require("../queries/maps_db");
-const cookieSession = require("cookie-session");
-const { getMapById } = require('../queries/maps_db');
+const { getMapById, getPins } = require('../queries/maps_db');
 
-
-module.exports = (db, api) => {
-  // GET /maps/
-
-  router.get("/", (req, res) => {
-    db.query(
-      `SELECT maps.* FROM maps
-        ORDER BY created_at;`
-    )
-      .then((data) => {
-        const maps = data.rows;
-        res.json({ maps });
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
-  });
+module.exports = (db, apiKey) => {
+  // // GET /maps/
+  // router.get('/', (req, res) => {
+  //   db.query(`SELECT * FROM maps;`)
+  //     .then(data => {
+  //       const maps = data.rows;
+  //       res.json({ maps });
+  //     })
+  //     .catch(err => {
+  //       res
+  //         .status(500)
+  //         .json({ error: err.message });
+  //     });
+  // });
 
 
   router.get("/new", (req, res) => {
@@ -72,10 +67,17 @@ module.exports = (db, api) => {
     console.log('==> GET /maps/:map_id  -- Display a map by id');
 
     const mapID = req.params.map_id;
-
+    let templateVars = {};
     getMapById(db, mapID)
-      .then((templateVars) => {
-        res.render('map_show', templateVars);
+      .then((mapObj) => {
+        templateVars.map = mapObj;
+        getPins(db, mapID)
+        .then((pinsArray) => {
+          templateVars.pins = pinsArray;
+          templateVars.apiKey = apiKey;
+          console.log('pins array = ',templateVars.pins);
+          res.render('map_show', templateVars);
+        })
       });
   });
 

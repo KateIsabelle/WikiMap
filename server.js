@@ -43,13 +43,17 @@ app.use(
 const usersRoutes = require("./routes/users");
 const mapsRoutes = require("./routes/maps");
 const loginsRoutes = require("./routes/logins");
+//K
+const getFirstMaps = require('./routes/maps_index');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/users", usersRoutes(db));
 app.use("/maps", mapsRoutes(db, apiKey));
 app.use("/logins", loginsRoutes(db));
-// Note: mount other resources here, using the same pattern above
+//K
+app.use("/maps", getFirstMaps(db))
+
 
 // Home page
 // Warning: avoid creating more routes in this file!

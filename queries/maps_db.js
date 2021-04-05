@@ -8,7 +8,7 @@ const getMapById = (db, map_id) => {
     .query(query, [map_id])
     .then(data => {
       const maps = data.rows[0];
-      return {
+      return  {
         id: maps.id,
         title: maps.title,
         image: maps.image,
@@ -16,6 +16,25 @@ const getMapById = (db, map_id) => {
         longitude: maps.longitude,
         zoom: maps.zoom,
       }
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+};
+
+// Display Pins by map_id
+const getPins = (db, map_id) => {
+  const query = `
+    SELECT * FROM pins
+    WHERE map_id = $1
+    ;`;
+  return db
+    .query(query, [map_id])
+    .then(data => {
+      console.log('display data.rows', data.rows);
+      return data.rows;
     })
     .catch(err => {
       res
@@ -101,4 +120,4 @@ const deleteMap = function (map_id, user_id) {
   return db.query(query, values).catch((error) => console.log(error));
 };
 
-module.exports = { getMapById, getAllMaps, getUserMaps, createMap, deleteMap };
+module.exports = { getMapById, getPins, getAllMaps, getUserMaps, createMap, deleteMap };
