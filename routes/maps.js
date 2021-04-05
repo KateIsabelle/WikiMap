@@ -50,15 +50,15 @@ module.exports = (db, apiKey) => {
     // }
     const maps = {
       mapId: req.body.id,
-      user: req.session.user_id,
+      user: 1,
       title: req.body.title,
       description: req.body.description,
       zoom: req.body.zoom,
       latitude: req.body.latitude,
       longitude: req.body.longitude
     }
-    dbFns.createMap(db, maps);
-    res.render('map_show.ejs');
+    console.log(dbFns.createMap(db, maps));
+    res.render('test', maps);
   });
 
   // GET /maps/:map_id  -- Display a map by id

@@ -90,7 +90,7 @@ const createMap = function (db, parameters) {
     RETURNING *;
     `;
   const values = [
-    parameters.user_id,
+    parameters.user,
     parameters.title,
     parameters.description,
     parameters.zoom,
