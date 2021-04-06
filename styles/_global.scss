@@ -1,3 +1,4 @@
+
 $font: 'Kiwi Maru', serif;
 
 $theme-color: #2a9d8f;
@@ -7,6 +8,17 @@ $theme-dark: #264653;
 $theme-light: #e9c46a;
 
 $theme-red: #dc2f02;
+
+img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.container {
+  width: 90%;
+  margin: 0 auto;
+  background-color: inherit;
+}
 
 @mixin centerer {
   position: absolute;

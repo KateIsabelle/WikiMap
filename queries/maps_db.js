@@ -78,8 +78,7 @@ const getUserMaps = function (db, user_id) {
     ;`;
   return db
     .query(query, [user_id])
-    .then((res) => res.rows)
-    .catch((error) => console.log(error));
+    .then((res) => res.rows);
 };
 
 const createMap = function (db, parameters) {
