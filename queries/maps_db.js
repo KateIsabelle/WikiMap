@@ -43,7 +43,7 @@ const getPins = (db, map_id) => {
     });
 };
 
-const getAllMaps = function (maps, limit = 10) {
+const getAllMaps = function (db, maps, limit = 10) {
   let query = `SELECT maps.* FROM maps
     JOIN users ON users.id = maps.user_id
     JOIN favourites ON maps.id = favourites.map_id
@@ -71,7 +71,7 @@ const getAllMaps = function (maps, limit = 10) {
     .catch((error) => console.log(error));
 };
 
-const getUserMaps = function (user_id) {
+const getUserMaps = function (db, user_id) {
   const query = `
     SELECT * FROM maps
     WHERE user_id = $1

@@ -16,12 +16,60 @@
   </head>
 
   <body>
+      <header>
+    <div class="top">
+      <a class="logo" href="#home">WikiMaps</a>
+    </div>
+    <nav class="topnav">
+      <ul class>
+        <% if (user) { %>
+        <li><a class="crumbs" href="#myprofile">My profile</a></li>
+        <li><a class="crumbs" href="#search">Search Maps</a></li>
+        <li><a class="crumbs" href="/maps/new">Create map</a></li>
+        <li><a class="crumbs" href="/maps/favourites">&#9733</a></li>
+        <div>
+          <p class="welcome_message">Logged In As <%= user.email %></p>
+        </div>
+        <li>
+            <form action="/logout" method="post">
+            <input type="submit" value="Logout" />
+          </form>
+        </li>
+
+        <% } else { %>
+
+          <li>
+            <a class="login" href="/login">Login</a>
+          </li>
+
+        <% } %>
+      </ul>
+    </nav>
+  </header>
+
     <main>
-      <%- include('partials/_header') %>
       <div class="wrapper container">
         <h3>My Maps</h3>
 
+        <section class="display_map">
 
+          <% for(let map in maps) { %>
+          <h3><%= map.title %></h3>
+
+          <div class="user_map">
+            <p>I am a map</p>
+            <div><%= map %></div>
+          </div>
+          <!-- form to update map -->
+          <form method="GET" action="/maps/<%= map %>">
+            <button type="submit">Edit</button>
+          </form>
+          <!-- form to delete url -->
+          <form method="POST" action="/maps/<%= map %>/delete">
+            <button type="submit">Delete</button>
+          </form>
+          <% } %>
+        </section>
       </div>
     </main>
   </body>

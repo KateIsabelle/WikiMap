@@ -5,33 +5,35 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
-const { request } = require('express');
-const express = require('express');
-const router  = express.Router();
-const { getUsers } = require('../queries/users_db');
-const dbFns = require('../queries/users_db');
+const { request } = require("express");
+const express = require("express");
+const router = express.Router();
+const { getUsers } = require("../queries/users_db");
+const dbFns = require("../queries/users_db");
 
 module.exports = (db) => {
-
   // GET /users/
-  router.get('/', (req, res) => {
+  router.get("/", (req, res) => {
     // console.log('db =',db);
-    getUsers(db)
-      .then((users) => {
-        res.json(users);
-      });
+    getUsers(db).then((users) => {
+      res.json(users);
+    });
   });
 
   // GET /users/:id -- Display user profile
-  router.get('/:id', (req, res) => {
-    console.log('==> GET /users/:id -- Display user profile');
-    res.send('hello from user')
-    // const user = req.session.user_id;
-   // if (!user) {
-    //   res.redirect("/maps");
-    //   return;
-    // }
-    res.render('user');
+  router.get("/:id", (req, res) => {
+    console.log("==> GET /users/:id -- Display user profile");
+    const user = req.session.user_id;
+    if (!user) {
+      res.redirect("/maps");
+      return;
+    }
+    const maps = dbFns.getUserMaps(db, user);
+    const templateVars = {
+      maps,
+      user,
+    };
+    res.render("user", templateVars);
   });
 
   return router;
