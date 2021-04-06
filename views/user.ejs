@@ -16,35 +16,39 @@
   </head>
 
   <body>
-      <header>
+    <header class="header-main">
     <div class="top">
       <a class="logo" href="#home">WikiMaps</a>
     </div>
-    <nav class="topnav">
-      <ul class>
-        <% if (user) { %>
-        <li><a class="crumbs" href="#myprofile">My profile</a></li>
-        <li><a class="crumbs" href="#search">Search Maps</a></li>
-        <li><a class="crumbs" href="/maps/new">Create map</a></li>
-        <li><a class="crumbs" href="/maps/favourites">&#9733</a></li>
-        <div>
-          <p class="welcome_message">Logged In As <%= user.email %></p>
-        </div>
-        <li>
-            <form action="/logout" method="post">
-            <input type="submit" value="Logout" />
-          </form>
-        </li>
 
-        <% } else { %>
-
+    <div>
+      <nav>
+        <ul>
+          <% if (user) { %>
+          <li><a href="/users/<% user %>">My profile</a></li>
+          <li><a href="#search">Search Maps</a></li>
+          <li><a href="/maps/new">Create map</a></li>
+          <li><a href="/maps/favourites">&#9733</a></li>
+          <p>Logged In As <%= user.email %></p>
           <li>
-            <a class="login" href="/login">Login</a>
+            <form action="/logout" method="post">
+              <input class="logout" type="submit" value="Logout" />
+            </form>
           </li>
 
-        <% } %>
-      </ul>
-    </nav>
+          <% } else { %>
+
+          <li>
+            <a href="#search">Search Maps</a>
+          </li>
+          <li>
+            <a class="crumbs" href="/login">Login</a>
+          </li>
+
+          <% } %>
+        </ul>
+      </nav>
+    </div>
   </header>
 
     <main>

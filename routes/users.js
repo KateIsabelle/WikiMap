@@ -23,9 +23,10 @@ module.exports = (db) => {
   // GET /users/:id -- Display user profile
   router.get("/:id", (req, res) => {
     console.log("==> GET /users/:id -- Display user profile");
-    const user = req.session.user_id;
+    // const user = req.session.user_id;
+    const user = req.params.id
     if (!user) {
-      res.redirect("/maps");
+      res.redirect("/login");
       return;
     }
     const maps = dbFns.getUserMaps(db, user);
