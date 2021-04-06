@@ -2,12 +2,12 @@ const express = require("express");
 const router = express.Router();
 const { getFirstMaps, getPins } = require('../queries/maps_index_db');
 
-
 module.exports = (db, apiKey) => {
+  const templateVars = {};
 
-router.get('/', (req,res) => {
-  console.log("==> GET /maps -- display recent maps")
-  let templateVars = {};
+  router.get('/', (req,res) => {
+  console.log("==> GET /maps -- display recent maps");
+  // let templateVars = {};
   getFirstMaps(db)
   .then((maps) => {
     templateVars.maps = maps;
