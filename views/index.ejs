@@ -10,11 +10,18 @@
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
+  <!-- font awesome icons -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"
+    integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+
   <!-- Google fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@300;400;500&display=swap" rel="stylesheet">
 
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+
+  <!-- App JS -->
+  <script type="text/javascript" src="/scripts/client.js"></script>
 
 </head>
 
@@ -25,7 +32,10 @@
       <% for (let map of maps) { %>
         <div class=inner-cont id="map-container">
           <div><%= map.title %> <a href="#"><%= map.user_name %></a></div>
+          <div class="cont">
             <div class="small-map" id="map-1"><img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= map.latitude %>,<%= map.longitude %>&zoom=13&size=400x200&maptype=roadmap&<%= map.markersQuery %>key=<%= apiKey %>">
+              <i class="fas fa-heart"></i>
+            </div>
             </div>
           <% } %>
         </div>

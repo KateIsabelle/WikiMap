@@ -16,3 +16,25 @@
   width: 50%;
   font-size: 0.3em;
 }
+
+.cont {
+  position: relative
+}
+.cont img {
+  display: block
+}
+.cont .fa-heart {
+  border: 2px $theme-red solid;
+  font-size: 2rem;
+  position: absolute;
+  bottom:0;
+  left:50;
+}
+
+.liked {
+  color: $theme-red
+ }
+ .unliked {
+   color: $theme-dark
+ }
+

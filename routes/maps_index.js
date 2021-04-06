@@ -12,7 +12,7 @@ module.exports = (db, apiKey) => {
     let templateVars = {};
     templateVars.maps = maps;
     templateVars.apiKey = apiKey;
-    console.log('TemplateVars:', templateVars)
+    // console.log('TemplateVars:', templateVars)
     res.render("index", templateVars);
     })
     .catch(err => {
