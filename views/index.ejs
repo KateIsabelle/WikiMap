@@ -26,7 +26,7 @@
       <% for (let map of maps) { %>
         <div class=inner-cont id="map-container">
           <div>Title <a href="#">User Name</a></div>
-            <div class="small-map" id="map-1"><img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= map.latitude %>,<%= map.longitude %>&zoom=13&size=400x200&maptype=roadmap&<%=map.markersQuery%>key=<%= apiKey %>">
+            <div class="small-map" id="map-1"><img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= map.latitude %>,<%= map.longitude %>&zoom=13&size=400x200&maptype=roadmap&<%= map.markersQuery %>key=<%= apiKey %>">
             </div>
           <% } %>
         </div>
