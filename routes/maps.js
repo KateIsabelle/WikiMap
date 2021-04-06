@@ -58,7 +58,12 @@ module.exports = (db, apiKey) => {
       longitude: req.body.longitude
     }
     console.log(dbFns.createMap(db, maps));
-    res.render('test', maps);
+
+    const templateVars = {
+      map: maps,
+      pins: []
+    };
+    res.render('map_show', templateVars);
   });
 
   // GET /maps/:map_id  -- Display a map by id
@@ -74,7 +79,6 @@ module.exports = (db, apiKey) => {
         .then((pinsArray) => {
           templateVars.pins = pinsArray;
           templateVars.apiKey = apiKey;
-          console.log('pins array = ',templateVars.pins);
           res.render('map_show', templateVars);
         })
       });

@@ -25,6 +25,7 @@
           const latitude = <%= map.latitude %>;
           const longtitude = <%= map.longitude %>;
           const zoom = <%= map.zoom %>;
+          const pinsObj = <%- JSON.stringify(pins) %>;
 
           function initMap() {
             // Map options
@@ -37,30 +38,36 @@
 
             // Listen for click on map
             google.maps.event.addListener(map, 'click',
-            function(event){
+            function (event) {
               // Add marker
               addMarker({coords:event.latLng});
+              console.log('event latLng', event.latLng)
+              pinsArr
             })
             
             // Add marker
             function addMarker(props) {
               const marker = new google.maps.Marker({
               position: props.coords,
-              map:map
+              map:map,
+              draggable:true
               });
               marker.addListener('click', function() {
                 infoWindow.open(map, marker);
               });
             }
 
-            const pinsArr = <%- JSON.stringify(pins) %>;
-
+          
+            if (pinsObj) {
+              const pinsArr = <%- JSON.stringify(pins) %>;
             for ( let pin of pinsArr ) {
               addMarker({coords: {lat: pin.lat, lng: pin.lng}});
             }
+          }
 
             const infoWindow = new google.maps.InfoWindow({
-              content: "<h1>Title</h1>"
+              content: "<h1>Title</h1>",
+              // content: "<p>Marker Location:" + marker.getPosition() + "</p>"
             });
           }
         </script>
