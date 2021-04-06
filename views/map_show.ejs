@@ -1,60 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Show specific map</title>
 
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+<head>
+  <title>Show specific map</title>
 
-    <!-- Google fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <!-- <script type="text/javascript" src="/scripts/app.js"></script> -->
-  </head>
+  <!-- Google fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <body>
-    <div class="display-map">
-      <%- include('partials/_header') %>
-      <h3><%= map.title %></h3>
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <!-- <script type="text/javascript" src="/scripts/app.js"></script> -->
+</head>
+
+<body>
+  <div class="display-map">
+    <%- include('partials/_header') %>
+      <h3>
+        <%= map.title %>
+      </h3>
 
       <div id="map">
         <script>
           const latitude = <%= map.latitude %>;
           const longtitude = <%= map.longitude %>;
           const zoom = <%= map.zoom %>;
+          const pinsObj = <%- JSON.stringify(pins) %>;
 
           function initMap() {
             // Map options
             const options = {
-              zoom: 13,
-              center: {lat: latitude, lng: longtitude}
+              zoom: zoom,
+              center: { lat: latitude, lng: longtitude }
             }
             // New map
             const map = new google.maps.Map(document.getElementById('map'), options);
 
-            // Add marker
+            // Add marker function
             function addMarker(props) {
               const marker = new google.maps.Marker({
-              position: props.coords,
-              map:map
+                position: props.coords,
+                map: map,
+                draggable: true
               });
-              marker.addListener('click', function() {
+
+              // Listen to click on marker
+              marker.addListener('click', function (mapsMouseEvent) {
+                // Marker info window
+                infoWindow = new google.maps.InfoWindow({
+                  position: mapsMouseEvent.latLng,
+                  content: props.pinInfo.title + "<br />" + props.pinInfo.description + "<br /><img src=" + props.pinInfo.image + " width=100 height=100>"
+                  // JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+                });
+                // infoWindow.close();
                 infoWindow.open(map, marker);
               });
             }
 
-            const pinsArr = <%- JSON.stringify(pins) %>;
+            // Listen for click on map
+            google.maps.event.addListener(map, 'click',
+              function (event) {
+                // Add marker on the map
+                addMarker({ coords: event.latLng });
+              }
+            );
 
-            for ( let pin of pinsArr ) {
-              addMarker({coords: {lat: pin.lat, lng: pin.lng}});
+            // Add marker based on database record
+            if (pinsObj) {
+              const pinsArr = <%- JSON.stringify(pins) %>;
+              for (let pin of pinsArr) {
+                addMarker({
+                  coords: { lat: pin.lat, lng: pin.lng },
+                  pinInfo: {
+                    title: pin.title,
+                    description: pin.description,
+                    image: pin.photo_url
+                  }
+                });
+              }
             }
-
-            const infoWindow = new google.maps.InfoWindow({
-              content: "<h1>Title</h1>"
-            });
           }
         </script>
       </div>
@@ -63,11 +90,10 @@
         <button type="submit" value="edit">Edit Map</button>
         <button type="submit" value="delete">Delete Map</button>
       </div>
-    </div>
-  </body>
-  <script async
+  </div>
+</body>
+<script async src="https://maps.googleapis.com/maps/api/js?key=<%= apiKey %>&callback=initMap">
 
-    src="https://maps.googleapis.com/maps/api/js?key=<%= apiKey %>&callback=initMap">
+</script>
 
-  </script>
 </html>
