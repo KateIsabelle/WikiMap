@@ -43,6 +43,7 @@ app.use(
 const usersRoutes = require("./routes/users");
 const mapsRoutes = require("./routes/maps");
 const loginRoutes = require("./routes/login");
+const logoutRoutes = require("./routes/logout");
 //K
 const mapIndexRoutes = require('./routes/maps_index');
 
@@ -51,6 +52,7 @@ const mapIndexRoutes = require('./routes/maps_index');
 app.use("/users", usersRoutes(db));
 app.use("/maps", mapsRoutes(db, apiKey));
 app.use("/login", loginRoutes(db));
+app.use("/logout", logoutRoutes(db));
 //K
 app.use("/maps", mapIndexRoutes(db, apiKey));
 

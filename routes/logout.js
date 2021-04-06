@@ -3,7 +3,7 @@ const router  = express.Router();
 
 module.exports = (db) => {
 
-  app.post("/logout", (req, res) => {
+  router.post("/", (req, res) => {
     console.log("hello from logout")
 
     req.session["user_id"] = null;

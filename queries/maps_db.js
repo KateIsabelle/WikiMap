@@ -99,13 +99,7 @@ const createMap = function (db, parameters) {
   console.log('values ==>', values);
   return db
     .query(query, values)
-    .then((response) => {
-      console.log('response.rows[0] ===>', response.rows[0]);
-      return response.rows[0];
-    })
-    .catch((error) => {
-      console.log('error_message ===>', error);
-    });
+    .then((response) => response.rows[0]);
 };
 
 const deleteMap = function (db, map_id, user_id) {
