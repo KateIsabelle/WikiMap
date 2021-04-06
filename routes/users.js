@@ -9,7 +9,7 @@ const { request } = require("express");
 const express = require("express");
 const router = express.Router();
 const { getUsers } = require("../queries/users_db");
-const dbFns = require("../queries/users_db");
+const dbFns = require("../queries/maps_db");
 
 module.exports = (db) => {
   // GET /users/
