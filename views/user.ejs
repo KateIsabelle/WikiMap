@@ -25,7 +25,7 @@
       <nav>
         <ul>
           <% if (user) { %>
-          <li><a href="/users/<% user %>">My profile</a></li>
+          <li><a href="/users/<%= user.id %>">My profile</a></li>
           <li><a href="#search">Search Maps</a></li>
           <li><a href="/maps/new">Create map</a></li>
           <li><a href="/maps/favourites">&#9733</a></li>
@@ -71,11 +71,11 @@
           <div class="form-style">
 
             <form method="GET" action="/maps/<%= map.id %>">
-              <button type="submit">Edit</button>
+              <button type="submit">see details</button>
             </form>
             <!-- form to delete url -->
             <form method="POST" action="/maps/<%= map.id %>/delete">
-              <button type="submit">Delete</button>
+              <button type="submit">delete</button>
             </form>
 
           </div>

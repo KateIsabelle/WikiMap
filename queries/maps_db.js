@@ -108,10 +108,12 @@ const createMap = function (db, parameters) {
     });
 };
 
-const deleteMap = function (map_id, user_id) {
+const deleteMap = function (db, map_id, user_id) {
+  console.log("map_id==>", map_id)
+  console.log("user_id ==>", user_id)
   const query = `
     DELETE FROM maps
-    WHERE map_id = $1 AND user_id = $2
+    WHERE id = $1 AND user_id = $2
     ;`;
   const values = [map_id, user_id];
 

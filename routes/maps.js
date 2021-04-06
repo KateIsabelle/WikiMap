@@ -92,24 +92,17 @@ module.exports = (db, apiKey) => {
 
   // POST /maps/:map_id/delete -- Delete a map
   router.post("/:map_id/delete", (req, res) => {
+
     console.log("==> POST /maps/:map_id/delete -- Delete a map");
+
     const map = req.params.map_id;
     const user = req.session.user_id;
 
-    Promise.all([dbUserFns.getUserById(db, user), dbfns.deleteMap(map, user)])
+    Promise.all([dbUserFns.getUserById(db, user), dbFns.deleteMap(db, map, user)])
     .then(res.redirect("/maps"))
     .catch(error => {
       res.status(500).json(error);
     })
-
-    // const mapId = req.params.id;
-    // const user = req.session.user_id;
-
-    // dbfns.deleteMap(mapId, user)
-    // .then (res.redirect("/maps"))
-    // .catch(error => {
-    //   res.status(500).json(error);
-    // })
   });
 
   return router;
