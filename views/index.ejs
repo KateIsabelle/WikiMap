@@ -21,6 +21,7 @@
     <h1>Recent Maps</h1>
     <div class="recent-maps">
       <% for(let map of maps) { %>
+        <% if (map)%>
         <div class=inner-cont>
           <div><%= map.title %><a href="#"><%= map.user_name%></a></div>
           <div class="small-map" id="map-1"><img src="https://maps.googleapis.com/maps/api/staticmap?center=<%=map.latitude%>,<%=map.longitude%>&zoom=13&size=400x200&maptype=roadmap&key=<%=apiKey%>"></div>
