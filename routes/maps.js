@@ -41,7 +41,7 @@ module.exports = (db, apiKey) => {
       res.render('create', templateVars);
     })
     .catch(error => {
-      res.status(500).json(error);
+      res.send('error');
     })
   });
 
@@ -76,6 +76,7 @@ router.post("/", (req, res) => {
     console.log("==> POST /maps/create -- Create new map");
     const mapId = req.body.id;
     const user = req.session.user_id;
+
 console.log("user==>", user);
     const maps = {
       mapId: req.body.id,

@@ -10,7 +10,7 @@ const express = require("express");
 const router = express.Router();
 const { getUsers } = require("../queries/users_db");
 const dbFns = require("../queries/maps_db");
-const dbUserFns = require("../queries/users_db")
+const dbUserFns = require("../queries/users_db");
 
 module.exports = (db) => {
   // GET /users/
@@ -25,18 +25,15 @@ module.exports = (db) => {
   router.get("/:id", (req, res) => {
     console.log("==> GET /users/:id -- Display user profile");
     const user = req.params.id;
-    // if (!user) {
-    //   res.redirect("/login");
-    //   return;
-    // }
+    req.session.user_id = req.params.id;
     Promise.all([dbUserFns.getUserById(db, user), dbFns.getUserMaps(db, user)])
-    .then(([user, maps]) => {
-      const templateVars = { user, maps };
-      res.render("user", templateVars);
-    })
-    .catch(error => {
-      res.status(500).json(error);
-    })
+      .then(([user, maps]) => {
+        const templateVars = { user, maps };
+        res.render("user", templateVars);
+      })
+      .catch((error) => {
+        res.status(500).json(error);
+      });
   });
 
   return router;
