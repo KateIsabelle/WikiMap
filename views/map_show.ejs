@@ -35,6 +35,13 @@
             // New map
             const map = new google.maps.Map(document.getElementById('map'), options);
 
+            // Listen for click on map
+            google.maps.event.addListener(map, 'click',
+            function(event){
+              // Add marker
+              addMarker({coords:event.latLng});
+            })
+            
             // Add marker
             function addMarker(props) {
               const marker = new google.maps.Marker({
