@@ -23,7 +23,7 @@
         <%= map.title %>
       </h3>
 
-      <div id="map" data-latitude=>
+      <div id="map">
         <script>
           const latitude = <%= map.latitude %>;
           const longtitude = <%= map.longitude %>;
@@ -50,10 +50,12 @@
               // Listen to click on marker
               marker.addListener('click', function (mapsMouseEvent) {
                 // Marker info window
-                const infoWindow = new google.maps.InfoWindow({
+                infoWindow = new google.maps.InfoWindow({
                   position: mapsMouseEvent.latLng,
-                  content: JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+                  content: props.pinInfo.title + "<br />" + props.pinInfo.description + "<br /><img src=" + props.pinInfo.image + " width=100 height=100>"
+                  // JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
                 });
+                // infoWindow.close();
                 infoWindow.open(map, marker);
               });
             }
@@ -70,7 +72,14 @@
             if (pinsObj) {
               const pinsArr = <%- JSON.stringify(pins) %>;
               for (let pin of pinsArr) {
-                addMarker({ coords: { lat: pin.lat, lng: pin.lng } });
+                addMarker({
+                  coords: { lat: pin.lat, lng: pin.lng },
+                  pinInfo: {
+                    title: pin.title,
+                    description: pin.description,
+                    image: pin.photo_url
+                  }
+                });
               }
             }
           }
