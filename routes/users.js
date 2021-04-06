@@ -10,6 +10,7 @@ const express = require("express");
 const router = express.Router();
 const { getUsers } = require("../queries/users_db");
 const dbFns = require("../queries/maps_db");
+const dbUserFns = require("../queries/users_db")
 
 module.exports = (db) => {
   // GET /users/
@@ -23,8 +24,9 @@ module.exports = (db) => {
   // GET /users/:id -- Display user profile
   router.get("/:id", (req, res) => {
     console.log("==> GET /users/:id -- Display user profile");
-    // const user = req.session.user_id;
-    const user = req.params.id
+    const id = req.session.id;
+    const user = dbUserFns.getUserById(db, id)
+    // const user = req.params.id
     if (!user) {
       res.redirect("/login");
       return;

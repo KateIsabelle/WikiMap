@@ -8,13 +8,14 @@ const getUsers = function (db) {
     .catch((error) => console.log(error));
 };
 
-const getUserById = (id) => {
+const getUserById = (db, id) => {
   return db
     .query("SELECT * FROM users WHERE id = $1", [id])
     .then((response) => {
       return response.rows[0];
     });
 };
+
 
 const addUser = function (user) {
   const query = `
