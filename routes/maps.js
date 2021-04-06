@@ -3,6 +3,7 @@ const { Template } = require('ejs');
 const express = require("express");
 const router = express.Router();
 const dbFns = require('../queries/maps_db');
+const dbUserFns = require("../queries/users_db");
 const { getMapById, getPins } = require('../queries/maps_db');
 
 module.exports = (db, apiKey) => {
@@ -92,14 +93,23 @@ module.exports = (db, apiKey) => {
   // POST /maps/:map_id/delete -- Delete a map
   router.post("/:map_id/delete", (req, res) => {
     console.log("==> POST /maps/:map_id/delete -- Delete a map");
-    const mapId = req.body.id;
+    const map = req.params.map_id;
     const user = req.session.user_id;
-    if (mapId && user) {
-      dbfns.deleteMap(mapId, user);
-      res.redirect("/maps");
-    } else {
-      res.status(401).send("You cannot delete it");
-    }
+
+    Promise.all([dbUserFns.getUserById(db, user), dbfns.deleteMap(map, user)])
+    .then(res.redirect("/maps"))
+    .catch(error => {
+      res.status(500).json(error);
+    })
+
+    // const mapId = req.params.id;
+    // const user = req.session.user_id;
+
+    // dbfns.deleteMap(mapId, user)
+    // .then (res.redirect("/maps"))
+    // .catch(error => {
+    //   res.status(500).json(error);
+    // })
   });
 
   return router;

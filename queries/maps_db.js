@@ -115,7 +115,7 @@ const deleteMap = function (map_id, user_id) {
     ;`;
   const values = [map_id, user_id];
 
-  return db.query(query, values).catch((error) => console.log(error));
+  return db.query(query, values);
 };
 
 module.exports = { getMapById, getPins, getAllMaps, getUserMaps, createMap, deleteMap };

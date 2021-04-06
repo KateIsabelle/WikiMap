@@ -26,8 +26,7 @@ const addUser = function (user) {
 
   return db
     .query(query, values)
-    .then((res) => res.rows[0])
-    .catch((error) => error);
+    .then((res) => res.rows[0]);
 };
 
 
