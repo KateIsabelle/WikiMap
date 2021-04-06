@@ -56,22 +56,29 @@
         <h3>My Maps</h3>
 
         <section class="display_map">
-        <p>Hi, I am empty page but need to contain maps</p>
 
           <% for(let map of maps) { %>
           <h3><%= map.title %></h3>
 
-          <div class="user_map">
-            <div><%= JSON.stringify(map) %></div>
+          <div>
+            <!-- <div><%= JSON.stringify(map) %></div> -->
+            <p><span>description: </span><%= map.description %></p>
+            <p><span>zoom:</span> <%= map.zoom %></p>
+            <p><span>latitude:</span> <%= map.latitude %></p>
+            <p><span>longitude:</span> <%= map.longitude %></p>
           </div>
           <!-- form to update map -->
-          <form method="GET" action="/maps/<%= map.id %>">
-            <button type="submit">Edit</button>
-          </form>
-          <!-- form to delete url -->
-          <form method="POST" action="/maps/<%= map.id %>/delete">
-            <button type="submit">Delete</button>
-          </form>
+          <div class="form-style">
+
+            <form method="GET" action="/maps/<%= map.id %>">
+              <button type="submit">Edit</button>
+            </form>
+            <!-- form to delete url -->
+            <form method="POST" action="/maps/<%= map.id %>/delete">
+              <button type="submit">Delete</button>
+            </form>
+
+          </div>
           <% } %>
         </section>
       </div>
