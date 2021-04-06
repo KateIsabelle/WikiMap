@@ -24,19 +24,19 @@ module.exports = (db) => {
   // GET /users/:id -- Display user profile
   router.get("/:id", (req, res) => {
     console.log("==> GET /users/:id -- Display user profile");
-    const id = req.session.id;
-    const user = dbUserFns.getUserById(db, id)
-    // const user = req.params.id
-    if (!user) {
-      res.redirect("/login");
-      return;
-    }
-    const maps = dbFns.getUserMaps(db, user);
-    const templateVars = {
-      maps,
-      user,
-    };
-    res.render("user", templateVars);
+    const user = req.params.id;
+    // if (!user) {
+    //   res.redirect("/login");
+    //   return;
+    // }
+    Promise.all([dbUserFns.getUserById(db, user), dbFns.getUserMaps(db, user)])
+    .then(([user, maps]) => {
+      const templateVars = { user, maps };
+      res.render("user", templateVars);
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    })
   });
 
   return router;
