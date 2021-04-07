@@ -7,12 +7,13 @@ module.exports = (db, apiKey) => {
 
   router.get('/', (req,res) => {
   console.log("==> GET /maps -- display recent maps");
-  getFirstMaps(db)
+  const userId = req.session.user_id;
+  getFirstMaps(db, userId)
   .then((maps) => {
     let templateVars = {};
     templateVars.maps = maps;
     templateVars.apiKey = apiKey;
-    console.log('TemplateVars:', templateVars)
+    // console.log('TemplateVars:', templateVars)
     res.render("index", templateVars);
     })
     .catch(err => {
