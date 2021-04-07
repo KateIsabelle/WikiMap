@@ -1,18 +1,34 @@
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-$(document).ready(function(e) {
-$likeButton();
+$(document).ready(function (e) {
+  $likeButton();
 
 
 });
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
-const $likeButton = function() {
-  $('.fa-heart').click(function() {
-    console.log("HEART CLICKED")
+const $likeButton = function () {
+  $('.fa-heart').click(function () {
     $(this).toggleClass('liked');
+    console.log("this val",$(this).val())
+
+    if ($(this).hasClass('liked')) {
+      console.log("THIS IS LIKED")
+      $.ajax({
+            url: "/",
+            method: "GET"
+          })
+            .then(tweets => renderTweets(tweets))
+            .catch(err => console.log(err))
+      //add an ajax that adds method 'post' into table favourites
+
+    } else {
+      console.log("THIS IS NOT LIKED")
+    }
+
   })
 }
+
 
 const getFirstMaps = (db) => {
   const query = `
@@ -27,16 +43,8 @@ const getFirstMaps = (db) => {
   return db
     .query(query)
     .then(data => {
-      const mapsArray = data.rows;
-      for (let map of mapsArray) {
-        if (!map.markers[0]) {
-          map.markersQuery = "";
-          map.markers = [];
-        } else {
-          map.markersQuery = map.markers.map((m) => `markers=${m}`).join(`&`) + "&";
-        }
-      }
-      return mapsArray;
+
+      return
 
     })
 };
