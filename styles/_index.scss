@@ -30,11 +30,12 @@
   left:50;
 }
 
+.unliked {
+  color: $theme-dark
+}
+
 .liked {
   color: $theme-red;
   transform: scale(1.2);
- }
- .unliked {
-   color: $theme-dark
  }
 
