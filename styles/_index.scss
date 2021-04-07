@@ -17,17 +17,44 @@
 //   font-size: 0.3em;
 // }
 
-.cont {
-  position: relative
+// .k-cont {
+//   position: relative
+// }
+// .k-cont img {
+//   display: block
+// }
+// .k-cont .fa-heart {
+//   font-size: 2rem;
+//   position: absolute;
+//   bottom:0;
+//   left:50;
+// }
+
+.k-row {
+  display: flex;
+  font-size: .8em;
+  justify-content: center;
 }
-.cont img {
-  display: block
+
+.k-row a {
+  font-size: .75em
+
 }
-.cont .fa-heart {
+
+.sml-map {
+  position: relative;
+  margin: 10px;
+}
+
+.sml-map img {
+  display: block;
+}
+
+.sml-map .fa-heart {
   font-size: 2rem;
   position: absolute;
-  bottom:0;
-  left:50;
+  bottom: 0;
+  left: 50;
 }
 
 .unliked {
