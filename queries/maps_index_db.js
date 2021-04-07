@@ -15,13 +15,13 @@ const getFirstMaps = (db, userId) => {
   return db
     .query(query)
     .then(data => {
+
       const mapsArray = data.rows;
-      // console.log("MAPS ARRAY", mapsArray);
       //execute function to get favourites, which is asynchronous and returns a promise
       return getMyFavourites(db, userId)
+
       //once we have favourites data, then we can check in mapsArray loop if map is inside of favData array
       .then((favData) => {
-        console.log("FAV DATA: ", favData)
         for (let map of mapsArray) {
           //if map.markers is null, set markersQuery key to equal empty string
           //and map.markers to equal empty array
@@ -32,10 +32,9 @@ const getFirstMaps = (db, userId) => {
           } else {
             map.markersQuery = map.markers.map((m) => `markers=${m}`).join(`&`) + "&";
           }
-          //make myFavourites key in map object and set boolean value
+          //make myFavourites key in map object and set boolean value (did this user like this map?)
           map.myFavourites = favData.includes(map.id);
         }
-        // console.log("Mutated maps array", mapsArray)
         return mapsArray;
 
       })
