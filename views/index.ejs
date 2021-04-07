@@ -21,7 +21,7 @@
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
 
   <!-- App JS -->
-  <script type="text/javascript" src="/scripts/client.js"></script>
+  <script type="text/javascript" src="/scripts/favourites.js"></script>
 
 </head>
 
@@ -34,7 +34,7 @@
           <div><%= map.title %> <a href="#"><%= map.user_name %></a></div>
           <div class="cont">
             <div class="small-map" id="map-1"><img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= map.latitude %>,<%= map.longitude %>&zoom=13&size=400x200&maptype=roadmap&<%= map.markersQuery %>key=<%= apiKey %>">
-              <i class="fas fa-heart"></i>
+              <i class="fas fa-heart <%= map.myFavourites ? 'liked' : 'unliked'  %>"></i>
             </div>
             </div>
           <% } %>

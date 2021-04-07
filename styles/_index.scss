@@ -24,7 +24,6 @@
   display: block
 }
 .cont .fa-heart {
-  border: 2px $theme-red solid;
   font-size: 2rem;
   position: absolute;
   bottom:0;
@@ -32,7 +31,8 @@
 }
 
 .liked {
-  color: $theme-red
+  color: $theme-red;
+  transform: scale(1.2);
  }
  .unliked {
    color: $theme-dark
