@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getFirstMaps, getPins } = require('../queries/maps_index_db');
-const tv = "HELLO";
+const { getFirstMaps } = require('../queries/maps_index_db');
 
 module.exports = (db, apiKey) => {
 
@@ -17,11 +16,13 @@ module.exports = (db, apiKey) => {
     let templateVars = {};
     templateVars.maps = maps;
     templateVars.apiKey = apiKey;
-    // console.log('TemplateVars:', templateVars)
+    // templateVars.user = userId; >>>>>>>
+    console.log('TemplateVars:', templateVars)
     res.render("index", templateVars);
     })
 
     .catch(err => {
+      console.log("ERROR", err)
       res
         .status(500)
         .json({ error: err.message });

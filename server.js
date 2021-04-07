@@ -46,6 +46,8 @@ const loginRoutes = require("./routes/login");
 const logoutRoutes = require("./routes/logout");
 //K
 const mapIndexRoutes = require('./routes/maps_index');
+const userFavouritesRoutes = require('./routes/favourites');
+
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -55,6 +57,8 @@ app.use("/login", loginRoutes(db));
 app.use("/logout", logoutRoutes(db));
 //K
 app.use("/maps", mapIndexRoutes(db, apiKey));
+app.use("/favourites", userFavouritesRoutes(db, apiKey));
+
 
 
 // Home page
