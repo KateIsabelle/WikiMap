@@ -9,30 +9,30 @@ module.exports = (db, apiKey) => {
   //if user is not logged in, set userId to 0 (to avoid error)
   const userId = req.session.user_id ? req.session.user_id : 0;
   if (!userId) {
-    console.log("REDIRECT WORKING")
     return res.redirect('/maps')
   }
 
-  getFavMaps(db, userId)
-  .then((maps) => {
+    getFavMaps(db, userId)
+    .then((maps) => {
 
-    console.log("INFO:", maps)
-    let templateVars = {};
-    templateVars.maps = maps;
-    templateVars.apiKey = apiKey;
-    // templateVars.user = userId; >>>>>>>
-    // console.log('TemplateVars:', templateVars)
-    res.render("favourites", templateVars);
+      console.log("INFO:", maps)
+      let templateVars = {};
+      templateVars.maps = maps;
+      templateVars.apiKey = apiKey;
+      // templateVars.user = userId; >>>>>>>
+      res.render("favourites", templateVars);
     })
 
     .catch(err => {
       res
-        .status(500)
-        .json({ error: err.message });
+      .status(500)
+      .json({ error: err.message });
     });
+
   })
 
 return router
+
 
 };
 

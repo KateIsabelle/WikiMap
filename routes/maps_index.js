@@ -12,16 +12,17 @@ module.exports = (db, apiKey) => {
   getFirstMaps(db, userId)
   .then((maps) => {
 
-    // console.log("INFO:", maps)
+    console.log("INFO:", maps)
     let templateVars = {};
     templateVars.maps = maps;
     templateVars.apiKey = apiKey;
     // templateVars.user = userId; >>>>>>>
-    // console.log('TemplateVars:', templateVars)
+    console.log('TemplateVars:', templateVars)
     res.render("index", templateVars);
     })
 
     .catch(err => {
+      console.log("ERROR", err)
       res
         .status(500)
         .json({ error: err.message });
