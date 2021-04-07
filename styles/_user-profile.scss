@@ -36,8 +36,11 @@ h3 {
   transition: all 0.4s ease-in;
   background-color: #97dfd6;
 }
-.current-user {
-  margin-left: 0 auto;
-  font-style: italic;
+.user {
+  color: #156b61;
+  text-align: left;
+}
+.user-map {
+  margin-bottom: 30px;
 }
 
