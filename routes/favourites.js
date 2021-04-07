@@ -32,8 +32,6 @@ module.exports = (db, apiKey) => {
   })
 
 return router
-
-
 };
 
 
