@@ -1,4 +1,22 @@
-const db = require("../server");
+const addPin = (db, pin) => {
+  const query = `
+    INSERT INTO pins (map_id, lat, lng)
+    VALUES ($1, $2, $3)
+    RETURNING *;
+  `;
+  const values = [
+    pin.map_id,
+    pin.lat,
+    pin.lng
+  ];
+
+  return db
+    .query(query, values)
+    .then((res) => {
+      return res.rows;
+    })
+    .catch((error) => console.log(error));
+}
 
 const createPin = function (parameters) {
   let query = `
@@ -32,4 +50,4 @@ const deletePin = function (pin_id, map_id) {
   return db.query(query, values).catch((error) => console.log(error));
 };
 
-module.exports = { createPin, deletePin };
+module.exports = { addPin, createPin, deletePin };

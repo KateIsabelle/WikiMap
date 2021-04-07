@@ -3,7 +3,7 @@ const { Template } = require('ejs');
 const express = require("express");
 const router = express.Router();
 const dbFns = require('../queries/maps_db');
-const { getMapById, getPins } = require('../queries/maps_db');
+const pinFns = require('../queries/pins_db');
 
 module.exports = (db, apiKey) => {
   // // GET /maps/
@@ -71,38 +71,45 @@ module.exports = (db, apiKey) => {
     console.log('==> GET /maps/:map_id  -- Display a map by id');
 
     const mapID = req.params.map_id;
-    let templateVars = {};
-    const getMapByIdPromise = getMapById(db, mapID);
-    const getPinsPromise = getPins(db, mapID);
+    const getMapByIdPromise = dbFns.getMapById(db, mapID);
+    const getPinsPromise = dbFns.getPins(db, mapID);
 
     Promise.all([getMapByIdPromise, getPinsPromise])
       .then(([mapObj, pinsArr]) => {
-        templateVars = {
+        const templateVars = {
           map: mapObj,
           pins: pinsArr,
           apiKey: apiKey
         };
-        res.render('map_show', templateVars);
+        res.render('add_pins', templateVars);
       })
       .catch((err) => {
         console.log(err);
       });
-    // getMapById(db, mapID)
-    //   .then((mapObj) => {
-    //     templateVars.map = mapObj;
-    //     getPins(db, mapID)
-    //     .then((pinsArray) => {
-    //       templateVars.pins = pinsArray;
-    //       templateVars.apiKey = apiKey;
-    //       res.render('map_show', templateVars);
-    //     })
-    //   })
+  });
 
+  // POST /maps/:map_id/addpin -- Add a pin
+  router.post("/:map_id/addpin", (req, res) => {
+    console.log("==> POST /maps/:map_id/addpin -- Add a pin");
+    const mapID = req.params.map_id;
+    const pin = {
+      map_id: mapID,
+      lat: 43,
+      lng: -70
+    }
+    pinFns.addPin(db, pin)
+      .then((data) => {
+        console.log(data);
+      })
+
+    res.send('ok');
   });
 
   // POST /maps/:map_id/edit -- Edit a map
   router.post("/:map_id/edit", (req, res) => {
     console.log("==> POST /maps/:map_id/edit -- Edit a map");
+
+
   });
 
   // POST /maps/:map_id/delete -- Delete a map
