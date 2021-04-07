@@ -12,7 +12,7 @@ const { getUsers } = require("../queries/users_db");
 const dbFns = require("../queries/maps_db");
 const dbUserFns = require("../queries/users_db");
 
-module.exports = (db) => {
+module.exports = (db ,apiKey) => {
   // GET /users/
   router.get("/", (req, res) => {
     // console.log('db =',db);
@@ -28,7 +28,7 @@ module.exports = (db) => {
     req.session.user_id = req.params.id;
     Promise.all([dbUserFns.getUserById(db, user), dbFns.getUserMaps(db, user)])
       .then(([user, maps]) => {
-        const templateVars = { user, maps };
+        const templateVars = { user, maps, apiKey };
         res.render("user", templateVars);
       })
       .catch((error) => {

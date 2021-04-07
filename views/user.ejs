@@ -53,6 +53,7 @@
 
     <main>
       <div class="wrapper container">
+        <h3 class="current-user "><%= user.name %></h3>
         <h3>My Maps</h3>
 
         <section class="display_map">
@@ -67,6 +68,12 @@
             <p><span>latitude:</span> <%= map.latitude %></p>
             <p><span>longitude:</span> <%= map.longitude %></p>
           </div>
+
+            <!-- call to Static Google Maps API -->
+            <div>
+              <div class="small-map" id="map-1"><img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= map.latitude %>,<%= map.longitude %>&zoom=13&size=400x200&maptype=roadmap& key=<%= apiKey %>">
+            </div>
+
           <!-- form to update map -->
           <div class="form-style">
 
