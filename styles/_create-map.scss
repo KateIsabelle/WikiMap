@@ -21,14 +21,29 @@ h3 {
   }
 }
 
-textarea {
-  height: 200px;
-  width: 100%;
-  font-size: 1.4rem;
-  resize: none;
-  border: none;
-  outline: none;
-  overflow: hidden;
-  display: block;
-  border: solid $theme-dark 1px;
+.create_map > input, textarea {
+  font    : 1.4em/1.5em "handwriting", cursive, sans-serif;
+  border  : 2px solid #2A9D8F;
+  padding : 0 10px;
+  margin  : 0;
+  width   : 80%;
+  background : none;
 }
+
+input:focus, textarea:focus {
+  background   : rgba(0,0,0,.1);
+  border-radius: 5px;
+}
+
+// textarea {
+//   height: 200px;
+//   width: 100%;
+//   font-size: 1.4rem;
+//   resize: none;
+//   border: none;
+//   outline: none;
+//   overflow: hidden;
+//   display: block;
+//   border: solid $theme-dark 1px;
+// }
+

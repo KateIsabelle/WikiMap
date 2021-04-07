@@ -19,6 +19,7 @@
     <header class="header-main">
     <div class="top">
       <a class="logo" href="#home">WikiMaps</a>
+      <p class="current-user">Logged In As <%= user.email %></p>
     </div>
 
     <div>
@@ -29,7 +30,6 @@
           <li><a href="#search">Search Maps</a></li>
           <li><a href="/maps/new">Create map</a></li>
           <li><a href="/maps/favourites">&#9733</a></li>
-          <p>Logged In As <%= user.email %></p>
           <li>
             <form action="/logout" method="post">
               <input class="logout" type="submit" value="Logout" />

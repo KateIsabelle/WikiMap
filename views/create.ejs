@@ -20,6 +20,7 @@
       <header class="header-main">
         <div class="top">
           <a class="logo" href="#home">WikiMaps</a>
+          <p>Logged In As <%= user.email %></p>
         </div>
 
         <div>
@@ -30,7 +31,6 @@
               <li><a href="#search">Search Maps</a></li>
               <li><a href="/maps/new">Create map</a></li>
               <li><a href="/maps/favourites">&#9733</a></li>
-              <p>Logged In As <%= user.email %></p>
               <li>
                 <form action="/logout" method="post">
                   <input class="logout" type="submit" value="Logout" />
@@ -60,6 +60,15 @@
               type="text"
               name="title"
             />
+            <label for="description">description</label>
+            <!-- <textarea
+              class="map-compose"
+              name="map-description"
+              id="map-description"
+              cols="30"
+              rows="5"
+            ></textarea> -->
+            <input type="text" name="description">
             <label for="zoom">zoom</label>
             <input type="number" name="zoom" />
 
@@ -68,14 +77,6 @@
 
             <label for="longitude">longitude</label>
             <input type="number" step="any" name="longitude" />
-            <label for="description">description</label>
-            <textarea
-              class="map-compose"
-              name="map-description"
-              id="map-description"
-              cols="30"
-              rows="5"
-            ></textarea>
             <button class="btn" type="submit">Submit</button>
           </div>
         </form>
