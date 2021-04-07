@@ -56,7 +56,6 @@ module.exports = (db, apiKey) => {
       user: user,
       title: req.body.title,
       description: req.body.description,
-      zoom: req.body.zoom,
       latitude: req.body.latitude,
       longitude: req.body.longitude,
     };
@@ -67,6 +66,7 @@ module.exports = (db, apiKey) => {
         res.render("map_show", templateVars);
       })
       .catch((error) => {
+        console.log("error ==>", error)
         res.status(500).json(error);
       });
   });
