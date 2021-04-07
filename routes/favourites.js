@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getFirstMaps, getPins } = require('../queries/maps_index_db');
-const tv = "HELLO";
+const { getFavMaps } = require('../queries/favourites_db');
 
 module.exports = (db, apiKey) => {
 
@@ -9,8 +8,12 @@ module.exports = (db, apiKey) => {
   console.log("==> GET /maps -- display recent maps");
   //if user is not logged in, set userId to 0 (to avoid error)
   const userId = req.session.user_id ? req.session.user_id : 0;
+  if (!userId) {
+    console.log("REDIRECT WORKING")
+    return res.redirect('/maps')
+  }
 
-  getFirstMaps(db, userId)
+  getFavMaps(db, userId)
   .then((maps) => {
 
     console.log("INFO:", maps)
@@ -19,7 +22,7 @@ module.exports = (db, apiKey) => {
     templateVars.apiKey = apiKey;
     // templateVars.user = userId; >>>>>>>
     // console.log('TemplateVars:', templateVars)
-    res.render("index", templateVars);
+    res.render("favourites", templateVars);
     })
 
     .catch(err => {

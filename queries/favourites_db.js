@@ -34,6 +34,7 @@ const getFavMaps = (db, userId) => {
           //make myFavourites key in map object and set boolean value (did this user like this map?)
           map.myFavourites = favData.includes(map.id);
         }
+        console.log("QUERY WORKING, MAPS ARRAY:", mapsArray)
         return mapsArray;
 
       })

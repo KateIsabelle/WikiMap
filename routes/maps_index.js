@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getFirstMaps, getPins } = require('../queries/maps_index_db');
-const tv = "HELLO";
+const { getFirstMaps } = require('../queries/maps_index_db');
 
 module.exports = (db, apiKey) => {
 
@@ -13,7 +12,7 @@ module.exports = (db, apiKey) => {
   getFirstMaps(db, userId)
   .then((maps) => {
 
-    console.log("INFO:", maps)
+    // console.log("INFO:", maps)
     let templateVars = {};
     templateVars.maps = maps;
     templateVars.apiKey = apiKey;
