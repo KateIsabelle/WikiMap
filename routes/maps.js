@@ -72,16 +72,32 @@ module.exports = (db, apiKey) => {
 
     const mapID = req.params.map_id;
     let templateVars = {};
-    getMapById(db, mapID)
-      .then((mapObj) => {
-        templateVars.map = mapObj;
-        getPins(db, mapID)
-        .then((pinsArray) => {
-          templateVars.pins = pinsArray;
-          templateVars.apiKey = apiKey;
-          res.render('map_show', templateVars);
-        })
+    const getMapByIdPromise = getMapById(db, mapID);
+    const getPinsPromise = getPins(db, mapID);
+
+    Promise.all([getMapByIdPromise, getPinsPromise])
+      .then(([mapObj, pinsArr]) => {
+        templateVars = {
+          map: mapObj,
+          pins: pinsArr,
+          apiKey: apiKey
+        };
+        res.render('map_show', templateVars);
+      })
+      .catch((err) => {
+        console.log(err);
       });
+    // getMapById(db, mapID)
+    //   .then((mapObj) => {
+    //     templateVars.map = mapObj;
+    //     getPins(db, mapID)
+    //     .then((pinsArray) => {
+    //       templateVars.pins = pinsArray;
+    //       templateVars.apiKey = apiKey;
+    //       res.render('map_show', templateVars);
+    //     })
+    //   })
+
   });
 
   // POST /maps/:map_id/edit -- Edit a map
