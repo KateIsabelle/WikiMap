@@ -30,7 +30,6 @@ const getPins = (db, map_id) => {
   return db
     .query(query, [map_id])
     .then((data) => {
-      console.log("display data.rows", data.rows);
       return data.rows;
     })
     .catch(err => {
@@ -135,4 +134,5 @@ module.exports = {
   createMap,
   deleteMap,
   getMapsWithPins,
+  getAllMaps
 };

@@ -78,7 +78,8 @@ module.exports = (db, apiKey) => {
         const templateVars = {
           map: mapObj,
           pins: pinsArr,
-          apiKey: apiKey
+          apiKey: apiKey,
+          user_id: req.session.user_id
         };
         res.render('map_show', templateVars);
       })
@@ -92,12 +93,13 @@ module.exports = (db, apiKey) => {
     const mapID = req.params.map_id;
     const pin = {
       map_id: mapID,
-      lat: req.body.lat,
-      lng: req.body.lng,
-      title: req.body.title,
-      description: req.body.title,
-      photo_url: req.body.photo_url
+      lat: req.body.coords.lat,
+      lng: req.body.coords.lng,
+      title: req.body.pinInfo.title,
+      description: req.body.pinInfo.description,
+      photo_url: req.body.pinInfo.photo_url
     }
+
     pinFns.createPin(db, pin)
       .catch((err) => console.log(err));
     res.send('ok');

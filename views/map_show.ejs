@@ -22,23 +22,25 @@
       <h3>
         <%= map.title %>
       </h3>
+
       <input type="hidden" value='<%- JSON.stringify(map) %>' id="mapObj">
       <input type="hidden" value='<%- JSON.stringify(pins) %>' id="pinsArr">
       <div id="map">
 
       </div>
+      <% if (user_id) { %>
+        <input id="my-input-searchbox" type="text" placeholder="Search here">
+        <form class="pin-forms">
+          <input id="pin-title" type="text" placeholder="Title">
+          <input id="pin-desc" name="desc" type="text" placeholder="Description">
+          <input id="pin-image" name="image" type="text" placeholder="Image URL">
+        </form>
+        <div class="map-buttons">
+          <button type="submit" value="add-pin" onclick="addPin()">Add PIN</button>
+          <button type="submit" value="delete">Delete Map</button>
+        </div>
+        <% } %>
 
-      <input id="my-input-searchbox" type="text" placeholder="Search here">
-      <input class="pin-form" type="text" placeholder="Title">
-      <input class="pin-form" type="text" placeholder="Description">
-      <input class="pin-form" type="text" placeholder="Image">
-
-      <div class="map-buttons">
-
-        <button type="submit" value="add-pin" onclick="addPin()">Add PIN</button>
-        <button type="submit" value="edit">Edit Map</button>
-        <button type="submit" value="delete">Delete Map</button>
-      </div>
     </div>
 
 </body>
