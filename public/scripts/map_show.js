@@ -56,6 +56,7 @@ const loadPins = (pinsArr, map) => {
   }
 }
 
+
 function initAutocomplete (map) {
   // Create the search box and link it to the UI element.
   const input = document.getElementById('my-input-searchbox');
