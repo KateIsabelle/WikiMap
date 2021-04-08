@@ -18,6 +18,11 @@ const getMapById = (db, map_id) => {
         zoom: maps.zoom,
       };
     })
+
+    .catch(err => {
+      console.log(err);
+    });
+
 };
 
 // Display Pins by map_id
@@ -29,12 +34,40 @@ const getPins = (db, map_id) => {
   return db
     .query(query, [map_id])
     .then((data) => {
-      console.log("display data.rows", data.rows);
       return data.rows;
     })
-    .catch((err) => {
-      res.status(500).json({ error: err.message });
+    .catch(err => {
+      console.log(err);
     });
+};
+
+const getAllMaps = function (db, maps, limit = 10) {
+  let queryString = `SELECT maps.* FROM maps
+    JOIN users ON users.id = maps.user_id
+    JOIN favourites ON maps.id = favourites.map_id
+    WHERE TRUE;`;
+
+  const queryParams = [];
+
+  if (maps.title) {
+    queryParams.push(`%${maps.title}%`);
+    query += `AND city LIKE $${queryParams.length} `;
+  }
+  if (maps.user_id) {
+    queryParams.push(maps.user_id);
+    queryString += `AND maps.user_id = $${queryParams.length}`;
+  }
+
+  queryParams.push(limit);
+  queryString += `
+        ORDER BY created_at
+        LIMIT $${queryParams.length};
+        `;
+  return db
+    .query(queryString, queryParams)
+    .then((res) => res.rows)
+    .catch((error) => console.log(error));
+
 };
 
 const getMapsWithPins = (db, user_id) => {
@@ -105,4 +138,5 @@ module.exports = {
   createMap,
   deleteMap,
   getMapsWithPins,
+  getAllMaps
 };

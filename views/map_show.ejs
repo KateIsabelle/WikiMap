@@ -20,29 +20,37 @@
   <%- include('partials/_header') %>
     <div class="display-map">
       <h3>
-        Add PINs to <%= map.title %> Map
+
+        <%= map.title %>
       </h3>
+
+
       <input type="hidden" value='<%- JSON.stringify(map) %>' id="mapObj">
       <input type="hidden" value='<%- JSON.stringify(pins) %>' id="pinsArr">
       <div id="map">
 
       </div>
 
-      <input id="my-input-searchbox" type="text" placeholder="Search here"></button>
+      <% if (user_id) { %>
+        <input id="my-input-searchbox" type="text" placeholder="Search here">
+        <form class="pin-forms">
+          <input id="pin-title" type="text" placeholder="Title">
+          <input id="pin-desc" name="desc" type="text" placeholder="Description">
+          <input id="pin-image" name="image" type="text" placeholder="Image URL">
+        </form>
+        <div class="map-buttons">
+          <button type="submit" value="add-pin" onclick="addPin()">Add PIN</button>
+          <button type="submit" value="delete">Delete Map</button>
+        </div>
+        <% } %>
 
-      <div class="map-buttons">
-
-        <button type="submit" value="add-pin" onclick="addPin()">Add PIN</button>
-        <button type="submit" value="edit">Edit Map</button>
-        <button type="submit" value="delete">Delete Map</button>
-      </div>
     </div>
-    <footer>
-      <div><p>&copy; girl power midterm</p></div>
-    </footer>
-  </body>
-  <script type="text/javascript" src="/scripts/map_show.js"></script>
-  <script async src="https://maps.googleapis.com/maps/api/js?key=<%= apiKey %>&callback=initMap"></script>
+
+</body>
+
+<script type="text/javascript" src="/scripts/map_show.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= apiKey %>&libraries=places&callback=initMap" async
+  defer></script>
 
 
 </html>
