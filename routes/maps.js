@@ -84,7 +84,6 @@ module.exports = (db, apiKey) => {
       .catch((err) => {
         console.log(err);
       });
-    });
   });
 
   // POST /maps/:map_id/addpin -- Add a pin
