@@ -4,8 +4,10 @@ const latitude = mapObj.latitude;
 const longtitude = mapObj.longitude;
 const zoom = mapObj.zoom;
 const input = document.getElementById('search-input');
+
 let map;
 let newMarkerProps = {};
+
 let deleteObj = {};
 let infoWindow = null;
 
@@ -17,6 +19,7 @@ const addMarker = (props, map) => {
     id: props.pinInfo.id,
     animation: google.maps.Animation.DROP
   });
+
   // Listen to click on marker
   marker.addListener('click', function (mapsMouseEvent) {
     if (infoWindow) {
@@ -26,8 +29,10 @@ const addMarker = (props, map) => {
     const contentString = `
       ${props.pinInfo.title}<br />
       ${props.pinInfo.description}<br />
+
       <img id="infoWindow" src=${props.pinInfo.image}>
       <button onclick="deletePin(${props.pinInfo.id})">Delete PIN</button>
+
     `;
     infoWindow = new google.maps.InfoWindow({
       position: mapsMouseEvent.latLng,
@@ -57,9 +62,11 @@ const loadPins = (pinsArr, map) => {
 }
 
 
+
 function initAutocomplete (map) {
   // Create the search box and link it to the UI element.
   const input = document.getElementById('my-input-searchbox');
+
 
   const autocomplete = new google.maps.places.Autocomplete(input);
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
@@ -75,6 +82,7 @@ function initAutocomplete (map) {
     autocomplete.addListener('place_changed', function() {
       const place = autocomplete.getPlace();
 
+
       // Save pin info to addPinObj
       newMarkerProps = {
         coords: {
@@ -85,6 +93,7 @@ function initAutocomplete (map) {
           title: place.name
           // photo_url: $(place.photos[0].html_attributions[0]).attr('href')
         }
+
       };
 
       if (!place.geometry) {
@@ -99,30 +108,26 @@ function initAutocomplete (map) {
         // icon: photos[0].getUrl({maxWidth: 150, maxHeight: 150})
       })
 
-    // if (place.geometry.viewport) {
-    //   // Only geocodes have viewport.
-    //   bounds.union(place.geometry.viewport);
-    // } else {
-    //   bounds.extend(place.geometry.location);
-    // }
-    //map.fitBounds(bounds);
+
   });
 }
 
 function initMap() {
   // Map options
   const options = {
-    zoom: zoom,
+    zoom: 10,
     center: { lat: latitude, lng: longtitude }
   }
   // New map
   map = new google.maps.Map(document.getElementById('map'), options);
 
   loadPins(pinsArr, map);
+
   initAutocomplete(map);
 }
 
 function addPin() {
+
   newMarkerProps.pinInfo.description = $("#pin-desc")[0].value;
   newMarkerProps.pinInfo.photo_url = $("#pin-image")[0].value;
 
@@ -130,21 +135,26 @@ function addPin() {
     url: `/maps/${mapObj.id}/addpin`,
     method: "POST",
     data: newMarkerProps
+
   })
     .then((res) => {
       console.log(res);
     })
+
     .catch((err) => {
       console.log(err);
       // $('#error-msg').innerHTML = 'Something went wrong ...';
     });
+
 };
 
 function deletePin(id) {
   $.ajax({
     url: `/maps/${mapObj.id}/deletepin`,
     method: "POST",
+
     data: {pin_id: id},
+
   })
     .then((res) => {
       console.log(res);
