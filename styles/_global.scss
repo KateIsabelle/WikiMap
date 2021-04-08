@@ -1,3 +1,4 @@
+
 $font: 'Kiwi Maru', serif;
 
 $theme-color: #2a9d8f;
@@ -7,6 +8,24 @@ $theme-dark: #264653;
 $theme-light: #e9c46a;
 
 $theme-red: #dc2f02;
+
+$bg-image: url("https://www.transparenttextures.com/patterns/axiom-pattern.png");
+
+img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.container {
+  width: 90%;
+  margin: 0 auto;
+  background-color: inherit;
+}
+
+a {
+  transition: all 0.4s ease-in;
+  display: inline-block;
+}
 
 @mixin centerer {
   position: absolute;

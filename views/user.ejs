@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home Page</title>
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+  </head>
+
+  <body>
+    <header class="header-main">
+    <div class="top">
+      <a class="logo" href="/maps">WikiMaps</a>
+      <p class="current-user">Logged In As <%= user.email %></p>
+    </div>
+
+    <div>
+      <nav>
+        <ul>
+          <% if (user) { %>
+          <li><a href="/users/<%= user.id %>">My profile</a></li>
+          <li><a href="/maps/new">Create map</a></li>
+          <li><a href="/maps/favourites">&#9733</a></li>
+          <li>
+            <form action="/logout" method="post">
+              <input class="logout" type="submit" value="Logout" />
+            </form>
+          </li>
+
+          <% } else { %>
+
+          <li>
+            <a class="login" href="/login">Login</a>
+          </li>
+
+          <% } %>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+    <main>
+      <div class="wrapper container">
+        <h2 class="user"><%= user.name %></h2>
+        <h3>My Maps</h3>
+
+        <section class="display_map">
+
+          <% for(let map of maps) { %>
+          <h3><%= map.title %></h3>
+
+          <div>
+            <!-- <div><%= JSON.stringify(map) %></div> -->
+            <p><span>description: </span><%= map.description %></p>
+            <p><span>latitude:</span> <%= map.latitude %></p>
+            <p><span>longitude:</span> <%= map.longitude %></p>
+          </div>
+
+            <!-- call to Static Google Maps API -->
+
+            <div>
+              <div class="user-map"><img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= map.latitude %>,<%= map.longitude %>&zoom=13&size=600x300&scale=2&maptype=roadmap&<%= map.markersQuery %>key=<%= apiKey %>">
+              </div>
+            </div>
+
+          <!-- form to update map -->
+          <div class="form-style">
+
+            <form method="GET" action="/maps/<%= map.id %>">
+              <button class="btn" type="submit">see details</button>
+            </form>
+            <!-- form to delete url -->
+            <form method="POST" action="/maps/<%= map.id %>/delete">
+              <button class="btn" type="submit">delete</button>
+            </form>
+
+          </div>
+          <% } %>
+        </section>
+      </div>
+    </main>
+    <footer>
+      <div><p>&copy; girl power midterm</p></div>
+    </footer>
+  </body>
+</html>
