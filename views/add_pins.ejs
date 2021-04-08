@@ -20,26 +20,26 @@
     <%- include('partials/_header') %>
       <div class="display-map">
         <h3>
-          <%= map.title %>
+          Add PINs to <%= map.title %> Map
         </h3>
         <input type="hidden" value='<%- JSON.stringify(map) %>' id="mapObj">
         <input type="hidden" value='<%- JSON.stringify(pins) %>' id="pinsArr">
         <div id="map">
 
         </div>
-        <form action="/maps/:map_id/addpin" method="POST">
-          <input id="my-input-searchbox" type="text" placeholder="Search here">
-        </form>
+
+          <input id="my-input-searchbox" type="text" placeholder="Search here"></button>
+
         <div class="map-buttons">
 
-          <button type="submit" value="add-pin">Add PIN</button>
+          <button type="submit" value="add-pin" onclick="addPin()">Add PIN</button>
           <button type="submit" value="edit">Edit Map</button>
           <button type="submit" value="delete">Delete Map</button>
         </div>
     </div>
   </body>
-  <script type="text/javascript" src="/scripts/add_pins.js"></script>
 
+  <script type="text/javascript" src="/scripts/add_pins.js"></script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= apiKey %>&libraries=places&callback=initMap" async defer></script>
 

@@ -4,13 +4,13 @@ const latitude = mapObj.latitude;
 const longtitude = mapObj.longitude;
 const zoom = mapObj.zoom;
 const input = document.getElementById('search-input');
+let addPinObj;
 
 // Add marker function
 const addMarker = (props, map) => {
   const marker = new google.maps.Marker({
     position: props.coords,
-    map: map,
-    draggable: true
+    map: map
   });
 
   // Listen to click on marker
@@ -18,7 +18,11 @@ const addMarker = (props, map) => {
     // Marker info window
     const infoWindow = new google.maps.InfoWindow({
       position: mapsMouseEvent.latLng,
-      content: props.pinInfo.title + "<br />" + props.pinInfo.description + "<br /><img src=" + props.pinInfo.image + " width=100 height=100>"
+      content: `
+        ${props.pinInfo.title}<br />
+        ${props.pinInfo.description}<br />
+        <img src=${props.pinInfo.image} width=100 height=100>
+        <button onclick=${deletePin()}>Delete PIN</button>`
     });
     // infoWindow.close();
     infoWindow.open(map, marker);
@@ -54,31 +58,32 @@ function initAutocomplete (map) {
 
   // Set the data fields to return when the user selects a place.
   autocomplete.setFields(
-    ['address_components', 'geometry', 'name', 'place_id','photos']);
+    ['address_components', 'geometry', 'name', 'place_id', 'photos']);
 
     // Listen for the event fired when the user selects a prediction and retrieve more details for that place.
     autocomplete.addListener('place_changed', function() {
       const place = autocomplete.getPlace();
+      const bounds = new google.maps.LatLngBounds();
 
-      console.log('place',place.geometry.location.lat());
+      // Save pin info to addPinObj
+      addPinObj = {
+        lat: place.geometry.location.lat(),
+        lng: place.geometry.location.lng(),
+        title: place.name,
+        photo_url: $(place.photos[0].html_attributions[0]).attr('href')
+      };
+
       if (!place.geometry) {
         console.log("Returned place contains no geometry");
         return;
       }
-      const bounds = new google.maps.LatLngBounds();
 
-      const photos = place.photos;
-
-      if (!photos) {
-        return;
-      }
       const marker = new google.maps.Marker({
         map: map,
         position: place.geometry.location,
         title: place.name,
-        icon: photos[0].getUrl({maxWidth: 150, maxHeight: 150})
+        // icon: photos[0].getUrl({maxWidth: 150, maxHeight: 150})
       })
-
 
     if (place.geometry.viewport) {
       // Only geocodes have viewport.
@@ -99,7 +104,34 @@ function initMap() {
   // New map
   const map = new google.maps.Map(document.getElementById('map'), options);
 
+  loadPins(pinsArr, map);
   //loadPins(pinsArr, map);
   initAutocomplete(map);
-
 }
+
+function addPin() {
+  $.ajax({
+    url: `/maps/${mapObj.id}/addpin`,
+    method: "POST",
+    data: addPinObj
+  })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => console.log(err));
+};
+
+function deletePin() {
+  $.ajax({
+    url: `/maps/${mapObj.id}/deletepin`,
+    method: "POST",
+    data: deletePinObj
+  })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => console.log(err));
+};
+
+
+

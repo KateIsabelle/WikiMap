@@ -1,13 +1,16 @@
-const addPin = (db, pin) => {
-  const query = `
-    INSERT INTO pins (map_id, lat, lng)
-    VALUES ($1, $2, $3)
+const createPin = function (db, pin) {
+  let query = `
+    INSERT INTO pins (map_id, lat, lng, title, photo_url, description)
+    VALUES ($1, $2, $3, $4, $5, $6)
     RETURNING *;
-  `;
+    `;
   const values = [
     pin.map_id,
     pin.lat,
-    pin.lng
+    pin.lng,
+    pin.title,
+    pin.photo_url,
+    pin.description,
   ];
 
   return db
@@ -15,27 +18,6 @@ const addPin = (db, pin) => {
     .then((res) => {
       return res.rows;
     })
-    .catch((error) => console.log(error));
-}
-
-const createPin = function (parameters) {
-  let query = `
-    INSERT INTO pins (map_id, lat, lng, title, photo_url, description)
-    VALUES ($1, $2, $3, $4, $5, $6)
-    RETURNING *;
-    `;
-  const values = [
-    parameters.map_id,
-    parameters.lat,
-    parameters.lng,
-    parameters.title,
-    parameters.photo_url,
-    parameters.description,
-  ];
-
-  return db
-    .query(query, values)
-    .then((res) => res.json(res.rows))
     .catch((error) => console.log(error));
 };
 
@@ -50,4 +32,4 @@ const deletePin = function (pin_id, map_id) {
   return db.query(query, values).catch((error) => console.log(error));
 };
 
-module.exports = { addPin, createPin, deletePin };
+module.exports = { createPin, deletePin };

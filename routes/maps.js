@@ -92,15 +92,18 @@ module.exports = (db, apiKey) => {
   router.post("/:map_id/addpin", (req, res) => {
     console.log("==> POST /maps/:map_id/addpin -- Add a pin");
     const mapID = req.params.map_id;
+
     const pin = {
       map_id: mapID,
-      lat: 43,
-      lng: -70
+      lat: req.body.lat,
+      lng: req.body.lng,
+      title: req.body.title,
+      description: req.body.title,
+      photo_url: req.body.photo_url
     }
-    pinFns.addPin(db, pin)
-      .then((data) => {
-        console.log(data);
-      })
+
+    pinFns.createPin(db, pin)
+      .catch((err) => console.log(err));
 
     res.send('ok');
   });
