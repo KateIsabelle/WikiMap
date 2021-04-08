@@ -1,9 +1,3 @@
-const { Pool } = require('pg');
-const dbParams = require('./lib/db.js');
-const apiKey = require('./lib/api.js');
-const db = new Pool(dbParams);
-db.connect();
-
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 $(document).ready(function (e) {
@@ -14,66 +8,44 @@ $(document).ready(function (e) {
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
-const $likeButton = function (db) {
-
+const $likeButton = function () {
 
   $('.fa-heart').click(function () {
-    console.log("this val", $(this).val())
-    const $favourite = $(this).val();
-    // const data = { $favourite };
+    const $clickedMap = $(this).val();
     $(this).toggleClass('liked');
 
-    // if ($(this).hasClass('liked')) {
-    //   console.log("THIS IS LIKED")
-
-    //   $.ajax({
-    //     method: "POST",
-    //     url: "/api/favourites",
-    //     data: { map_id: $favourite },
-    //     success: function (newUnfav) {
-
-    //     },
-    //     error: function () {
-    //       alert('error on remove fav')
-    //     }
-    //   })
-
-    // } else {
-      console.log("THIS IS NOT LIKED")
-
-       return $.ajax({
-        method: "POST",
-        url: "/api/favourites",
-        data: { map_id: $favourite },
-        success: function (fav) {
-          console.log("success:", fav)
-          //if this map is already liked by user, delete row
-          let query;
-          if (fav.liked) {
-            query = `
+    return $.ajax({
+      method: "POST",
+      url: "/api/favourites",
+      data: { map_id: $clickedMap },
+      success: function (fav) {
+        console.log("success:", fav)
+        let query;
+        //if this map is already liked by user, delete row
+        if (fav.liked) {
+          query = `
             DELETE FROM favourites
             WHERE map_id = ${fav.mapId}
             AND user_id = ${fav.userId}
             `
-          } else {
-            //else, add row
-            query = `
+        } else {
+          //else, add row
+          query = `
             INSERT INTO favourites (map_id, user_id)
             VALUES (${fav.mapId}, ${fav.userId});
             `
-          }
-
-        },
-        error: function () {
-          alert('error on remove fav')
         }
-      })
-      .query(query)
-    // }
+        console.log("query:", query)
+        return query;
+      },
+      error: function () {
+        alert('error on fav ajax request')
+      }
+    })
+
 
   })
 }
-
 
 const getFirstMaps = (db) => {
   const query = `
