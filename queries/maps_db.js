@@ -1,5 +1,6 @@
 // Query maps table by ID
 const getMapById = (db, map_id) => {
+  console.log(map_id)
   const query = `
     SELECT * FROM maps
     WHERE id = $1
@@ -7,6 +8,7 @@ const getMapById = (db, map_id) => {
   return db
     .query(query, [map_id])
     .then((data) => {
+      console.log(data)
       const maps = data.rows[0];
       return {
         id: maps.id,
@@ -16,9 +18,6 @@ const getMapById = (db, map_id) => {
         zoom: maps.zoom,
       };
     })
-    .catch((err) => {
-      res.status(500).json({ error: err.message });
-    });
 };
 
 // Display Pins by map_id

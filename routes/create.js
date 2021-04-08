@@ -31,11 +31,10 @@ module.exports = (db, apiKey) => {
 
   //Create a new map
   router.post("/", (req, res) => {
-    const mapId = req.body.id;
+
     const user = req.session.user_id;
 
     const maps = {
-      mapId: req.body.id,
       user: user,
       title: req.body.title,
       description: req.body.description,
@@ -45,9 +44,8 @@ module.exports = (db, apiKey) => {
     console.log("CREATE.JS is being reached:", maps.latitude, maps.longitude)
 
     Promise.all([getUserById(db, user), createMap(db, maps)])
-      .then(([user, maps]) => {
-        const templateVars = { user, map: maps, pins: [] };
-        res.render("map_show", templateVars);
+      .then(([user, map]) => {
+        res.redirect(`/maps/${map.id}`);
       })
       .catch((error) => {
         console.log("error ==>", error);
