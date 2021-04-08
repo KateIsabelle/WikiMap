@@ -1,1 +1,49 @@
-@import 'global';
+@import "global";
+
+h3 {
+  font-size: 2.3rem;
+}
+.display_map {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+
+  p span {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #156b61;
+  }
+}
+
+.form-style {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.btn, button {
+  padding: 0.3rem;
+  border: solid $theme-dark 1px;
+  border-radius: 10px;
+  background-color: #2a9d8f;
+  padding: 0.6rem;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+}
+
+.btn:hover,
+.btn:focus,
+button:hover,
+button:focus {
+  cursor: pointer;
+  transition: all 0.4s ease-in;
+  background-color: #97dfd6;
+}
+.user {
+  color: #156b61;
+  text-align: left;
+}
+.user-map {
+  margin-bottom: 3rem;
+}
+

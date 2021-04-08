@@ -1,18 +1,78 @@
 @import 'global';
 
-.recent-maps {
+// .recent-maps {
+//   display: flex;
+//   flex-wrap: wrap;
+// }
+
+// .small-map {
+//   height: 200px;
+//   width: 90%;
+//   background-color: lightgrey;
+//   margin: 10px;
+// }
+
+// .inner-cont {
+//   width: 50%;
+//   font-size: 0.3em;
+// }
+
+// .k-cont {
+//   position: relative
+// }
+// .k-cont img {
+//   display: block
+// }
+// .k-cont .fa-heart {
+//   font-size: 2rem;
+//   position: absolute;
+//   bottom:0;
+//   left:50;
+// }
+
+.k-row {
   display: flex;
-  flex-wrap: wrap;
+  font-size: .8em;
+  justify-content: center;
 }
 
-.small-map {
-  height: 200px;
-  width: 90%;
-  background-color: lightgrey;
+.k-row a {
+  font-size: .75em
+}
+
+.sml-map {
+  position: relative;
   margin: 10px;
 }
 
-.inner-cont {
-  width: 50%;
-  font-size: 0.3em;
+.sml-map img {
+  display: block;
 }
+
+.sml-map .fa-heart {
+  font-size: 2rem;
+  position: absolute;
+  bottom: 0;
+  left: 50;
+}
+
+.unliked {
+  color: $theme-dark;
+}
+
+.liked {
+  color: $theme-red;
+  transform: scale(1.2);
+}
+
+.map p {
+  font-size: 2rem;
+}
+
+@media only screen and (min-width: 1024px) {
+
+.k-row {
+  font-size: 1.3rem;
+}
+}
+

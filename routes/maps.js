@@ -1,9 +1,9 @@
-
-const { Template } = require('ejs');
+const { Template } = require("ejs");
 const express = require("express");
 const router = express.Router();
 const dbFns = require('../queries/maps_db');
 const pinFns = require('../queries/pins_db');
+
 
 module.exports = (db, apiKey) => {
   // // GET /maps/
@@ -20,50 +20,50 @@ module.exports = (db, apiKey) => {
   //     });
   // });
 
-
+  //show form for map creation
   router.get("/new", (req, res) => {
-    console.log("==> GET /maps/create -- Create new map");
-    // if (!user) {
-    //   res.redirect("/login");
-    //   return;
-    // }
-    const templateVars = {
-      mapId: req.body.id,
-      user: req.session.user_id,
-      title: req.body.title,
-      description: req.body.description,
-      zoom: req.body.zoom,
-      latitude: req.body.latitude,
-      longitude: req.body.longitude
-    }
-    res.render('create', templateVars);
+    const userId = req.session.user_id;
+    dbUserFns
+      .getUserById(db, userId)
+      .then((user) => {
+        const templateVars = {
+          mapId: req.body.id,
+          user,
+          title: req.body.title,
+          description: req.body.description,
+          zoom: req.body.zoom,
+          latitude: req.body.latitude,
+          longitude: req.body.longitude,
+        };
+        res.render("create", templateVars);
+      })
+      .catch((error) => {
+        res.status(500).json(error);
+      });
   });
 
-  // POST /maps/create -- Create a new map
+  //Create a new map
   router.post("/", (req, res) => {
-    console.log("==> POST /maps/create -- Create new map");
     const mapId = req.body.id;
     const user = req.session.user_id;
-    // if (!user) {
-    //   res.redirect("/login");
-    //   return;
-    // }
     const maps = {
       mapId: req.body.id,
-      user: 1,
+      user: user,
       title: req.body.title,
       description: req.body.description,
-      zoom: req.body.zoom,
       latitude: req.body.latitude,
-      longitude: req.body.longitude
-    }
-    console.log(dbFns.createMap(db, maps));
-
-    const templateVars = {
-      map: maps,
-      pins: []
+      longitude: req.body.longitude,
     };
-    res.render('map_show', templateVars);
+
+    Promise.all([dbUserFns.getUserById(db, user), dbFns.createMap(db, maps)])
+      .then(([user, maps]) => {
+        const templateVars = { user, map: maps, pins: [] };
+        res.render("map_show", templateVars);
+      })
+      .catch((error) => {
+        console.log("error ==>", error);
+        res.status(500).json(error);
+      });
   });
 
   // GET /maps/:map_id  -- Display a map by id
@@ -84,6 +84,7 @@ module.exports = (db, apiKey) => {
       .catch((err) => {
         console.log(err);
       });
+    });
   });
 
   // POST /maps/:map_id/addpin -- Add a pin
@@ -116,14 +117,17 @@ module.exports = (db, apiKey) => {
 
   // POST /maps/:map_id/delete -- Delete a map
   router.post("/:map_id/delete", (req, res) => {
-    const mapId = req.body.id;
+    const map_id = req.body.id;
     const user = req.session.user_id;
-    if (mapId && user) {
-      dbfns.deleteMap(mapId, user);
-      res.redirect("/maps");
-    } else {
-      res.status(401).send("You cannot delete it");
-    }
+
+    Promise.all([
+      dbUserFns.getUserById(db, user),
+      dbFns.deleteMap(db, map_id, user),
+    ])
+      .then(res.redirect("/maps"))
+      .catch((error) => {
+        res.status(500).json(error);
+      });
   });
 
   // POST /maps/:map_id/edit -- Edit a map

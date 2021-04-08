@@ -17,8 +17,38 @@
 
   <body>
     <main>
-      <%- include('partials/_header') %>
-      <div class="wrapper container">
+      <header class="header-main">
+        <div class="top">
+          <a class="logo" href="/maps">WikiMaps</a>
+          <p>Logged In As <%= user.email %></p>
+        </div>
+
+        <div>
+          <nav>
+            <ul>
+              <% if (user) { %>
+              <li><a href="/users/<%= user.id %>">My profile</a></li>
+              <li><a href="/maps/new">Create map</a></li>
+              <li><a href="/maps/favourites">&#9733</a></li>
+              <li>
+                <form action="/logout" method="post">
+                  <input class="logout" type="submit" value="Logout" />
+                </form>
+              </li>
+
+              <% } else { %>
+
+              <li>
+                <a class="login" href="/login">Login</a>
+              </li>
+
+              <% } %>
+            </ul>
+          </nav>
+        </div>
+      </header>
+
+      <div class="container">
         <h3>Create A Map</h3>
         <form id="create_map" class="create_map" action="/maps" method="POST">
             <label for="title">title</label>
@@ -27,23 +57,28 @@
               name="title"
             />
             <label for="description">description</label>
-            <input
-              type="text"
-              name="description"
-            />
-            <label for="zoom">zoom</label>
-            <input type="number" name="zoom" />
+            <!-- <textarea
+              class="map-compose"
+              name="map-description"
+              id="map-description"
+              cols="30"
+              rows="5"
+            ></textarea> -->
+            <input type="text" name="description">
 
             <label for="latitude">latitude</label>
             <input type="number" step="any" name="latitude" />
 
             <label for="longitude">longitude</label>
             <input type="number" step="any" name="longitude" />
-            <button type="submit">Submit</button>
+            <button class="btn" type="submit">Submit</button>
           </div>
         </form>
       </div>
     </main>
+    <footer>
+    <div><p>&copy; girl power midterm</p></div>
+    </footer>
   </body>
 </html>
 

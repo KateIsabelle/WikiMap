@@ -1,0 +1,11 @@
+footer {
+  height: 100px;
+  background-color: $theme-color;
+  background-image: $bg-image;
+  border-top: $theme-dark 10px solid;
+  margin-top: 1rem;
+
+  p {
+    text-transform: uppercase;
+  }
+}
