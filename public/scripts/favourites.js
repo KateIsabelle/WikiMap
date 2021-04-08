@@ -1,3 +1,10 @@
+const { Pool } = require('pg');
+const dbParams = require('./lib/db.js');
+const apiKey = require('./lib/api.js');
+const db = new Pool(dbParams);
+db.connect();
+
+
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 $(document).ready(function (e) {
   $likeButton();
@@ -7,7 +14,7 @@ $(document).ready(function (e) {
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
-const $likeButton = function () {
+const $likeButton = function (db) {
 
 
   $('.fa-heart').click(function () {
@@ -34,21 +41,34 @@ const $likeButton = function () {
     // } else {
       console.log("THIS IS NOT LIKED")
 
-      $.ajax({
+       return $.ajax({
         method: "POST",
         url: "/api/favourites",
         data: { map_id: $favourite },
-        success: function (newFav) {
-          console.log("success:", newFav)
-          const query = `
-          SELECT
-          `
+        success: function (fav) {
+          console.log("success:", fav)
+          //if this map is already liked by user, delete row
+          let query;
+          if (fav.liked) {
+            query = `
+            DELETE FROM favourites
+            WHERE map_id = ${fav.mapId}
+            AND user_id = ${fav.userId}
+            `
+          } else {
+            //else, add row
+            query = `
+            INSERT INTO favourites (map_id, user_id)
+            VALUES (${fav.mapId}, ${fav.userId});
+            `
+          }
 
         },
         error: function () {
           alert('error on remove fav')
         }
       })
+      .query(query)
     // }
 
   })
