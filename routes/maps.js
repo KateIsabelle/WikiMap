@@ -1,14 +1,8 @@
 const { Template } = require("ejs");
 const express = require("express");
 const router = express.Router();
-<<<<<<< HEAD
-const dbFns = require("../queries/maps_db");
-const dbUserFns = require("../queries/users_db");
-const { getMapById, getPins } = require("../queries/maps_db");
-=======
 const dbFns = require('../queries/maps_db');
 const pinFns = require('../queries/pins_db');
->>>>>>> 775a1571c7ffc1001caac6486fb4f6d5cbba526d
 
 module.exports = (db, apiKey) => {
   // // GET /maps/
@@ -51,14 +45,10 @@ module.exports = (db, apiKey) => {
   router.post("/", (req, res) => {
     const mapId = req.body.id;
     const user = req.session.user_id;
-<<<<<<< HEAD
-
-=======
     // if (!user) {
     //   res.redirect("/login");
     //   return;
     // }
->>>>>>> 775a1571c7ffc1001caac6486fb4f6d5cbba526d
     const maps = {
       mapId: req.body.id,
       user: user,
@@ -80,19 +70,6 @@ module.exports = (db, apiKey) => {
   });
 
   // GET /maps/:map_id  -- Display a map by id
-<<<<<<< HEAD
-  router.get("/:map_id", (req, res) => {
-    console.log("==> GET /maps/:map_id  -- Display a map by id");
-
-    const mapID = req.params.map_id;
-    let templateVars = {};
-    getMapById(db, mapID).then((mapObj) => {
-      templateVars.map = mapObj;
-      getPins(db, mapID).then((pinsArray) => {
-        templateVars.pins = pinsArray;
-        templateVars.apiKey = apiKey;
-        res.render("map_show", templateVars);
-=======
   router.get('/:map_id', (req, res) => {
     const mapID = req.params.map_id;
     const getMapByIdPromise = dbFns.getMapById(db, mapID);
@@ -109,7 +86,6 @@ module.exports = (db, apiKey) => {
       })
       .catch((err) => {
         console.log(err);
->>>>>>> 775a1571c7ffc1001caac6486fb4f6d5cbba526d
       });
     });
   });
@@ -144,11 +120,8 @@ module.exports = (db, apiKey) => {
 
   // POST /maps/:map_id/delete -- Delete a map
   router.post("/:map_id/delete", (req, res) => {
-<<<<<<< HEAD
     const map = req.params.map_id;
-=======
     const mapId = req.body.id;
->>>>>>> 775a1571c7ffc1001caac6486fb4f6d5cbba526d
     const user = req.session.user_id;
 
     Promise.all([

@@ -1,41 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Home Page</title>
 
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+<head>
+  <title>Home Page</title>
 
-    <!-- Google fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
-  </head>
+  <!-- Google fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <body>
-    <main>
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <script type="text/javascript" src="/scripts/app.js"></script>
+</head>
 
-      <div class="container">
-        <h3>Create A Map</h3>
-        <div id="init-map"></div>
-        <!-- <form id="create_map" class="create_map" action="/maps" method="POST">
+<body>
+  <main>
+
+    <div class="container">
+      <h3>Create A Map</h3>
+      <div id="init-map"></div>
+      <form id="get-my-loc">
+
+      </form>
+      <!-- <form id="create_map" class="create_map" action="/maps" method="POST">
             <label for="title">title</label>
             <input
               type="text"
               name="title"
             />
             <label for="description">description</label> -->
-            <!-- <textarea
+      <!-- <textarea
               class="map-compose"
               name="map-description"
               id="map-description"
               cols="30"
               rows="5"
             ></textarea> -->
-            <!-- <input type="text" name="description">
+      <!-- <input type="text" name="description">
 
             <label for="latitude">latitude</label>
             <input type="number" step="any" name="latitude" />
@@ -43,17 +47,18 @@
             <label for="longitude">longitude</label>
             <input type="number" step="any" name="longitude" />
             <button class="btn" type="submit">Submit</button> -->
-          </div>
-        </form>
-      </div>
-    </main>
-    <footer>
-    <div><p>&copy; girl power midterm</p></div>
-    </footer>
-  </body>
+    </div>
+    </form>
+    </div>
+  </main>
+  <footer>
+    <div>
+      <p>&copy; girl power midterm</p>
+    </div>
+  </footer>
+</body>
 
-  <script type="text/javascript" src="/scripts/createMap.js"></script>
-  <script async src="https://maps.googleapis.com/maps/api/js?key=<%= apiKey %>&callback=initMap"></script>
+<script type="text/javascript" src="/scripts/createMap.js"></script>
+<script async src="https://maps.googleapis.com/maps/api/js?key=<%= apiKey %>&callback=initMap"></script>
 
-  </html>
-
+</html>
