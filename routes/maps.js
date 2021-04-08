@@ -78,7 +78,8 @@ module.exports = (db, apiKey) => {
         const templateVars = {
           map: mapObj,
           pins: pinsArr,
-          apiKey: apiKey
+          apiKey: apiKey,
+          user_id: req.session.user_id
         };
         res.render('map_show', templateVars);
       })

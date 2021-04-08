@@ -14,6 +14,14 @@
       margin:1em;
     }
   }
+
+  .pin-forms {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1em;
+  }
+
 }
 
 
@@ -46,5 +54,9 @@
 
 
 
+#infoWindow {
+  height: 120px;
+  width: 120px;
+}
 
 

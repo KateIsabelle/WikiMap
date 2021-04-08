@@ -26,8 +26,8 @@ const addMarker = (props, map) => {
     const contentString = `
       ${props.pinInfo.title}<br />
       ${props.pinInfo.description}<br />
-      <img src=${props.pinInfo.image} width=100 height=100>
-      <button onclick="${deletePin(props.pinInfo.id)}">Delete PIN</button>
+      <img id="infoWindow" src=${props.pinInfo.image}>
+      <button onclick="deletePin(${props.pinInfo.id})">Delete PIN</button>
     `;
     infoWindow = new google.maps.InfoWindow({
       position: mapsMouseEvent.latLng,
