@@ -20,26 +20,26 @@ module.exports = (db, apiKey) => {
   // });
 
   //show form for map creation
-  router.get("/new", (req, res) => {
-    const userId = req.session.user_id;
-    dbUserFns
-      .getUserById(db, userId)
-      .then((user) => {
-        const templateVars = {
-          mapId: req.body.id,
-          user,
-          title: req.body.title,
-          description: req.body.description,
-          zoom: req.body.zoom,
-          latitude: req.body.latitude,
-          longitude: req.body.longitude,
-        };
-        res.render("create", templateVars);
-      })
-      .catch((error) => {
-        res.status(500).json(error);
-      });
-  });
+  // router.get("/new", (req, res) => {
+  //   const userId = req.session.user_id;
+  //   dbUserFns
+  //     .getUserById(db, userId)
+  //     .then((user) => {
+  //       const templateVars = {
+  //         mapId: req.body.id,
+  //         user,
+  //         title: req.body.title,
+  //         description: req.body.description,
+  //         zoom: req.body.zoom,
+  //         latitude: req.body.latitude,
+  //         longitude: req.body.longitude,
+  //       };
+  //       res.render("create", templateVars);
+  //     })
+  //     .catch((error) => {
+  //       res.status(500).json(error);
+  //     });
+  // });
 
   // //Create a new map
   // router.post("/", (req, res) => {

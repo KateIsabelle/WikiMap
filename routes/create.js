@@ -22,7 +22,7 @@ module.exports = (db, apiKey) => {
           //   latitude: req.body.latitude,
           //   longitude: req.body.longitude,
         };
-        res.render("2-create", templateVars);
+        res.render("create", templateVars);
       })
       .catch((error) => {
         res.status(500).json(error);
@@ -53,6 +53,8 @@ module.exports = (db, apiKey) => {
         console.log("error ==>", error);
         res.status(500).json(error);
       });
+
+
   });
 
 
