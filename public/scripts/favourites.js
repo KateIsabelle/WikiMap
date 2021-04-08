@@ -8,22 +8,44 @@ $(document).ready(function (e) {
 
 
 const $likeButton = function () {
+
+
   $('.fa-heart').click(function () {
+    console.log("this val", $(this).val())
+    const $favourite = $(this).val();
+    // const data = { $favourite };
     $(this).toggleClass('liked');
-    console.log("this val",$(this).val())
 
     if ($(this).hasClass('liked')) {
       console.log("THIS IS LIKED")
+
       $.ajax({
-            url: "/",
-            method: "GET"
-          })
-            .then(tweets => renderTweets(tweets))
-            .catch(err => console.log(err))
-      //add an ajax that adds method 'post' into table favourites
+        method: "POST",
+        url: "/api/favourites",
+        data: { map_id: $favourite },
+        success: function (newUnfav) {
+
+        },
+        error: function () {
+          alert('error on remove fav')
+        }
+      })
 
     } else {
       console.log("THIS IS NOT LIKED")
+
+      $.ajax({
+        method: "POST",
+        url: "/api/favourites", //????? /api/favourites -- from backend?
+        data: { map_id: $favourite },
+        success: function (newFav) {
+          console.log("success:", newFav)
+
+        },
+        error: function () {
+          alert('error on remove fav')
+        }
+      })
     }
 
   })
@@ -68,3 +90,7 @@ const getFirstMaps = (db) => {
 //   WHERE user_id = ${myId}
 //   `
 // }
+
+// .then(tweets => renderTweets(tweets))
+//         .catch(err => console.log(err))
+      //add an ajax that adds method 'post' into table favourites
