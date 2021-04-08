@@ -1,17 +1,14 @@
-KATE AND RUOWEN, THIS IS A HEADER WE'LL BE USING AS WE DISCUSSED YOU ARE OK WITH IT. BUT YOU'LL NEED TO MAKE SURE USER IS DEFINED ON YOUR PAGES, I.E COOKIES ARE SET IN ORDER TO RENDER IT CORRECTLY. AS WE NEED THIS VERIFICATION. PLEASE SEE MY ROUTES (CREATE, USER) AS AN EXAMPLE HOW I DEFINE IT . I CHANGED THE FONT SIZE TO A SMALLER ONE, THIS WAY IT LOOKS GOOD BOTH ON DESKTOP AND MOBILE. AND USUALLY WE DON'T SET A LARGE FONT SIZE ON A BODY IN ORDER TO CHANGE IT AFTER WHENEVER WE LIKE FOR ALL OTHER ELEMENTS. DON'T BE SCARED IF YOUR OTHER ELEMENT MIGHT LOOK DIFFERENT (SMALLER FOR EXAMPLE OR LAYOUT IS MESSED UP, IT'S EASY TO CORRECT AND I'LL HELP IF NECESSARY )
-
-
 
 <header class="header-main">
   <div class="top">
     <a class="logo" href="/maps">WikiMaps</a>
-    <p>Logged In As <%= user.email %></p>
   </div>
 
   <div>
     <nav>
       <ul>
         <% if (user) { %>
+        <p>Logged In As <%= user.email %></p>
         <li><a href="/users/<%= user.id %>">My profile</a></li>
         <li><a href="/maps/new">Create map</a></li>
         <li><a href="/favourites">&#9733</a></li>
