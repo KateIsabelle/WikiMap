@@ -1,10 +1,36 @@
-
+let kMap, infoWindow;
 
 function initMap() {
-  let map = new google.maps.Map(document.getElementById("init-map"), {
-    center: { lat: -34.397, lng: 150.644 },
+  const options = {
+    center: { lat: 45.5017, lng: -73.5673 },
     zoom: 8,
-  });
+  }
+
+  kMap = new google.maps.Map(document.getElementById("init-map"), options);
+
+  infoWindow = new google.maps.InfoWindow
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (p) {
+      const position = {
+        lat: p.coords.latitude,
+        lng: p.coords.longitude
+      }
+      infoWindow.setPosition(position);
+      infoWindow.setContent('Your location!');
+      infoWindow.open(kMap)
+    }, function () {
+      handleLocationError('Geolocation service failed', map.center())
+    })
+  } else {
+    handleLocationError('No geolocation available', kMap.center())
+  }
+}
+
+function handleLocationError(content, position) {
+  infoWindow.setPosition(position);
+  infoWindow.setContent(content);
+  infoWindow.open(kMap)
 }
 
 // function initMap() {

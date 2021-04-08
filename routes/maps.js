@@ -88,7 +88,6 @@ module.exports = (db, apiKey) => {
         console.log(err);
       });
     });
-  });
 
   // POST /maps/:map_id/addpin -- Add a pin
   router.post("/:map_id/addpin", (req, res) => {
