@@ -60,6 +60,9 @@ const loadPins = (pinsArr, map) => {
 function initAutocomplete (map) {
   // Create the search box and link it to the UI element.
   const input = document.getElementById('my-input-searchbox');
+  const pinDesc = document.getElementById('pin-desc');
+  const pinImage = document.getElementById('pin-image');
+
   const autocomplete = new google.maps.places.Autocomplete(input);
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
 
@@ -82,8 +85,8 @@ function initAutocomplete (map) {
         },
         pinInfo: {
           title: place.name,
-          description: '', // to be added from the form input
-          photo_url: '' // to be added from the form input
+          description: pinDesc,
+          photo_url: pinImage
           // photo_url: $(place.photos[0].html_attributions[0]).attr('href')
         }
       };
