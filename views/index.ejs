@@ -34,9 +34,11 @@
       <% for (let map of maps) { %>
         <div class="k-cont">
           <div class="k-row"><%= map.title %> - <a href="#"><%= map.user_name %></a></div>
-            <div class="k-row sml-map">
-              <div class=""><img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= map.latitude %>,<%= map.longitude %>&zoom=13&size=600x300&maptype=roadmap&<%= map.markersQuery %>key=<%= apiKey %>">
-              <i class="fas fa-heart <%= map.myFavourites ? 'liked' : 'unliked'  %>"></i>
+
+          <div class="k-row sml-map">
+            <div class=""><img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= map.latitude %>,<%= map.longitude %>&zoom=13&size=400x200&maptype=roadmap&<%= map.markersQuery %>key=<%= apiKey %>">
+              <button class="fa-heart <%= map.myFavourites ? 'liked' : 'unliked'  %>" type="submit" value="<%= map.id %>"></button>
+
             </div>
           </div> <br>
           <% } %>
@@ -50,5 +52,5 @@
 </body>
 </html>
 
-
+<!-- <button type="submit" class="btn btn-success">     <i class="fa fa-arrow-circle-right fa-lg"></i> Next </button> -->
 

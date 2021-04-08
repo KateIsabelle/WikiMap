@@ -1,16 +1,33 @@
+
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-$(document).ready(function(e) {
-$likeButton();
+$(document).ready(function (e) {
+  $likeButton();
 
 
 });
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
-const $likeButton = function() {
-  $('.fa-heart').click(function() {
-    console.log("HEART CLICKED")
+const $likeButton = function () {
+
+  $('.fa-heart').click(function () {
+    const $clickedMap = $(this).val();
+    console.log("MapCLICKED__", $clickedMap)
     $(this).toggleClass('liked');
+
+    $.ajax({
+      method: "POST",
+      url: "/api/favourites",
+      data: { map_id: $clickedMap },
+      success: function (fav) {
+
+      },
+      error: function () {
+        alert('error on fav ajax request')
+      }
+    })
+
+
   })
 }
 
@@ -27,36 +44,9 @@ const getFirstMaps = (db) => {
   return db
     .query(query)
     .then(data => {
-      const mapsArray = data.rows;
-      for (let map of mapsArray) {
-        if (!map.markers[0]) {
-          map.markersQuery = "";
-          map.markers = [];
-        } else {
-          map.markersQuery = map.markers.map((m) => `markers=${m}`).join(`&`) + "&";
-        }
-      }
-      return mapsArray;
+
+      return
 
     })
 };
 
-
-// const loadTweets = function() {
-//   $.ajax({
-//     url: "/tweets",
-//     method: "GET"
-//   })
-//     .then(tweets => renderTweets(tweets))
-//     .catch(err => console.log(err))
-// }
-
-// const $getMyFavourites = (db) => {
-//   const myId = req.session.user_id;
-//   console.log("USER ID FROM COOKIE", myId);
-
-//   const query = `
-//   SELECT * FROM favourites
-//   WHERE user_id = ${myId}
-//   `
-// }
