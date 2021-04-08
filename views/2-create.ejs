@@ -21,15 +21,20 @@
 
     <div class="container">
       <h3>Create A Map</h3>
-      <div id="init-map"></div>
       <form id="get-my-loc">
-
       </form>
-      <form id="create_map" class="create_map" action="/maps" method="POST">
+
+      <form id="create_map" class="create_map" action="/new" method="POST">
+
+        <div id="init-map"></div>
+
         <label for="title">title</label>
         <input type="text" name="title" />
         <label for="description">description</label> -->
         <textarea class="map-compose" name="map-description" id="map-description" cols="30" rows="5"></textarea> -->
+        <input id="latitude" type="hidden" name="latitude" />
+        <input id="longitude" type="hidden" name="longitude" />
+
 
         <button class="btn" type="submit">Ready to add pins!</button>
     </div>

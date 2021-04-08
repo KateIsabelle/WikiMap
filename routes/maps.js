@@ -41,33 +41,36 @@ module.exports = (db, apiKey) => {
       });
   });
 
-  //Create a new map
-  router.post("/", (req, res) => {
-    const mapId = req.body.id;
-    const user = req.session.user_id;
-    // if (!user) {
-    //   res.redirect("/login");
-    //   return;
-    // }
-    const maps = {
-      mapId: req.body.id,
-      user: user,
-      title: req.body.title,
-      description: req.body.description,
-      latitude: req.body.latitude,
-      longitude: req.body.longitude,
-    };
+  // //Create a new map
+  // router.post("/", (req, res) => {
+  //   const mapId = req.body.id;
+  //   const user = req.session.user_id;
+  //   // if (!user) {
+  //   //   res.redirect("/login");
+  //   //   return;
+  //   // }
+  //   const maps = {
+  //     mapId: req.body.id,
+  //     user: user,
+  //     title: req.body.title,
+  //     description: req.body.description,
+  //     latitude: req.body.latitude,
+  //     longitude: req.body.longitude,
+  //   };
 
-    Promise.all([dbUserFns.getUserById(db, user), dbFns.createMap(db, maps)])
-      .then(([user, maps]) => {
-        const templateVars = { user, map: maps, pins: [] };
-        res.render("map_show", templateVars);
-      })
-      .catch((error) => {
-        console.log("error ==>", error);
-        res.status(500).json(error);
-      });
-  });
+  //   console.log(req.body.latitude);
+
+
+  //   Promise.all([dbUserFns.getUserById(db, user), dbFns.createMap(db, maps)])
+  //     .then(([user, maps]) => {
+  //       const templateVars = { user, map: maps, pins: [] };
+  //       res.render("map_show", templateVars);
+  //     })
+  //     .catch((error) => {
+  //       console.log("error ==>", error);
+  //       res.status(500).json(error);
+  //     });
+  // });
 
   // GET /maps/:map_id  -- Display a map by id
   router.get('/:map_id', (req, res) => {
