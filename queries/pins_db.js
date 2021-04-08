@@ -22,12 +22,12 @@ const createPin = function (db, pin) {
 };
 
 //maybe add user_id as well ?
-const deletePin = function (pin_id, map_id) {
+const deletePin = function (db, pin) {
   const query = `
     DELETE FROM pins
     WHERE id = $1 AND map_id = $2
     ;`;
-  const values = [pin_id, map_id];
+  const values = [pin.pin_id, pin.map_id];
 
   return db.query(query, values).catch((error) => console.log(error));
 };

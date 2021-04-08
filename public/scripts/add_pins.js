@@ -4,27 +4,36 @@ const latitude = mapObj.latitude;
 const longtitude = mapObj.longitude;
 const zoom = mapObj.zoom;
 const input = document.getElementById('search-input');
-let addPinObj;
+let addPinObj = {};
+let deleteObj = {};
+let infoWindow = null;
 
 // Add marker function
 const addMarker = (props, map) => {
   const marker = new google.maps.Marker({
     position: props.coords,
-    map: map
+    map: map,
+    id: props.pinInfo.id
   });
+  console.log('pin id', props.pinInfo.id)
+
 
   // Listen to click on marker
   marker.addListener('click', function (mapsMouseEvent) {
+    if (infoWindow) {
+      infoWindow.close();
+    }
     // Marker info window
-    const infoWindow = new google.maps.InfoWindow({
+    const contentString = `
+      ${props.pinInfo.title}<br />
+      ${props.pinInfo.description}<br />
+      <img src=${props.pinInfo.image} width=100 height=100>
+      <button data-id=${props.pinInfo.id} onclick="${deletePin(props.pinInfo.id)}">Delete PIN</button>
+    `;
+    infoWindow = new google.maps.InfoWindow({
       position: mapsMouseEvent.latLng,
-      content: `
-        ${props.pinInfo.title}<br />
-        ${props.pinInfo.description}<br />
-        <img src=${props.pinInfo.image} width=100 height=100>
-        <button onclick=${deletePin()}>Delete PIN</button>`
-    });
-    // infoWindow.close();
+      content: contentString
+    })
     infoWindow.open(map, marker);
   });
 }
@@ -38,6 +47,7 @@ const loadPins = (pinsArr, map) => {
         lng: pin.lng
       },
       pinInfo: {
+        id: pin.id,
         title: pin.title,
         description: pin.description,
         image: pin.photo_url
@@ -121,11 +131,11 @@ function addPin() {
     .catch((err) => console.log(err));
 };
 
-function deletePin() {
+function deletePin(id) {
   $.ajax({
     url: `/maps/${mapObj.id}/deletepin`,
     method: "POST",
-    data: deletePinObj
+    data: {pin_id: id}
   })
     .then((res) => {
       console.log(res);

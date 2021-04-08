@@ -108,6 +108,22 @@ module.exports = (db, apiKey) => {
     res.send('ok');
   });
 
+    // POST /maps/:map_id/delete -- Delete a pin
+    router.post("/:map_id/deletepin", (req, res) => {
+      console.log("==> POST /maps/:map_id/delete -- Delete a pin");
+      const mapID = req.params.map_id;
+console.log("*********", req.body);
+      const pin = {
+        map_id: mapID,
+        pin_id: req.body.pin_id
+      }
+
+      pinFns.deletePin(db, pin)
+        .catch((err) => console.log(err));
+
+      res.send('ok');
+    });
+
   // POST /maps/:map_id/edit -- Edit a map
   router.post("/:map_id/edit", (req, res) => {
     console.log("==> POST /maps/:map_id/edit -- Edit a map");
