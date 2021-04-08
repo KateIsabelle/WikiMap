@@ -20,7 +20,7 @@
   <%- include('partials/_header') %>
     <div class="display-map">
       <h3>
-        Add PINs to <%= map.title %> Map
+        <%= map.title %>
       </h3>
       <input type="hidden" value='<%- JSON.stringify(map) %>' id="mapObj">
       <input type="hidden" value='<%- JSON.stringify(pins) %>' id="pinsArr">
@@ -28,7 +28,10 @@
 
       </div>
 
-      <input id="my-input-searchbox" type="text" placeholder="Search here"></button>
+      <input id="my-input-searchbox" type="text" placeholder="Search here">
+      <input class="pin-form" type="text" placeholder="Title">
+      <input class="pin-form" type="text" placeholder="Description">
+      <input class="pin-form" type="text" placeholder="Image">
 
       <div class="map-buttons">
 

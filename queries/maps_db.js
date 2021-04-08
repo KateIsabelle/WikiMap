@@ -18,9 +18,7 @@ const getMapById = (db, map_id) => {
       }
     })
     .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
+      console.log(err);
     });
 };
 
@@ -37,14 +35,12 @@ const getPins = (db, map_id) => {
       return data.rows;
     })
     .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
+      console.log(err);
     });
 };
 
-const getAllMaps = function (maps, limit = 10) {
-  let query = `SELECT maps.* FROM maps
+const getAllMaps = function (db, maps, limit = 10) {
+  let queryString = `SELECT maps.* FROM maps
     JOIN users ON users.id = maps.user_id
     JOIN favourites ON maps.id = favourites.map_id
     WHERE TRUE;`;
@@ -66,12 +62,12 @@ const getAllMaps = function (maps, limit = 10) {
         LIMIT $${queryParams.length};
         `;
   return db
-    .query(query, queryParams)
+    .query(queryString, queryParams)
     .then((res) => res.rows)
     .catch((error) => console.log(error));
 };
 
-const getUserMaps = function (user_id) {
+const getUserMaps = function (db, user_id) {
   const query = `
     SELECT * FROM maps
     WHERE user_id = $1
@@ -93,30 +89,26 @@ const createMap = function (db, parameters) {
     parameters.user,
     parameters.title,
     parameters.description,
-    parameters.zoom,
+    13,
     parameters.latitude,
     parameters.longitude
   ];
   console.log('values ==>', values);
   return db
     .query(query, values)
-    .then((response) => {
-      console.log('response.rows[0] ===>', response.rows[0]);
-      return response.rows[0];
-    })
-    .catch((error) => {
-      console.log('error_message ===>', error);
-    });
+    .then((response) => response.rows[0]);
 };
 
-const deleteMap = function (map_id, user_id) {
+const deleteMap = function (db, map_id, user_id) {
+  console.log("map_id==>", map_id)
+  console.log("user_id ==>", user_id)
   const query = `
     DELETE FROM maps
-    WHERE map_id = $1 AND user_id = $2
+    WHERE id = $1 AND user_id = $2
     ;`;
   const values = [map_id, user_id];
 
-  return db.query(query, values).catch((error) => console.log(error));
+  return db.query(query, values);
 };
 
 module.exports = { getMapById, getPins, getAllMaps, getUserMaps, createMap, deleteMap };
