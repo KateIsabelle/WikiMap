@@ -1,9 +1,10 @@
 const { Template } = require("ejs");
 const express = require("express");
 const router = express.Router();
-const dbFns = require("../queries/maps_db");
-const dbUserFns = require("../queries/users_db");
-const { getMapById, getPins } = require("../queries/maps_db");
+// const dbFns = require("../queries/maps_db");
+const { getUserById } = require("../queries/users_db");
+const { createMap } = require('../queries/create_db')
+// const { getMapById, getPins } = require("../queries/maps_db");
 
 module.exports = (db, apiKey) => {
 
@@ -29,15 +30,15 @@ module.exports = (db, apiKey) => {
     dbUserFns
       .getUserById(db, userId)
       .then((user) => {
-        const templateVars = {
-          mapId: req.body.id,
-          user,
-          title: req.body.title,
-          description: req.body.description,
-          zoom: req.body.zoom,
-          latitude: req.body.latitude,
-          longitude: req.body.longitude,
-        };
+        // const templateVars = {
+        //   mapId: req.body.id,
+        //   user,
+        //   title: req.body.title,
+        //   description: req.body.description,
+        //   zoom: req.body.zoom,
+        //   latitude: req.body.latitude,
+        //   longitude: req.body.longitude,
+        // };
         res.render("2-create", templateVars);
       })
       .catch((error) => {
@@ -59,7 +60,7 @@ module.exports = (db, apiKey) => {
       longitude: req.body.longitude,
     };
 
-    Promise.all([dbUserFns.getUserById(db, user), dbFns.createMap(db, maps)])
+    Promise.all([getUserById(db, user), createMap(db, maps)])
       .then(([user, maps]) => {
         const templateVars = { user, map: maps, pins: [] };
         res.render("map_show", templateVars);
@@ -74,3 +75,31 @@ module.exports = (db, apiKey) => {
 
   return router;
 }
+
+//Create a new map
+router.post("/", (req, res) => {
+  const mapId = req.body.id;
+  const user = req.session.user_id;
+  // if (!user) {
+  //   res.redirect("/login");
+  //   return;
+  // }
+  const maps = {
+    mapId: req.body.id,
+    user: user,
+    title: req.body.title,
+    description: req.body.description,
+    latitude: req.body.latitude,
+    longitude: req.body.longitude,
+  };
+
+  Promise.all([getUserById(db, user), createMap(db, maps)])
+    .then(([user, maps]) => {
+      const templateVars = { user, map: maps, pins: [] };
+      res.render("map_show", templateVars);
+    })
+    .catch((error) => {
+      console.log("error ==>", error);
+      res.status(500).json(error);
+    });
+});

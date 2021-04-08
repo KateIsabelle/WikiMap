@@ -47,13 +47,6 @@ function handleLocationError(content, position) {
   // mapClick(map);
 // }
 
-// $(document).ready(function () {
-// $("form").serialize();
-// $(".create_map label").focus();
-// $(".map-compose").val("").keyup().focus();
-
-// });
-
 // const mapObj = JSON.parse($('#mapObj').val());
 // const pinsArr = JSON.parse($('#pinsArr').val());
 // const latitude = mapObj.latitude;
