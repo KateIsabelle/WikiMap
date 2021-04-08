@@ -74,14 +74,15 @@ function initAutocomplete (map) {
     // Listen for the event fired when the user selects a prediction and retrieve more details for that place.
     autocomplete.addListener('place_changed', function() {
       const place = autocomplete.getPlace();
-      const bounds = new google.maps.LatLngBounds();
+      //const bounds = new google.maps.LatLngBounds();
 
       // Save pin info to addPinObj
       addPinObj = {
         lat: place.geometry.location.lat(),
         lng: place.geometry.location.lng(),
         title: place.name,
-        photo_url: $(place.photos[0].html_attributions[0]).attr('href')
+        photo_url: ''
+        // photo_url: $(place.photos[0].html_attributions[0]).attr('href')
       };
 
       if (!place.geometry) {
@@ -96,27 +97,26 @@ function initAutocomplete (map) {
         // icon: photos[0].getUrl({maxWidth: 150, maxHeight: 150})
       })
 
-    if (place.geometry.viewport) {
-      // Only geocodes have viewport.
-      bounds.union(place.geometry.viewport);
-    } else {
-      bounds.extend(place.geometry.location);
-    }
-    map.fitBounds(bounds);
+    // if (place.geometry.viewport) {
+    //   // Only geocodes have viewport.
+    //   bounds.union(place.geometry.viewport);
+    // } else {
+    //   bounds.extend(place.geometry.location);
+    // }
+    //map.fitBounds(bounds);
   });
 }
 
 function initMap() {
   // Map options
   const options = {
-    zoom: 10,
+    zoom: zoom,
     center: { lat: latitude, lng: longtitude }
   }
   // New map
   const map = new google.maps.Map(document.getElementById('map'), options);
 
   loadPins(pinsArr, map);
-  //loadPins(pinsArr, map);
   initAutocomplete(map);
 }
 
