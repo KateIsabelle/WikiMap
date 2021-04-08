@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 const dbFns = require('../queries/maps_db');
 const pinFns = require('../queries/pins_db');
+const dbUserFns = require("../queries/users_db");
 
 
 module.exports = (db, apiKey) => {
