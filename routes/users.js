@@ -23,15 +23,13 @@ module.exports = (db, apiKey) => {
   });
 
   // GET /users/:id -- Display user profile
+
   router.get("/:id", (req, res) => {
     console.log("==> GET /users/:id -- Display user profile");
     const user = req.params.id;
-    console.log("user==>", user)
     req.session.user_id = req.params.id;
-    Promise.all([dbUserFns.getUserById(db, user), dbFns.getPinsForMaps(db, user)])
+    Promise.all([dbUserFns.getUserById(db, user), dbFns.getUserMaps(db, user)])
       .then(([user, maps]) => {
-        console.log("user==>", user)
-        console.log("map.markersQuery", map.markersQuery)
         const templateVars = { user, maps, apiKey: process.env.API_KEY };
         res.render("user", templateVars);
       })
@@ -39,20 +37,5 @@ module.exports = (db, apiKey) => {
         res.status(500).json(error);
       });
   });
-
-  // dbFns.getUserMaps(db, user),
-  // router.get("/:id", (req, res) => {
-  //   console.log("==> GET /users/:id -- Display user profile");
-  //   const user = req.params.id;
-  //   req.session.user_id = req.params.id;
-  //   Promise.all([dbUserFns.getUserById(db, user), dbFns.getUserMaps(db, user)])
-  //     .then(([user, maps]) => {
-  //       const templateVars = { user, maps, apiKey: process.env.API_KEY };
-  //       res.render("user", templateVars);
-  //     })
-  //     .catch((error) => {
-  //       res.status(500).json(error);
-  //     });
-  // });
   return router;
 };

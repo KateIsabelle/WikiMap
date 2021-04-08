@@ -51,7 +51,7 @@ const userFavouritesRoutes = require('./routes/favourites');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-app.use("/users", usersRoutes(db));
+app.use("/users", usersRoutes(db, apiKey));
 app.use("/maps", mapsRoutes(db, apiKey));
 app.use("/login", loginRoutes(db));
 app.use("/logout", logoutRoutes(db));

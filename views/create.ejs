@@ -28,7 +28,6 @@
             <ul>
               <% if (user) { %>
               <li><a href="/users/<%= user.id %>">My profile</a></li>
-              <li><a href="#search">Search Maps</a></li>
               <li><a href="/maps/new">Create map</a></li>
               <li><a href="/maps/favourites">&#9733</a></li>
               <li>
@@ -40,10 +39,7 @@
               <% } else { %>
 
               <li>
-                <a href="#search">Search Maps</a>
-              </li>
-              <li>
-                <a class="crumbs" href="/login">Login</a>
+                <a class="login" href="/login">Login</a>
               </li>
 
               <% } %>
@@ -52,7 +48,7 @@
         </div>
       </header>
 
-      <div class="wrapper container">
+      <div class="container">
         <h3>Create A Map</h3>
         <form id="create_map" class="create_map" action="/maps" method="POST">
             <label for="title">title</label>
@@ -80,6 +76,9 @@
         </form>
       </div>
     </main>
+    <footer>
+    <div><p>&copy; girl power midterm</p></div>
+    </footer>
   </body>
 </html>
 

@@ -38,7 +38,6 @@
 
 .k-row a {
   font-size: .75em
-
 }
 
 .sml-map {
@@ -58,11 +57,22 @@
 }
 
 .unliked {
-  color: $theme-dark
+  color: $theme-dark;
 }
 
 .liked {
   color: $theme-red;
   transform: scale(1.2);
- }
+}
+
+.map p {
+  font-size: 2rem;
+}
+
+@media only screen and (min-width: 1024px) {
+
+.k-row {
+  font-size: 1.3rem;
+}
+}
 

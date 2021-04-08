@@ -2,8 +2,8 @@
 
 header {
   height: 200px;
-  background-color: #2a9d8f;
-  background-image: url("https://www.transparenttextures.com/patterns/axiom-pattern.png");
+  background-color: $theme-color;
+  background-image: $bg-image;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -13,7 +13,6 @@ header {
 .logo {
   font-size: 2em;
   font-weight: bold;
-  // padding: .3em 0 0 .3em;
 }
 
 .topnav {
@@ -58,7 +57,7 @@ header a {
   ul li {
     list-style-type: none;
   }
-  ul li a, .logout {
+  ul li a {
     padding: 0.5rem;
     border: solid $theme-dark 1px;
     border-radius: 10px;
@@ -79,9 +78,11 @@ a:focus,
   background-color:  #97dfd6;
 }
 
-
 .logout {
-  border: none;
+  padding: 0.7rem;
+  border: solid $theme-dark 1px;
+  border-radius: 10px;
   background-color: inherit;
+  font-family: $font;
 }
 
