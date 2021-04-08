@@ -1,15 +1,24 @@
+
+
 function initMap() {
+  let map = new google.maps.Map(document.getElementById("init-map"), {
+    center: { lat: -34.397, lng: 150.644 },
+    zoom: 8,
+  });
+}
+
+// function initMap() {
   // Map options
-  const options = {
-    zoom: zoom,
-    center: { lat: latitude, lng: longtitude }
-  }
+  // const options = {
+  //   zoom: zoom,
+  //   center: { lat: latitude, lng: longtitude }
+  // }
   // New map
-  const map = new google.maps.Map(document.getElementById('map'), options);
+  // const map = new google.maps.Map(document.getElementById('map'), options);
 
   // loadPins(pinsArr, map);
   // mapClick(map);
-}
+// }
 
 // $(document).ready(function () {
 // $("form").serialize();
