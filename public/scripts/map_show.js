@@ -3,23 +3,36 @@ const pinsArr = JSON.parse($('#pinsArr').val());
 const latitude = mapObj.latitude;
 const longtitude = mapObj.longitude;
 const zoom = mapObj.zoom;
+const input = document.getElementById('search-input');
+let map;
+let newMarkerProps = {};
+let deleteObj = {};
+let infoWindow = null;
 
 // Add marker function
 const addMarker = (props, map) => {
   const marker = new google.maps.Marker({
     position: props.coords,
     map: map,
-    draggable: true
+    id: props.pinInfo.id,
+    animation: google.maps.Animation.DROP
   });
-
   // Listen to click on marker
   marker.addListener('click', function (mapsMouseEvent) {
+    if (infoWindow) {
+      infoWindow.close();
+    }
     // Marker info window
-    const infoWindow = new google.maps.InfoWindow({
+    const contentString = `
+      ${props.pinInfo.title}<br />
+      ${props.pinInfo.description}<br />
+      <img src=${props.pinInfo.image} width=100 height=100>
+      <button onclick="${deletePin(props.pinInfo.id)}">Delete PIN</button>
+    `;
+    infoWindow = new google.maps.InfoWindow({
       position: mapsMouseEvent.latLng,
-      content: props.pinInfo.title + "<br />" + props.pinInfo.description + "<br /><img src=" + props.pinInfo.image + " width=100 height=100>"
-    });
-    // infoWindow.close();
+      content: contentString
+    })
     infoWindow.open(map, marker);
   });
 }
@@ -33,6 +46,7 @@ const loadPins = (pinsArr, map) => {
         lng: pin.lng
       },
       pinInfo: {
+        id: pin.id,
         title: pin.title,
         description: pin.description,
         image: pin.photo_url
@@ -42,15 +56,59 @@ const loadPins = (pinsArr, map) => {
   }
 }
 
-// Listen to click on the map then add a marker
-const mapClick = (map) => {
-  google.maps.event.addListener(map, 'click',
-    function (event) {
-      // Add marker on the map
-      addMarker({ coords: event.latLng }, map);
-    }
-  )
-};
+
+function initAutocomplete (map) {
+  // Create the search box and link it to the UI element.
+  const input = document.getElementById('my-input-searchbox');
+  const autocomplete = new google.maps.places.Autocomplete(input);
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+
+  // Bias the SearchBox results towards current map's viewport.
+  autocomplete.bindTo('bounds', map);
+
+  // Set the data fields to return when the user selects a place.
+  autocomplete.setFields(
+    ['address_components', 'geometry', 'name', 'place_id', 'photos']);
+
+    // Listen for the event fired when the user selects a prediction and retrieve more details for that place.
+    autocomplete.addListener('place_changed', function() {
+      const place = autocomplete.getPlace();
+
+      // Save pin info to addPinObj
+      newMarkerProps = {
+        coords: {
+          lat: place.geometry.location.lat(),
+          lng: place.geometry.location.lng()
+        },
+        pinInfo: {
+          title: place.name,
+          description: '', // to be added from the form input
+          photo_url: '' // to be added from the form input
+          // photo_url: $(place.photos[0].html_attributions[0]).attr('href')
+        }
+      };
+
+      if (!place.geometry) {
+        console.log("Returned place contains no geometry");
+        return;
+      }
+
+      const marker = new google.maps.Marker({
+        map: map,
+        position: place.geometry.location,
+        title: place.name,
+        // icon: photos[0].getUrl({maxWidth: 150, maxHeight: 150})
+      })
+
+    // if (place.geometry.viewport) {
+    //   // Only geocodes have viewport.
+    //   bounds.union(place.geometry.viewport);
+    // } else {
+    //   bounds.extend(place.geometry.location);
+    // }
+    //map.fitBounds(bounds);
+  });
+}
 
 function initMap() {
   // Map options
@@ -59,11 +117,35 @@ function initMap() {
     center: { lat: latitude, lng: longtitude }
   }
   // New map
-  const map = new google.maps.Map(document.getElementById('map'), options);
+  map = new google.maps.Map(document.getElementById('map'), options);
 
   loadPins(pinsArr, map);
-  mapClick(map);
+  initAutocomplete(map);
 }
 
-// $(document).ready(function () {
-// });
+function addPin() {
+  $.ajax({
+    url: `/maps/${mapObj.id}/addpin`,
+    method: "POST",
+    data: newMarkerProps
+  })
+    .then((res) => {
+      addMarker(newMarkerProps, map);
+    })
+    .catch((err) => {
+      console.log(err);
+      // $('#error-msg').innerHTML = 'Something went wrong ...';
+    });
+};
+
+function deletePin(id) {
+  $.ajax({
+    url: `/maps/${mapObj.id}/deletepin`,
+    method: "POST",
+    data: {pin_id: id},
+  })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => console.log(err));
+};
