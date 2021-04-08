@@ -47,7 +47,9 @@ const logoutRoutes = require("./routes/logout");
 //K
 const mapIndexRoutes = require('./routes/maps_index');
 const userFavouritesRoutes = require('./routes/favourites');
+const createMapRoutes = require('./routes/create');
 const apiRoutes = require('./routes/api_favourites');
+
 
 
 
@@ -60,7 +62,9 @@ app.use("/logout", logoutRoutes(db));
 //K
 app.use("/maps", mapIndexRoutes(db, apiKey));
 app.use("/favourites", userFavouritesRoutes(db, apiKey));
+app.use("/create", createMapRoutes(db, apiKey));
 app.use("/api", apiRoutes(db));
+
 
 
 

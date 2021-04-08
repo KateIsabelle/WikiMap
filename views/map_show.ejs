@@ -20,14 +20,17 @@
   <%- include('partials/_header') %>
     <div class="display-map">
       <h3>
+
         <%= map.title %>
       </h3>
+
 
       <input type="hidden" value='<%- JSON.stringify(map) %>' id="mapObj">
       <input type="hidden" value='<%- JSON.stringify(pins) %>' id="pinsArr">
       <div id="map">
 
       </div>
+
       <% if (user_id) { %>
         <input id="my-input-searchbox" type="text" placeholder="Search here">
         <form class="pin-forms">
@@ -48,5 +51,6 @@
 <script type="text/javascript" src="/scripts/map_show.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= apiKey %>&libraries=places&callback=initMap" async
   defer></script>
+
 
 </html>
