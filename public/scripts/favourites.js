@@ -16,37 +16,40 @@ const $likeButton = function () {
     // const data = { $favourite };
     $(this).toggleClass('liked');
 
-    if ($(this).hasClass('liked')) {
-      console.log("THIS IS LIKED")
+    // if ($(this).hasClass('liked')) {
+    //   console.log("THIS IS LIKED")
+
+    //   $.ajax({
+    //     method: "POST",
+    //     url: "/api/favourites",
+    //     data: { map_id: $favourite },
+    //     success: function (newUnfav) {
+
+    //     },
+    //     error: function () {
+    //       alert('error on remove fav')
+    //     }
+    //   })
+
+    // } else {
+      console.log("THIS IS NOT LIKED")
 
       $.ajax({
         method: "POST",
         url: "/api/favourites",
         data: { map_id: $favourite },
-        success: function (newUnfav) {
-
-        },
-        error: function () {
-          alert('error on remove fav')
-        }
-      })
-
-    } else {
-      console.log("THIS IS NOT LIKED")
-
-      $.ajax({
-        method: "POST",
-        url: "/api/favourites", //????? /api/favourites -- from backend?
-        data: { map_id: $favourite },
         success: function (newFav) {
           console.log("success:", newFav)
+          const query = `
+          SELECT
+          `
 
         },
         error: function () {
           alert('error on remove fav')
         }
       })
-    }
+    // }
 
   })
 }
@@ -71,26 +74,3 @@ const getFirstMaps = (db) => {
     })
 };
 
-
-// const loadTweets = function() {
-//   $.ajax({
-//     url: "/tweets",
-//     method: "GET"
-//   })
-//     .then(tweets => renderTweets(tweets))
-//     .catch(err => console.log(err))
-// }
-
-// const $getMyFavourites = (db) => {
-//   const myId = req.session.user_id;
-//   console.log("USER ID FROM COOKIE", myId);
-
-//   const query = `
-//   SELECT * FROM favourites
-//   WHERE user_id = ${myId}
-//   `
-// }
-
-// .then(tweets => renderTweets(tweets))
-//         .catch(err => console.log(err))
-      //add an ajax that adds method 'post' into table favourites
