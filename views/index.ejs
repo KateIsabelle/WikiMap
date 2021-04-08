@@ -26,24 +26,30 @@
 </head>
 
 <body>
+<main>
   <%- include('partials/_header') %>
-    <h1>Recent Maps</h1>
+  <div class="container">
+    <h3>Recent Maps</h3>
     <div class="recent maps">
       <% for (let map of maps) { %>
         <div class="k-cont">
           <div class="k-row"><%= map.title %> - <a href="#"><%= map.user_name %></a></div>
+
           <div class="k-row sml-map">
             <div class=""><img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= map.latitude %>,<%= map.longitude %>&zoom=13&size=400x200&maptype=roadmap&<%= map.markersQuery %>key=<%= apiKey %>">
               <button class="fa-heart <%= map.myFavourites ? 'liked' : 'unliked'  %>" type="submit" value="<%= map.id %>"></button>
+
             </div>
-            </div> <br>
+          </div> <br>
           <% } %>
         </div>
     </div>
-
-
+  </div>
+</main>
+    <footer>
+      <div><p>&copy; girl power midterm</p></div>
+    </footer>
 </body>
-
 </html>
 
 <!-- <button type="submit" class="btn btn-success">     <i class="fa fa-arrow-circle-right fa-lg"></i> Next </button> -->

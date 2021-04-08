@@ -18,7 +18,7 @@
   <body>
     <header class="header-main">
     <div class="top">
-      <a class="logo" href="#home">WikiMaps</a>
+      <a class="logo" href="/maps">WikiMaps</a>
       <p class="current-user">Logged In As <%= user.email %></p>
     </div>
 
@@ -27,9 +27,8 @@
         <ul>
           <% if (user) { %>
           <li><a href="/users/<%= user.id %>">My profile</a></li>
-          <li><a href="#search">Search Maps</a></li>
           <li><a href="/maps/new">Create map</a></li>
-          <li><a href="/maps/favourites">&#9733</a></li>
+          <li><a href="/favourites">&#9733</a></li>
           <li>
             <form action="/logout" method="post">
               <input class="logout" type="submit" value="Logout" />
@@ -39,10 +38,7 @@
           <% } else { %>
 
           <li>
-            <a href="#search">Search Maps</a>
-          </li>
-          <li>
-            <a class="crumbs" href="/login">Login</a>
+            <a class="login" href="/login">Login</a>
           </li>
 
           <% } %>
@@ -53,7 +49,7 @@
 
     <main>
       <div class="wrapper container">
-        <h3 class="user"><%= user.name %></h3>
+        <h2 class="user"><%= user.name %></h2>
         <h3>My Maps</h3>
 
         <section class="display_map">
@@ -71,9 +67,9 @@
             <!-- call to Static Google Maps API -->
 
             <div>
-              <div class="user-map" id="map-1"><img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= map.latitude %>,<%= map.longitude %>&zoom=13&size=400x200&scale=2&maptype=roadmap&key=<%= apiKey %>&markers=size:mid%7Ccolor:0xFFFF00%7Clabel:C%7C%7C<%= map.latitude %>,<%= map.longitude %>">
+              <div class="user-map"><img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= map.latitude %>,<%= map.longitude %>&zoom=13&size=600x300&scale=2&maptype=roadmap&<%= map.markersQuery %>key=<%= apiKey %>">
+              </div>
             </div>
-
 
           <!-- form to update map -->
           <div class="form-style">
@@ -91,5 +87,8 @@
         </section>
       </div>
     </main>
+    <footer>
+      <div><p>&copy; girl power midterm</p></div>
+    </footer>
   </body>
 </html>
