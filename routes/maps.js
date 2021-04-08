@@ -20,12 +20,9 @@ module.exports = (db, apiKey) => {
   //     });
   // });
 
-//show form for map creation
+  //show form for map creation
   router.get("/new", (req, res) => {
-    console.log("==> GET /maps/create -- Create new map");
-
     const userId = req.session.user_id;
-
     dbUserFns
       .getUserById(db, userId)
       .then((user) => {
@@ -45,9 +42,8 @@ module.exports = (db, apiKey) => {
       });
   });
 
-//Create a new map
+  //Create a new map
   router.post("/", (req, res) => {
-    console.log("==> POST /maps/create -- Create new map");
     const mapId = req.body.id;
     const user = req.session.user_id;
 
@@ -66,7 +62,7 @@ module.exports = (db, apiKey) => {
         res.render("map_show", templateVars);
       })
       .catch((error) => {
-        console.log("error ==>", error)
+        console.log("error ==>", error);
         res.status(500).json(error);
       });
   });
@@ -94,8 +90,6 @@ module.exports = (db, apiKey) => {
 
   // POST /maps/:map_id/delete -- Delete a map
   router.post("/:map_id/delete", (req, res) => {
-    console.log("==> POST /maps/:map_id/delete -- Delete a map");
-
     const map = req.params.map_id;
     const user = req.session.user_id;
 

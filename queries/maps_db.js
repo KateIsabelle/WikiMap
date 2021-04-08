@@ -38,26 +38,29 @@ const getPins = (db, map_id) => {
     });
 };
 
-const getPinsForMaps = (db, user_id) => {
+const getMapsWithPins = (db, user_id) => {
   const query = `
-    SELECT array_agg(pins.lat || ',' || pins.lng) as markers FROM pins
-    JOIN maps ON pins.map_id = maps.id
-    JOIN users ON maps.user_id = users.id
-    WHERE user_id = $1
-    ;`;
-  return db.query(query, [user_id]).then((data) => {
+  SELECT maps.*, users.name as user_name, array_agg(pins.lat || ',' || pins.lng) as markers
+  FROM maps
+  JOIN users ON user_id = users.id
+  LEFT JOIN pins ON pins.map_id = maps.id
+  GROUP BY maps.id, users.name
+  ORDER BY maps.id DESC
+  ;`;
+  return db.query(query).then((data) => {
     const mapsArray = data.rows;
     for (let map of mapsArray) {
+      //if map.markers is null, set markersQuery key to equal empty string
+      //and map.markers to equal empty array
       if (!map.markers[0]) {
         map.markersQuery = "";
         map.markers = [];
+        //else, give markersQuery key the value of a string to be passed into src in ejs template
       } else {
         map.markersQuery =
           map.markers.map((m) => `markers=${m}`).join(`&`) + "&";
-          console.log("map.markersQuery ==>", map.markersQuery )
       }
     }
-    console.log("mapsArray==>", mapsArray)
     return mapsArray;
   });
 };
@@ -71,7 +74,6 @@ const getUserMaps = function (db, user_id) {
 };
 
 const createMap = function (db, parameters) {
-  console.log("parameters ==>", parameters);
   const query = `
   INSERT INTO maps (user_id, title, description, zoom, latitude, longitude)
   VALUES ($1, $2, $3, $4, $5, $6)
@@ -85,39 +87,16 @@ const createMap = function (db, parameters) {
     parameters.latitude,
     parameters.longitude,
   ];
-  console.log("values ==>", values);
   return db.query(query, values).then((response) => response.rows[0]);
 };
 
 const deleteMap = function (db, map_id, user_id) {
-  console.log("map_id==>", map_id);
-  console.log("user_id ==>", user_id);
   const query = `
   DELETE FROM maps
   WHERE id = $1 AND user_id = $2
   ;`;
   const values = [map_id, user_id];
-
   return db.query(query, values);
-};
-
-const getMyFavourites = (db, user_id) => {
-  //write query for favourites where userId is set in cookie
-  const query = `
-  SELECT * FROM favourites
-  WHERE user_id = $1
-  ;`;
-  return (
-    db
-      .query(query, [user_id])
-      //take only map id out of data.rows objects, put into array, and return array of map id's which are liked by this user
-      //return a promise
-      .then((data) => {
-        const favourites = data.rows;
-        const mapIds = favourites.map((fav) => fav.map_id);
-        return mapIds;
-      })
-  );
 };
 
 module.exports = {
@@ -126,5 +105,5 @@ module.exports = {
   getUserMaps,
   createMap,
   deleteMap,
-  getPinsForMaps,
+  getMapsWithPins,
 };
