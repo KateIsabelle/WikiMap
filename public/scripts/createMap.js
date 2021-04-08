@@ -2,7 +2,7 @@ let kMap, infoWindow;
 
 function initMap() {
   const options = {
-    center: { lat: 45.5017, lng: -73.5673 },
+    center: { lat: 43.6532, lng: -79.3832 }, // montreal: { lat: 45.5017, lng: -73.5673 },
     zoom: 8,
   }
 
@@ -18,9 +18,10 @@ function initMap() {
       }
       infoWindow.setPosition(position);
       infoWindow.setContent('Your location!');
-      infoWindow.open(kMap)
+      infoWindow.open(kMap);
+      kMap.setCenter(position);
     }, function () {
-      handleLocationError('Geolocation service failed', map.center())
+      handleLocationError('Geolocation service failed', kMap.center())
     })
   } else {
     handleLocationError('No geolocation available', kMap.center())
