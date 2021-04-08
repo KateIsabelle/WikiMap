@@ -44,7 +44,7 @@ module.exports = (db, apiKey) => {
     console.log("==> POST /maps/create -- Create new map");
     const mapId = req.body.id;
     const user = req.session.user_id;
-     // if (!user) {
+    // if (!user) {
     //   res.redirect("/login");
     //   return;
     // }
@@ -68,8 +68,6 @@ module.exports = (db, apiKey) => {
 
   // GET /maps/:map_id  -- Display a map by id
   router.get('/:map_id', (req, res) => {
-    console.log('==> GET /maps/:map_id  -- Display a map by id');
-
     const mapID = req.params.map_id;
     const getMapByIdPromise = dbFns.getMapById(db, mapID);
     const getPinsPromise = dbFns.getPins(db, mapID);
@@ -81,7 +79,7 @@ module.exports = (db, apiKey) => {
           pins: pinsArr,
           apiKey: apiKey
         };
-        res.render('add_pins', templateVars);
+        res.render('map_show', templateVars);
       })
       .catch((err) => {
         console.log(err);
@@ -90,9 +88,7 @@ module.exports = (db, apiKey) => {
 
   // POST /maps/:map_id/addpin -- Add a pin
   router.post("/:map_id/addpin", (req, res) => {
-    console.log("==> POST /maps/:map_id/addpin -- Add a pin");
     const mapID = req.params.map_id;
-
     const pin = {
       map_id: mapID,
       lat: req.body.lat,
@@ -101,39 +97,25 @@ module.exports = (db, apiKey) => {
       description: req.body.title,
       photo_url: req.body.photo_url
     }
-
     pinFns.createPin(db, pin)
       .catch((err) => console.log(err));
-
     res.send('ok');
   });
 
-    // POST /maps/:map_id/delete -- Delete a pin
-    router.post("/:map_id/deletepin", (req, res) => {
-      console.log("==> POST /maps/:map_id/delete -- Delete a pin");
-      const mapID = req.params.map_id;
-console.log("*********", req.body);
-      const pin = {
-        map_id: mapID,
-        pin_id: req.body.pin_id
-      }
-
-      pinFns.deletePin(db, pin)
-        .catch((err) => console.log(err));
-
-      res.send('ok');
-    });
-
-  // POST /maps/:map_id/edit -- Edit a map
-  router.post("/:map_id/edit", (req, res) => {
-    console.log("==> POST /maps/:map_id/edit -- Edit a map");
-
-
+  // POST /maps/:map_id/delete -- Delete a pin
+  router.post("/:map_id/deletepin", (req, res) => {
+    const mapID = req.params.map_id;
+    const pin = {
+      map_id: mapID,
+      pin_id: req.body.pin_id
+    }
+    pinFns.deletePin(db, pin)
+      .catch((err) => console.log(err));
+    res.send('ok');
   });
 
   // POST /maps/:map_id/delete -- Delete a map
   router.post("/:map_id/delete", (req, res) => {
-    console.log("==> POST /maps/:map_id/delete -- Delete a map");
     const mapId = req.body.id;
     const user = req.session.user_id;
     if (mapId && user) {
@@ -144,5 +126,11 @@ console.log("*********", req.body);
     }
   });
 
+  // POST /maps/:map_id/edit -- Edit a map
+  router.post("/:map_id/edit", (req, res) => {
+    console.log("==> POST /maps/:map_id/edit -- Edit a map");
+
+
+  });
   return router;
 };
