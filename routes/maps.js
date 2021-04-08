@@ -119,7 +119,7 @@ module.exports = (db, apiKey) => {
 
   // POST /maps/:map_id/delete -- Delete a map
   router.post("/:map_id/delete", (req, res) => {
-    const map_id = req.body.id;
+    const map_id = req.params.id;
     const user = req.session.user_id;
 
     Promise.all([
