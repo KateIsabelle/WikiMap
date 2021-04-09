@@ -36,9 +36,9 @@
           <div class="k-row"><%= map.title %> - <a href="#"><%= map.user_name %></a></div>
           <div class="k-row sml-map">
             <div class="">
-              <!-- <a href="/maps/<%= map.id %>"> -->
+              <a href="/maps/<%= map.id %>">
               <img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= map.latitude %>,<%= map.longitude %>&zoom=13&size=400x200&maptype=roadmap&<%= map.markersQuery %>key=<%= apiKey %>">
-              <!-- </a> -->
+              </a>
               <button class="like-btn <%= map.myFavourites ? 'liked' : 'unliked'  %>" type="submit" value="<%= map.id %>"><i class="fas fa-heart"></i></button>
             </div>
           </div>
