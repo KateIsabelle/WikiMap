@@ -9,37 +9,6 @@ const dbUserFns = require("../queries/users_db");
 
 
 module.exports = (db, apiKey) => {
-  // // GET /maps/
-  // router.get('/', (req, res) => {
-  //   db.query(`SELECT * FROM maps;`)
-  //     .then(data => {
-  //       const maps = data.rows;
-  //       res.json({ maps });
-  //     })
-  //     .catch(err => {
-  //       res
-  //         .status(500)
-  //         .json({ error: err.message });
-  //     });
-  // });
-
-
-
-
-  //Create a new map
-  router.post("/", (req, res) => {
-    const mapId = req.body.id;
-    const user = req.session.user_id;
-    const maps = {
-      mapId: req.body.id,
-      user: user,
-      title: req.body.title,
-      description: req.body.description,
-      latitude: req.body.latitude,
-      longitude: req.body.longitude,
-    };
-
-  })
 
 
     // GET /maps/:map_id  -- Display a map by id
