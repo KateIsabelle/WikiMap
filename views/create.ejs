@@ -22,38 +22,7 @@
 
 <body>
   <main>
-
-    <header class="header-main">
-      <div class="top">
-        <a class="logo" href="/maps">WikiMaps</a>
-        <p>Logged In As <%= user.email %></p>
-
-      </div>
-
-      <div>
-        <nav>
-          <ul>
-            <% if (user) { %>
-            <li><a href="/users/<%= user.id %>">My profile</a></li>
-            <li><a href="/maps/new">Create map</a></li>
-            <li><a href="/maps/favourites">&#9733</a></li>
-            <li>
-              <form action="/logout" method="post">
-                <input class="logout" type="submit" value="Logout" />
-              </form>
-            </li>
-
-            <% } else { %>
-
-            <li>
-              <a class="login" href="/login">Login</a>
-            </li>
-
-            <% } %>
-          </ul>
-        </nav>
-      </div>
-    </header>
+    <%- include('partials/_new-header') %>
 
     <div class="container">
       <h3>Create A Map</h3>

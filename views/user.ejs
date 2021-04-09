@@ -19,13 +19,13 @@
     <header class="header-main">
     <div class="top">
       <a class="logo" href="/maps">WikiMaps</a>
-      <p class="current-user">Logged In As <%= user.email %></p>
     </div>
 
     <div>
       <nav>
         <ul>
           <% if (user) { %>
+          <p class="current-user">Logged In As <%= user.email %></p>
           <li><a href="/users/<%= user.id %>">My profile</a></li>
           <li><a href="/maps/new">Create map</a></li>
           <li><a href="/favourites">&#9733</a></li>
