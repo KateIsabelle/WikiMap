@@ -25,3 +25,14 @@ VALUES (1, 5);
 INSERT INTO favourites (map_id, user_id)
 VALUES (2, 5);
 
+INSERT INTO favourites (map_id, user_id)
+VALUES (6, 2);
+
+INSERT INTO favourites (map_id, user_id)
+VALUES (7, 2);
+
+INSERT INTO favourites (map_id, user_id)
+VALUES (8, 2);
+
+INSERT INTO favourites (map_id, user_id)
+VALUES (9, 2);
