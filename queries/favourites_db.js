@@ -64,33 +64,4 @@ const getMyFavourites = (db, userId) => {
     })
 }
 
-
-
-
 module.exports = { getFavMaps };
-
-
-
-
-
-// const addFavourite = function (user_id, map_id) {
-//   const query = `
-//     INSERT INTO favourites (user_id, map_id)
-//     VALUES ($1, $2)
-//     RETURNING *;
-//     ;`;
-//   const values = [user_id, map_id];
-//   return db
-//     .query(query, values)
-//     .then((res) => res.json(res.rows))
-//     .catch((error) => console.log(error));
-// };
-
-
-// SELECT maps.*, users.name as user_name, array_agg(pins.lat || ',' || pins.lng) as markers
-// FROM maps
-// JOIN users ON user_id = users.id
-// LEFT JOIN pins ON pins.map_id = maps.id
-//WHERE users.id = ${userId}
-// GROUP BY maps.id, users.name
-// ORDER BY maps.id DESC

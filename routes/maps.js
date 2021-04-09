@@ -5,10 +5,7 @@ const dbFns = require('../queries/maps_db');
 const pinFns = require('../queries/pins_db');
 const dbUserFns = require("../queries/users_db");
 
-
-
 module.exports = (db, apiKey) => {
-
   // GET /maps/:map_id  -- Display a map by id
   router.get('/:map_id', (req, res) => {
     const mapID = req.params.map_id;
@@ -56,7 +53,6 @@ module.exports = (db, apiKey) => {
     res.send('ok');
   });
 
-
   // POST /maps/:map_id/delete -- Delete a pin
   router.post("/:map_id/deletepin", (req, res) => {
     const mapID = req.params.map_id;
@@ -86,8 +82,3 @@ module.exports = (db, apiKey) => {
   return router;
 
 };
-
-// POST /maps/:map_id/edit -- Edit a map
-router.post("/:map_id/edit", (req, res) => {
-  console.log("==> POST /maps/:map_id/edit -- Edit a map");
-});

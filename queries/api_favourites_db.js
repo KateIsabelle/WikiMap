@@ -27,10 +27,7 @@ const saveMyFavourite = (db, userId, mapId) => {
     .query(query)
 
     .then(data => {
-      // console.log("DATA ROWS___", data.rows);
       const favourite = data.rows;
-      console.log("fav___$$$", favourite)
-      // const mapIds = favourites.map(fav => fav.map_id)
       return favourite;
     })
 }
@@ -46,9 +43,7 @@ const deleteMyFavourite = (db, userId, mapId) => {
      .query(query)
 
      .then(data => {
-       // console.log("DATA ROWS___", data.rows);
        const favourite = data.rows;
-       console.log("deleted function fav$$$", favourite)
        // const mapIds = favourites.map(fav => fav.map_id)
        return favourite;
      })

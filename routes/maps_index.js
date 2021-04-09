@@ -6,7 +6,6 @@ const dbUserFns = require("../queries/users_db");
 module.exports = (db, apiKey) => {
 
   router.get('/', (req, res) => {
-    console.log("==> GET /maps -- display recent maps");
     //if user is not logged in, set userId to 0 (to avoid error)
     const userId = req.session.user_id ? req.session.user_id : 0;
 
@@ -19,7 +18,6 @@ module.exports = (db, apiKey) => {
         templateVars.maps = maps;
         templateVars.apiKey = apiKey;
         templateVars.user = user;
-        console.log('TemplateVars:', templateVars)
         res.render("index", templateVars);
       })
       .catch(err => {
