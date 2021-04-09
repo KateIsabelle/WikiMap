@@ -21,13 +21,26 @@ h3 {
   }
 }
 
-.create_map > input {
+.create_map > input, textarea {
   font    : 1.4em/1.5em "handwriting", cursive, sans-serif;
   border  : 2px solid #2A9D8F;
   padding : 0 10px;
   margin  : 0;
   width   : 80%;
   background : none;
+}
+
+  textarea {
+    height: 60px;
+    font-size: 1.4rem;
+    resize: none;
+    border: none;
+    outline: none;
+    overflow: hidden;
+    display: block;
+    border: 2px solid #2A9D8F;
+    margin: 1.2rem 0 1.2rem 0;
+    border-radius: 10px;
 }
 
 input {
