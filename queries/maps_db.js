@@ -1,6 +1,5 @@
 // Query maps table by ID
 const getMapById = (db, map_id) => {
-  console.log(map_id)
   const query = `
     SELECT * FROM maps
     WHERE id = $1
@@ -13,6 +12,7 @@ const getMapById = (db, map_id) => {
       return {
         id: maps.id,
         title: maps.title,
+        description: maps.description,
         latitude: maps.latitude,
         longitude: maps.longitude,
         zoom: maps.zoom,
