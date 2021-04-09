@@ -37,7 +37,10 @@
       </form>
       <div class="map-buttons">
         <button type="submit" value="add-pin" onclick="addPin()">Add PIN</button>
-        <button type="submit" value="delete">Delete Map</button>
+        <!-- <button type="submit" value="delete">Delete Map</button> -->
+        <form method="POST" action="/maps/<%= map.id %>/delete">
+              <button class="btn" type="submit">Delete Map</button>
+            </form>
       </div>
       <% } %>
 
