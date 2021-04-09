@@ -30,6 +30,15 @@ h3 {
   background : none;
 }
 
+input {
+  padding: 0.5rem;
+  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+  border-radius:10px;
+  display: inline-block;
+  width: 83%;
+  margin: 1rem;
+}
+
 input:focus {
   background   : rgba(0,0,0,.1);
   border-radius: 5px;

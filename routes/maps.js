@@ -23,25 +23,6 @@ module.exports = (db, apiKey) => {
   //     });
   // });
 
-
-
-
-  // //Create a new map
-  // router.post("/", (req, res) => {
-  //   const mapId = req.body.id;
-  //   const user = req.session.user_id;
-  //   const maps = {
-  //     mapId: req.body.id,
-  //     user: user,
-  //     title: req.body.title,
-  //     description: req.body.description,
-  //     latitude: req.body.latitude,
-  //     longitude: req.body.longitude,
-  //   };
-
-
-
-
   // GET /maps/:map_id  -- Display a map by id
   router.get('/:map_id', (req, res) => {
     const mapID = req.params.map_id;

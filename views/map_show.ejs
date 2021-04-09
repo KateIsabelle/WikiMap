@@ -34,9 +34,8 @@
       <% if (user_id) { %>
         <input id="my-input-searchbox" type="text" placeholder="Search here">
         <form class="pin-forms">
-          <input id="pin-title" type="text" placeholder="Title">
-          <input id="pin-desc" name="desc" type="text" placeholder="Description">
-          <input id="pin-image" name="image" type="text" placeholder="Image URL">
+          <input class="signup-text-input" id="pin-desc" name="desc" type="text">
+          <input class="signup-text-input" id="pin-image" name="image" type="text" placeholder="Image URL">
         </form>
         <div class="map-buttons">
           <button type="submit" value="add-pin" onclick="addPin()">Add PIN</button>
