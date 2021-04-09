@@ -5,7 +5,7 @@ INSERT INTO pins (map_id, lat, lng, title, photo_url, description) VALUES (5, 43
 (3, 43.82075517066625, -79.18256985643094, 'Terra Lumia', 'https://medias.momentfactory.com/2019/12/MF_TERRA-LUMINA_SELECT_BrunoDestombes_001-WS.jpg', 'An enchanted night walk into a bright future'),
 (3, 43.823092714652915, -79.18201322936233, 'Amur Tiger Exhibit', 'https://media-cdn.tripadvisor.com/media/photo-s/12/d6/00/be/toronto-zoo.jpg', 'TIGERSSS'),
 (3, 43.823092714652915, -79.18201322936233, 'Amur Tiger Exhibit', 'https://media-cdn.tripadvisor.com/media/photo-s/12/d6/00/be/toronto-zoo.jpg', 'TIGERSSS'),
-(9, 45.4810, -73.5524, 'Cycle 7 Bike Coop', 'https://momentummag.com/wp-content/uploads/2015/06/Advocacy_Bike_Shop_Girl_Bike_Retail_Nikke.jpg', 'Community-driven business where you can learnt o fix your own bike.'),
+(9, 45.49484770588356, -73.44845910130788, 'Cycle 7 Bike Coop', 'https://momentummag.com/wp-content/uploads/2015/06/Advocacy_Bike_Shop_Girl_Bike_Retail_Nikke.jpg', 'Community-driven business where you can learnt o fix your own bike.'),
 (9, 45.4779, -73.5747, 'Ma Bicyclette', 'https://toronto.citynews.ca/wp-content/blogs.dir/sites/10/2019/07/NYBZ267-710_2019_065333.jpg', 'Right by the canal, and they serve drinks!'),
 (9, 45.4889, -73.5657, 'Mecanocycle', 'https://mintprojects.ca/wp-content/uploads/2018/10/The-Bike-Shop-1-of-19.jpg', 'Knowledge of high-end bikes'),
 (9, 45.4522, -73.5938, 'Bicycles Eddy', 'https://boulmonk.ca/wp-content/uploads/eddy-101.jpg', 'Really friendly staff'),
