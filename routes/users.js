@@ -24,18 +24,31 @@ module.exports = (db, apiKey) => {
   // GET /users/:id -- Display user profile
   router.get("/:id", (req, res) => {
     const user = req.params.id;
-    req.session.user_id = req.params.id;
+    //if user is not logged in, set userId to 0 (to avoid error)
+    let userPromise;
+    if (req.session.user_id) {
+      userPromise = dbUserFns.getUserById(db, req.params.id);
+    } else {
+      userPromise = new Promise((resolve, _) => {
+        resolve(null);
+      });
+    }
+    const pinsPromise = dbFns.getMapsWithPins(db, user);
+
     Promise.all([
-      dbUserFns.getUserById(db, user),
-      dbFns.getMapsWithPins(db, user),
+      userPromise,
+      pinsPromise
     ])
       .then(([user, maps]) => {
+        console.log('rendering user with user = ', user);
         const templateVars = { user, maps, apiKey: process.env.API_KEY };
         res.render("user", templateVars);
       })
       .catch((error) => {
+        console.error("Failed to render users/:id page", error);
         res.status(500).json(error);
       });
   });
+
   return router;
 };

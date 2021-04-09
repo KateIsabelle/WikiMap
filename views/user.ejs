@@ -49,7 +49,9 @@
 
     <main>
       <div class="wrapper container">
-        <h2 class="user"><%= user.name %></h2>
+        <% if (user) { %>
+          <h2 class="user"><%= user.name %></h2>
+        <% } %>
         <h3>My Maps</h3>
 
         <section class="display_map">

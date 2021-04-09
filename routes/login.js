@@ -4,8 +4,8 @@ const router  = express.Router();
 module.exports = (db) => {
 
   // set cookie in 'login/:user_id'
-  router.get('/:id', (req, res) => {
-    req.session.user_id = req.params.id;
+  router.get('/', (req, res) => {
+    req.session.user_id = 2;
     res.redirect('/maps');
   });
   return router;
