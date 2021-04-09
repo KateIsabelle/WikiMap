@@ -18,28 +18,28 @@
 
 <body>
   <%- include('partials/_new-header') %>
-    <div class="display-map">
-      <h3>
-        <% if (user) { %>
-          <%= map.title %>
-      </h3>
+  <div class="display-map">
+    <h3>
+      <%= map.title %>
+    </h3>
 
 
-      <input type="hidden" value='<%- JSON.stringify(map) %>' id="mapObj">
-      <input type="hidden" value='<%- JSON.stringify(pins) %>' id="pinsArr">
-      <div id="map">
+    <input type="hidden" value='<%- JSON.stringify(map) %>' id="mapObj">
+    <input type="hidden" value='<%- JSON.stringify(pins) %>' id="pinsArr">
+    <div id="map">
 
+    </div>
+    <% if (user) { %>
+      <input id="my-input-searchbox" type="text" placeholder="Search here">
+      <form class="pin-forms">
+        <input class="signup-text-input" id="pin-desc" name="desc" type="text" placeholder="Enter PIN Description">
+        <input class="signup-text-input" id="pin-image" name="image" type="text" placeholder="Enter Image URL">
+      </form>
+      <div class="map-buttons">
+        <button type="submit" value="add-pin" onclick="addPin()">Add PIN</button>
+        <button type="submit" value="delete">Delete Map</button>
       </div>
-        <input id="my-input-searchbox" type="text" placeholder="Search here">
-        <form class="pin-forms">
-          <input class="signup-text-input" id="pin-desc" name="desc" type="text" placeholder="Enter PIN Description">
-          <input class="signup-text-input" id="pin-image" name="image" type="text" placeholder="Enter Image URL">
-        </form>
-        <div class="map-buttons">
-          <button type="submit" value="add-pin" onclick="addPin()">Add PIN</button>
-          <button type="submit" value="delete">Delete Map</button>
-        </div>
-        <% } %>
+      <% } %>
 
     </div>
 
