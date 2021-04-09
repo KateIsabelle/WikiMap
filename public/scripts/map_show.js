@@ -4,10 +4,9 @@ const latitude = mapObj.latitude;
 const longtitude = mapObj.longitude;
 const zoom = mapObj.zoom;
 const input = document.getElementById('search-input');
-
+const markerMap = {};
 let map;
 let newMarkerProps = {};
-
 let deleteObj = {};
 let infoWindow = null;
 
@@ -19,6 +18,9 @@ const addMarker = (props, map) => {
     id: props.pinInfo.id,
     animation: google.maps.Animation.DROP
   });
+
+  // add marker to global hash map
+  markerMap[props.pinInfo.id] = marker;
 
   // Listen to click on marker
   marker.addListener('click', function (mapsMouseEvent) {
@@ -61,12 +63,9 @@ const loadPins = (pinsArr, map) => {
   }
 }
 
-
-
 function initAutocomplete (map) {
   // Create the search box and link it to the UI element.
   const input = document.getElementById('my-input-searchbox');
-
 
   const autocomplete = new google.maps.places.Autocomplete(input);
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
@@ -82,8 +81,7 @@ function initAutocomplete (map) {
     autocomplete.addListener('place_changed', function() {
       const place = autocomplete.getPlace();
 
-
-      // Save pin info to addPinObj
+      // Save pin info to newMarkerProps
       newMarkerProps = {
         coords: {
           lat: place.geometry.location.lat(),
@@ -91,9 +89,7 @@ function initAutocomplete (map) {
         },
         pinInfo: {
           title: place.name
-          // photo_url: $(place.photos[0].html_attributions[0]).attr('href')
         }
-
       };
 
       if (!place.geometry) {
@@ -104,11 +100,8 @@ function initAutocomplete (map) {
       const marker = new google.maps.Marker({
         map: map,
         position: place.geometry.location,
-        title: place.name,
-        // icon: photos[0].getUrl({maxWidth: 150, maxHeight: 150})
-      })
-
-
+        title: place.name
+      });
   });
 }
 
@@ -135,7 +128,6 @@ function addPin() {
     url: `/maps/${mapObj.id}/addpin`,
     method: "POST",
     data: newMarkerProps
-
   })
     .then((res) => {
       console.log(res);
@@ -148,16 +140,20 @@ function addPin() {
 
 };
 
-function deletePin(id) {
+function deletePin(pinId) {
   $.ajax({
     url: `/maps/${mapObj.id}/deletepin`,
     method: "POST",
 
-    data: {pin_id: id},
+    data: {pin_id: pinId},
 
   })
     .then((res) => {
-      console.log(res);
+      if(res == 'ok') {
+        markerMap[pinId].setMap(null);
+      } else {
+        console.error(`Failed to delete marker because res is ${res} instead of 'ok'`);
+      }
     })
     .catch((err) => console.log(err));
 };

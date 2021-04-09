@@ -17,7 +17,7 @@
 </head>
 
 <body>
-  <%- include('partials/_header') %>
+  <%- include('partials/_new-header') %>
     <div class="display-map">
       <h3>
 
@@ -31,7 +31,7 @@
 
       </div>
 
-      <% if (user_id) { %>
+      <% if (user) { %>
         <input id="my-input-searchbox" type="text" placeholder="Search here">
         <form class="pin-forms">
           <input class="signup-text-input" id="pin-desc" name="desc" type="text">
