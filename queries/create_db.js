@@ -9,7 +9,7 @@ const createMap = function (db, parameters) {
     parameters.user,
     parameters.title,
     parameters.description,
-    13,
+    parameters.zoom,
     parameters.latitude,
     parameters.longitude,
   ];

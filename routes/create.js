@@ -36,7 +36,6 @@ module.exports = (db, apiKey) => {
       latitude: req.body.latitude,
       longitude: req.body.longitude,
     };
-console.log('maps',req.body)
     Promise.all([getUserById(db, user), createMap(db, maps)])
       .then(([user, map]) => {
         res.redirect(`/maps/${map.id}`);

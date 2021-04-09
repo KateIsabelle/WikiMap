@@ -3,7 +3,6 @@ const db = require("../server");
 
 //Query maps table and accompanying pin info
 const getFavMaps = (db, userId) => {
-  console.log('=======userid', userId);
   //write query for map data and pins associated with each map
   const query = `
    SELECT maps.*, users.name as user_name, array_agg(pins.lat || ',' || pins.lng) as markers
@@ -23,8 +22,6 @@ const getFavMaps = (db, userId) => {
 
         //once we have favourites data, then we can check in mapsArray loop if map is inside of favData array
         .then((favData) => {
-          console.log('favdata=',favData);
-          console.log('mapsArray', mapsArray);
           const likedMaps = [];
           for (let map of mapsArray) {
             //if map.markers is null, set markersQuery key to equal empty string
@@ -67,33 +64,4 @@ const getMyFavourites = (db, userId) => {
     })
 }
 
-
-
-
 module.exports = { getFavMaps };
-
-
-
-
-
-// const addFavourite = function (user_id, map_id) {
-//   const query = `
-//     INSERT INTO favourites (user_id, map_id)
-//     VALUES ($1, $2)
-//     RETURNING *;
-//     ;`;
-//   const values = [user_id, map_id];
-//   return db
-//     .query(query, values)
-//     .then((res) => res.json(res.rows))
-//     .catch((error) => console.log(error));
-// };
-
-
-// SELECT maps.*, users.name as user_name, array_agg(pins.lat || ',' || pins.lng) as markers
-// FROM maps
-// JOIN users ON user_id = users.id
-// LEFT JOIN pins ON pins.map_id = maps.id
-//WHERE users.id = ${userId}
-// GROUP BY maps.id, users.name
-// ORDER BY maps.id DESC

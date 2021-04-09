@@ -7,7 +7,6 @@ const getMapById = (db, map_id) => {
   return db
     .query(query, [map_id])
     .then((data) => {
-      console.log(data)
       const maps = data.rows[0];
       return {
         id: maps.id,

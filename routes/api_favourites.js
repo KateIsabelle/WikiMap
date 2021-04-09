@@ -13,10 +13,8 @@ module.exports = (db) => {
     const mapId = Number(req.body.map_id)
     let liked = false;
 
-    // console.log("user id:", userId, "map id: ", mapId)
     getMyFavourites(db, userId, mapId)
       .then((myFavs) => {
-        console.log("myFavs___:", myFavs, "this map id:", mapId)
         if (myFavs.length !== 0) {
           console.log("fav is already in db", myFavs.length)
           deleteMyFavourite(db, userId, mapId)
@@ -36,9 +34,6 @@ module.exports = (db) => {
 
             })
         }
-
-
-
       })
       .catch(err => {
         res
@@ -46,12 +41,5 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   })
-
   return router
 };
-
-
-
-
-
-
