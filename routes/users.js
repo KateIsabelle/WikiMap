@@ -24,7 +24,7 @@ module.exports = (db, apiKey) => {
   // GET /users/:id -- Display user profile
   router.get("/:id", (req, res) => {
     const user = req.params.id;
-    //if user is not logged in, set userId to 0 (to avoid error)
+
     let userPromise;
     if (req.session.user_id) {
       userPromise = dbUserFns.getUserById(db, req.params.id);

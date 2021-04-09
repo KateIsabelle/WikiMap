@@ -15,7 +15,7 @@ const getMapById = (db, map_id) => {
         description: maps.description,
         latitude: maps.latitude,
         longitude: maps.longitude,
-        zoom: maps.zoom,
+        zoom: maps.zoom
       };
     })
 
