@@ -36,6 +36,7 @@
       <div class="container">
         <h3>My Favourites</h3>
         <div class="recent maps">
+          <% if (user) { %>
           <% for (let map of maps) { %>
           <div class="k-cont">
             <div class="k-row">
@@ -53,6 +54,7 @@
             </div>
             <br />
           </div>
+          <% } %>
           <% } %>
         </div>
       </div>

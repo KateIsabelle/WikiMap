@@ -1,38 +1,37 @@
 const express = require("express");
 const router = express.Router();
 const { getFavMaps } = require('../queries/favourites_db');
+const dbUserFns = require("../queries/users_db");
 
 module.exports = (db, apiKey) => {
+  //==> GET /maps -- display recent maps
+  router.get('/', (req, res) => {
+    let userPromise;
+    if (req.session.user_id) {
+      userPromise = dbUserFns.getUserById(db, req.session.user_id);
+    } else {
+      return res.redirect('/maps');
+    }
+    const getFavMapsPromise = getFavMaps(db, req.session.user_id);
 
-  router.get('/', (req,res) => {
-  console.log("==> GET /maps -- display recent maps");
-  //if user is not logged in, set userId to 0 (to avoid error)
-  const userId = req.session.user_id ? req.session.user_id : 0;
-  if (!userId) {
-    return res.redirect('/maps')
-  }
+    Promise.all([userPromise, getFavMapsPromise])
+      .then(([user, maps]) => {
+        let templateVars = {};
+        templateVars.user = user;
+        templateVars.maps = maps;
+        templateVars.apiKey = apiKey;
+        res.render("favourites", templateVars);
+      })
 
-    getFavMaps(db, userId)
-    .then((maps) => {
-
-      console.log("INFO:", maps)
-      let templateVars = {};
-      templateVars.user = userId;
-      templateVars.maps = maps;
-      templateVars.apiKey = apiKey;
-      // templateVars.user = userId; >>>>>>>
-      res.render("favourites", templateVars);
-    })
-
-    .catch(err => {
-      res
-      .status(500)
-      .json({ error: err.message });
-    });
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
 
   })
 
-return router
+  return router
 };
 
 

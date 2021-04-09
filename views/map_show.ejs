@@ -20,8 +20,8 @@
   <%- include('partials/_new-header') %>
     <div class="display-map">
       <h3>
-
-        <%= map.title %>
+        <% if (user) { %>
+          <%= map.title %>
       </h3>
 
 
@@ -30,12 +30,10 @@
       <div id="map">
 
       </div>
-
-      <% if (user) { %>
         <input id="my-input-searchbox" type="text" placeholder="Search here">
         <form class="pin-forms">
-          <input class="signup-text-input" id="pin-desc" name="desc" type="text">
-          <input class="signup-text-input" id="pin-image" name="image" type="text" placeholder="Image URL">
+          <input class="signup-text-input" id="pin-desc" name="desc" type="text" placeholder="Enter PIN Description">
+          <input class="signup-text-input" id="pin-image" name="image" type="text" placeholder="Enter Image URL">
         </form>
         <div class="map-buttons">
           <button type="submit" value="add-pin" onclick="addPin()">Add PIN</button>
