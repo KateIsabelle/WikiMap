@@ -64,30 +64,48 @@ module.exports = (db, apiKey) => {
       res.send('ok');
     });
 
-    // POST /maps/:map_id/delete -- Delete a map
-    router.post("/:map_id/delete", (req, res) => {
+    // // POST /maps/:map_id/delete -- Delete a map
+    // router.post("/:map_id/delete", (req, res) => {
 
-      const map_id = req.params.id;
+    //   const map_id = req.params.id;
 
-      const user = req.session.user_id;
+    //   const user = req.session.user_id;
 
-      Promise.all([
-        dbUserFns.getUserById(db, user),
-        dbFns.deleteMap(db, map_id, user),
-      ])
-        .then(res.redirect("/maps"))
-        .catch((error) => {
-          res.status(500).json(error);
-        });
-    });
+    //   Promise.all([
+    //     dbUserFns.getUserById(db, user),
+    //     dbFns.deleteMap(db, map_id, user),
+    //   ])
+    //     .then(res.redirect("/maps"))
+    //     .catch((error) => {
+    //       res.status(500).json(error);
+    //     });
+    // });
 
-    // POST /maps/:map_id/edit -- Edit a map
-    router.post("/:map_id/edit", (req, res) => {
-      console.log("==> POST /maps/:map_id/edit -- Edit a map");
+    // // POST /maps/:map_id/edit -- Edit a map
+    // router.post("/:map_id/edit", (req, res) => {
+    //   console.log("==> POST /maps/:map_id/edit -- Edit a map");
 
 
-    });
+    // });
+      // POST /maps/:map_id/delete -- Delete a map
+  router.post("/:map_id/delete", (req, res) => {
+    const map = req.params.map_id;
+    const user = req.session.user_id;
+
+    Promise.all([
+      dbUserFns.getUserById(db, user),
+      dbFns.deleteMap(db, map, user),
+    ])
+      .then(res.redirect("/maps"))
+      .catch((error) => {
+        res.status(500).json(error);
+      });
+  });
     return router;
 
   };
 
+  // POST /maps/:map_id/edit -- Edit a map
+  router.post("/:map_id/edit", (req, res) => {
+    console.log("==> POST /maps/:map_id/edit -- Edit a map");
+  });
