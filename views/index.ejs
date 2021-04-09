@@ -34,11 +34,12 @@
       <% for (let map of maps) { %>
         <div class="k-cont">
           <div class="k-row"><%= map.title %> - <a href="#"><%= map.user_name %></a></div>
-          <a href="/maps/<%= map.id %>">
           <div class="k-row sml-map">
-            <div class=""><img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= map.latitude %>,<%= map.longitude %>&zoom=13&size=400x200&maptype=roadmap&<%= map.markersQuery %>key=<%= apiKey %>">
-              <button class="fa-heart <%= map.myFavourites ? 'liked' : 'unliked'  %>" type="submit" value="<%= map.id %>"></button>
-            </a>
+            <div class="">
+              <a href="/maps/<%= map.id %>">
+              <img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= map.latitude %>,<%= map.longitude %>&zoom=13&size=400x200&maptype=roadmap&<%= map.markersQuery %>key=<%= apiKey %>">
+              </a>
+              <button class="like-btn <%= map.myFavourites ? 'liked' : 'unliked'  %>" type="submit" value="<%= map.id %>"><i class="fas fa-heart"></i></button>
             </div>
           </div>
 

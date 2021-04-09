@@ -1,35 +1,5 @@
 @import 'global';
 
-// .recent-maps {
-//   display: flex;
-//   flex-wrap: wrap;
-// }
-
-// .small-map {
-//   height: 200px;
-//   width: 90%;
-//   background-color: lightgrey;
-//   margin: 10px;
-// }
-
-// .inner-cont {
-//   width: 50%;
-//   font-size: 0.3em;
-// }
-
-// .k-cont {
-//   position: relative
-// }
-// .k-cont img {
-//   display: block
-// }
-// .k-cont .fa-heart {
-//   font-size: 2rem;
-//   position: absolute;
-//   bottom:0;
-//   left:50;
-// }
-
 .k-row {
   display: flex;
   font-size: .8em;
@@ -40,27 +10,34 @@
   font-size: .75em
 }
 
-.sml-map {
-  position: relative;
-  margin: 10px;
-}
+// .sml-map {
+//   position: relative;
+//   margin: 10px;
+// }
 
-.sml-map img {
-  display: block;
-}
+// .sml-map img {
+//   display: block;
+// }
 
-.sml-map .fa-heart {
+// .sml-map .fa-heart {
+//   font-size: 2rem;
+//   position: absolute;
+//   bottom: 0;
+//   left: 50;
+// }
+
+.like-btn {
   font-size: 2rem;
-  position: absolute;
-  bottom: 0;
-  left: 50;
+  border:none;
 }
 
 .unliked {
+  background: #EEE;
   color: $theme-dark;
 }
 
 .liked {
+  background: #EEE;
   color: $theme-red;
   transform: scale(1.2);
 }
