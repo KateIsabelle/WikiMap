@@ -31,8 +31,6 @@ module.exports = (db, apiKey) => {
           apiKey: apiKey,
           user: user
         };
-
-        console.log("===========================templatevar",templateVars)
         res.render('map_show', templateVars);
       })
       .catch((err) => {
