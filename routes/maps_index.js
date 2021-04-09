@@ -16,7 +16,7 @@ module.exports = (db, apiKey) => {
     let templateVars = {};
     templateVars.maps = maps;
     templateVars.apiKey = apiKey;
-    // templateVars.user = userId; >>>>>>>
+    templateVars.user = userId;
     console.log('TemplateVars:', templateVars)
     res.render("index", templateVars);
     })
