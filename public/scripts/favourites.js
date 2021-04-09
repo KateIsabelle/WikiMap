@@ -10,7 +10,7 @@ $(document).ready(function (e) {
 
 const $likeButton = function () {
 
-  $('.fa-heart').click(function () {
+  $('.like-btn').click(function () {
     const $clickedMap = $(this).val();
     console.log("MapCLICKED__", $clickedMap)
     $(this).toggleClass('liked');
