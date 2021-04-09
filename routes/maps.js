@@ -9,21 +9,6 @@ const dbUserFns = require("../queries/users_db");
 
 
 module.exports = (db, apiKey) => {
-  // // GET /maps/
-  // router.get('/', (req, res) => {
-  //   db.query(`SELECT * FROM maps;`)
-  //     .then(data => {
-  //       const maps = data.rows;
-  //       res.json({ maps });
-  //     })
-  //     .catch(err => {
-  //       res
-  //         .status(500)
-  //         .json({ error: err.message });
-  //     });
-  // });
-
- 
 
 
   //Create a new map
@@ -38,7 +23,7 @@ module.exports = (db, apiKey) => {
       latitude: req.body.latitude,
       longitude: req.body.longitude,
     };
-
+  })
 
 
 
@@ -64,7 +49,7 @@ module.exports = (db, apiKey) => {
         console.log(err);
       });
 
-  });
+  })
 
   // POST /maps/:map_id/addpin -- Add a pin
   router.post("/:map_id/addpin", (req, res) => {
