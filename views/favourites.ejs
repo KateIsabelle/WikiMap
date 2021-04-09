@@ -23,7 +23,7 @@
       href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@300;400;500&display=swap"
       rel="stylesheet"
     />
-
+    <!-- jQuery -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
 
     <!-- App JS -->
@@ -31,29 +31,25 @@
   </head>
 
   <body>
-    <%- include('partials/_new-header') %>
-    <main>
-      <div class="container">
-        <h3>My Favourites</h3>
-        <div class="recent maps">
-          <% for (let map of maps) { %>
+  <%- include('partials/_new-header') %>
+  <main>
+    <div class="container">
+    <h3>My Favourites</h3>
+      <div class="recent maps">
+        <% for (let map of maps) { %>
           <div class="k-cont">
-            <div class="k-row">
-              <%= map.title %> - <a href="#"><%= map.user_name %></a>
-            </div>
+            <div class="k-row"><%= map.title %> - <a href="#"><%= map.user_name %></a></div>
             <div class="k-row sml-map">
               <div class="">
-                <img
-                  src="https://maps.googleapis.com/maps/api/staticmap?center=<%= map.latitude %>,<%= map.longitude %>&zoom=13&size=600x300&maptype=roadmap&<%= map.markersQuery %>key=<%= apiKey %>"
-                />
-                <i
-                  class="fas fa-heart <%= map.myFavourites ? 'liked' : 'unliked' %>"
-                ></i>
+                <a href="/maps/<%= map.id %>">
+                <img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= map.latitude %>,<%= map.longitude %>&zoom=13&size=400x200&maptype=roadmap&<%= map.markersQuery %>key=<%= apiKey %>">
+                </a>
+                <button class="like-btn liked" type="submit" value="<%= map.id %>"><i class="fas fa-heart"></i></button>
               </div>
             </div>
-            <br />
-          </div>
-          <% } %>
+
+            <br>
+        <% } %>
         </div>
       </div>
     </main>
