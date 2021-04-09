@@ -10,7 +10,6 @@ const getFirstMaps = (db, userId) => {
        LEFT JOIN pins ON pins.map_id = maps.id
        GROUP BY maps.id, users.name
        ORDER BY id DESC
-       LIMIT 4
     ;`;
   return db
     .query(query)
