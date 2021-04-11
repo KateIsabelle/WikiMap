@@ -7,8 +7,8 @@ Maps features are built using Google Maps Javascript API, Geolocation API, and M
 Built with HTML, EJS, CSS, JS, jQuery, Ajax, Express, Postgres
 
 ## Final Product
-!["Screenshot of user favourites page, mobile view"]()
-!["Screenshot of create map page, tablet view"]()
+!["Screenshot of user favourites page, mobile view"](https://github.com/KateIsabelle/WikiMap/blob/master/docs/favourite_page.png?raw=true)
+!["Screenshot of create map page, tablet view"](https://github.com/KateIsabelle/WikiMap/blob/master/docs/create_map_page.png?raw=true)
 
 ## Dependencies
 
